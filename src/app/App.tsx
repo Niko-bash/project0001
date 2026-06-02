@@ -1,10 +1,13 @@
-import { Button, Card } from '@mui/material'
+import { Header } from '@/features/header'
+import { Outlet } from 'react-router'
+import { Layout } from './layout'
 
 export const App = () => {
 	return (
-		<>
-			<Button>123</Button>
-			<Card>123</Card>
-		</>
+		<Layout
+			header={<Header />}
+			footer={<div>footer</div>}
+			main={<Outlet />}
+		/>
 	)
 }
