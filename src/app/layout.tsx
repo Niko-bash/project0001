@@ -1,3 +1,5 @@
+import { Outlet } from 'react-router'
+
 export const Layout = ({
 	header,
 	footer,
@@ -12,6 +14,16 @@ export const Layout = ({
 			{header}
 			<main className="flex-1">{main}</main>
 			{footer}
+		</div>
+	)
+}
+
+export const AuthLayout = () => {
+	return (
+		<div className="flex flex-col min-h-screen">
+			<main className="flex flex-1 m-auto justify-center items-center">
+				<Outlet />
+			</main>
 		</div>
 	)
 }
