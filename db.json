@@ -43,6 +43,20 @@
       "role": "user",
       "name": "Nikobos1ddqs@mail.ru",
       "id": "-zC298XxkXs"
+    },
+    {
+      "email": "Nikoboss1@mail.ru",
+      "password": "123",
+      "role": "user",
+      "name": "Nikoboss1@mail.ru",
+      "id": "JIfQdKbGsGY"
+    },
+    {
+      "email": "qweq",
+      "password": "123",
+      "role": "user",
+      "name": "qweq",
+      "id": "H5sxmD-5KpY"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

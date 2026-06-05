@@ -1,10 +1,39 @@
 import type { AuthUser, CreateUser, User } from './type'
 
+const COOKIE_KEYS = {
+	SESSION: 'session'
+}
 export const AuthServices = {
-	getSessionCookie: () => {},
-	setSessionCookie: () => {},
-	getSession: () => {},
-	SingUp: async (data: AuthUser): Promise<unknown> => {
+	async getSessionCookie(): Promise<CookieListItem | null> {
+		try {
+			const cookie = await cookieStore.get(COOKIE_KEYS.SESSION)
+
+			if (!cookie) {
+				return null
+			}
+
+			return cookie
+		} catch (e) {
+			const error = e instanceof Error ? e : new Error(String(e))
+			throw error
+		}
+	},
+	async setSessionCookie(data: User): Promise<CookieListItem> {
+		try {
+			await cookieStore.set(COOKIE_KEYS.SESSION, JSON.stringify(data))
+
+			const cookie = await this.getSessionCookie()
+			if (!cookie) {
+				throw new Error()
+			}
+			return cookie
+		} catch (e) {
+			const error = e instanceof Error ? e : new Error(String(e))
+			throw error
+		}
+	},
+	async getSession() {},
+	async SingUp(data: AuthUser): Promise<unknown> {
 		const response = await fetch(`/api/user?email=${data.email}`, {
 			method: 'GET'
 		})
@@ -39,6 +68,11 @@ export const AuthServices = {
 		}
 
 		const thisUser: User = await createUser.json()
+		const cookie = await this.setSessionCookie(thisUser)
+
+		if (!cookie) {
+			return 'bad'
+		}
 
 		const { id, ...userData } = thisUser
 
@@ -48,6 +82,6 @@ export const AuthServices = {
 			data: userData
 		}
 	},
-	SingIn: () => {},
-	logout: () => {}
+	async SingIn() {},
+	async logout() {}
 }
