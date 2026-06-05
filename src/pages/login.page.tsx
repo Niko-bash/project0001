@@ -1,3 +1,4 @@
+import { AuthServices } from '@/features/auth/api/auth.services'
 import { type AuthUser } from '@/features/auth/api/type'
 import {
 	Box,
@@ -14,7 +15,8 @@ export const LoginPage = () => {
 	const { handleChange, handleSubmit, values } = useFormik<AuthUser>({
 		initialValues: { email: '', password: '' },
 		onSubmit: async (values) => {
-			console.log(values)
+			const user = await AuthServices.SingIn(values)
+			console.log(user)
 		}
 	})
 
