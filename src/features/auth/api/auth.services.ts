@@ -77,11 +77,35 @@ export const AuthServices = {
 		const { id, ...userData } = thisUser
 
 		return {
-			status: 200,
+			status: 201,
 			success: true,
 			data: userData
 		}
 	},
-	async SingIn() {},
+	async SingIn(data: AuthUser): Promise<unknown> {
+		const response = await fetch(`/api/user?email=${data.email}`, {
+			method: 'GET'
+		})
+		if (!response.ok) {
+			throw new Error()
+		}
+
+		const users = await response.json()
+		const user = users[0]
+
+		if (user?.password !== data.password) {
+			throw new Error()
+		}
+
+		await this.setSessionCookie(user)
+
+		const { id, ...newData } = user
+
+		return {
+			status: 200,
+			success: true,
+			data: newData
+		}
+	},
 	async logout() {}
 }

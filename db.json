@@ -25,38 +25,11 @@
   ],
   "user": [
     {
-      "id": "1",
       "email": "Nikoboss@mail.ru",
-      "name": "Niko",
-      "password": "123",
-      "role": "user"
-    },
-    {
-      "email": "Nikobos1s@mail.ru",
       "password": "123",
       "role": "user",
-      "id": "AdeCT6gmD0c"
-    },
-    {
-      "email": "Nikobos1ddqs@mail.ru",
-      "password": "123",
-      "role": "user",
-      "name": "Nikobos1ddqs@mail.ru",
-      "id": "-zC298XxkXs"
-    },
-    {
-      "email": "Nikoboss1@mail.ru",
-      "password": "123",
-      "role": "user",
-      "name": "Nikoboss1@mail.ru",
-      "id": "JIfQdKbGsGY"
-    },
-    {
-      "email": "qweq",
-      "password": "123",
-      "role": "user",
-      "name": "qweq",
-      "id": "H5sxmD-5KpY"
+      "name": "Nikoboss@mail.ru",
+      "id": "6Nukv7AZkVE"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
