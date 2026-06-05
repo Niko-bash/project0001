@@ -1,4 +1,4 @@
-import type { AuthUser, CreateUser, User } from './type'
+import type { AuthUser, CreateUser, SessionUser, User } from './type'
 
 const COOKIE_KEYS = {
 	SESSION: 'session'
@@ -18,7 +18,7 @@ export const AuthServices = {
 			throw error
 		}
 	},
-	async setSessionCookie(data: User): Promise<CookieListItem> {
+	async setSessionCookie(data: SessionUser): Promise<CookieListItem> {
 		try {
 			await cookieStore.set(COOKIE_KEYS.SESSION, JSON.stringify(data))
 
@@ -32,7 +32,21 @@ export const AuthServices = {
 			throw error
 		}
 	},
-	async getSession() {},
+	async getSession(): Promise<SessionUser | null> {
+		try {
+			const session = await this.getSessionCookie()
+			if (!session) {
+				return null
+			}
+
+			const user =
+				typeof session.value !== 'undefined' && JSON.parse(session.value)
+			return user
+		} catch (e) {
+			const error = e instanceof Error ? e : new Error(String(e))
+			throw error
+		}
+	},
 	async SingUp(data: AuthUser): Promise<unknown> {
 		const response = await fetch(`/api/user?email=${data.email}`, {
 			method: 'GET'
@@ -68,13 +82,13 @@ export const AuthServices = {
 		}
 
 		const thisUser: User = await createUser.json()
-		const cookie = await this.setSessionCookie(thisUser)
+		const { password, ...userData } = thisUser
+
+		const cookie = await this.setSessionCookie(userData)
 
 		if (!cookie) {
 			return 'bad'
 		}
-
-		const { id, ...userData } = thisUser
 
 		return {
 			status: 201,
@@ -91,15 +105,14 @@ export const AuthServices = {
 		}
 
 		const users = await response.json()
-		const user = users[0]
+		const user: User = users[0]
 
 		if (user?.password !== data.password) {
 			throw new Error()
 		}
+		const { password, ...newData } = user
 
-		await this.setSessionCookie(user)
-
-		const { id, ...newData } = user
+		await this.setSessionCookie(newData)
 
 		return {
 			status: 200,
@@ -107,5 +120,18 @@ export const AuthServices = {
 			data: newData
 		}
 	},
-	async logout() {}
+	async logout(): Promise<boolean> {
+		try {
+			await cookieStore.delete(COOKIE_KEYS.SESSION)
+
+			const cookie = await this.getSessionCookie()
+			if (cookie) {
+				return false
+			}
+			return true
+		} catch (e) {
+			const error = e instanceof Error ? e : new Error(String(e))
+			throw error
+		}
+	}
 }
