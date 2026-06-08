@@ -1,15 +1,11 @@
+import { AccountMenu, type MenuType } from '@/shared/ui/account-menu'
 import { Container } from '@mui/material'
 import { Link } from 'react-router'
 import { useAuth } from '../auth/model/use-auth'
 
-type MenuType = {
-	key: string
-	name: string
-	link: string
-}
 //todo:Rework menu, synchronization router
 
-const main_menu: MenuType[] = [
+const MAIN_MENU: MenuType[] = [
 	{
 		key: '1',
 		name: 'Courses',
@@ -27,7 +23,7 @@ const main_menu: MenuType[] = [
 	}
 ]
 
-const auth_menu = [
+const AUTH_MENU: MenuType[] = [
 	{
 		key: '1',
 		name: 'Sign In',
@@ -40,6 +36,18 @@ const auth_menu = [
 	}
 ]
 
+const ACCOUNT_MENU: MenuType[] = [
+	{
+		key: '1',
+		name: 'Profile',
+		link: '/profile'
+	},
+	{
+		key: '2',
+		name: 'Settings',
+		link: '/settings'
+	}
+]
 export const Header = () => {
 	const { user } = useAuth()
 	return (
@@ -47,21 +55,8 @@ export const Header = () => {
 			<Container>
 				<div className="flex justify-between min-h-10 items-center">
 					<ul className="flex gap-4 text-2xl ">
-						{main_menu.map((link) => (
-							<Link
-								key={link.key}
-								to={link.link}
-							>
-								{link.name}
-							</Link>
-						))}
-					</ul>
-
-					{user ? (
-						<div>{user.name}</div>
-					) : (
-						<ul className="flex gap-4 text-2xl">
-							{auth_menu.map((link) => (
+						{MAIN_MENU &&
+							MAIN_MENU.map((link) => (
 								<Link
 									key={link.key}
 									to={link.link}
@@ -69,6 +64,24 @@ export const Header = () => {
 									{link.name}
 								</Link>
 							))}
+					</ul>
+
+					{user ? (
+						<AccountMenu
+							user={user}
+							menu={ACCOUNT_MENU}
+						/>
+					) : (
+						<ul className="flex gap-4 text-2xl">
+							{AUTH_MENU &&
+								AUTH_MENU.map((link) => (
+									<Link
+										key={link.key}
+										to={link.link}
+									>
+										{link.name}
+									</Link>
+								))}
 						</ul>
 					)}
 				</div>
