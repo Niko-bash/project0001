@@ -1,43 +1,44 @@
 {
-  "posts": [
-    {
-      "id": "1",
-      "title": "a title",
-      "views": 100
-    },
-    {
-      "id": "2",
-      "title": "another title",
-      "views": 200
-    }
-  ],
-  "comments": [
-    {
-      "id": "1",
-      "text": "a comment about post 1",
-      "postId": "1"
-    },
-    {
-      "id": "2",
-      "text": "another comment about post 1",
-      "postId": "1"
-    }
-  ],
-  "user": [
-    {
-      "email": "Nikoboss@mail.ru",
-      "password": "123",
-      "role": "user",
-      "name": "Nikoboss@mail.ru",
-      "id": "6Nukv7AZkVE"
-    },
-    {
-      "email": "qwe",
-      "password": "31",
-      "role": "user",
-      "name": "qwe",
-      "id": "5bTLL54WS0Q"
-    }
-  ],
-  "$schema": "./node_modules/json-server/schema.json"
+	"posts": [
+		{
+			"id": "1",
+			"title": "a title",
+			"views": 100
+		},
+		{
+			"id": "2",
+			"title": "another title",
+			"views": 200
+		}
+	],
+	"comments": [
+		{
+			"id": "1",
+			"text": "a comment about post 1",
+			"postId": "1"
+		},
+		{
+			"id": "2",
+			"text": "another comment about post 1",
+			"postId": "1"
+		}
+	],
+	"user": [
+		{
+			"email": "Nikoboss@mail.ru",
+			"password": "123",
+			"role": "user",
+			"name": "Nikoboss@mail.ru",
+			"id": "6Nukv7AZkVE",
+			"avatar": ""
+		},
+		{
+			"email": "qwe",
+			"password": "31",
+			"role": "user",
+			"name": "qwe",
+			"id": "5bTLL54WS0Q"
+		}
+	],
+	"$schema": "./node_modules/json-server/schema.json"
 }
