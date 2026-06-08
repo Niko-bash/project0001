@@ -10,13 +10,19 @@ import {
 	TextField
 } from '@mui/material'
 import { useFormik } from 'formik'
+import { useNavigate } from 'react-router'
 
 export const LoginPage = () => {
+	const navigation = useNavigate()
 	const { handleChange, handleSubmit, values } = useFormik<AuthUser>({
 		initialValues: { email: '', password: '' },
 		onSubmit: async (values) => {
-			const user = await AuthServices.SingIn(values)
-			console.log(user)
+			const response = await AuthServices.SingIn(values)
+
+			if (response.success) {
+				console.log('123')
+				navigation('/')
+			}
 		}
 	})
 

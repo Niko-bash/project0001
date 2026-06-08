@@ -1,3 +1,8 @@
+import {
+	RegistrationError,
+	UnauthorizedError,
+	type ApiResponse
+} from '@/shared/api/type'
 import type { AuthUser, CreateUser, SessionUser, User } from './type'
 
 const COOKIE_KEYS = {
@@ -47,22 +52,20 @@ export const AuthServices = {
 			throw error
 		}
 	},
-	async SingUp(data: AuthUser): Promise<unknown> {
+	async SingUp(data: AuthUser): Promise<ApiResponse<SessionUser>> {
 		const response = await fetch(`/api/user?email=${data.email}`, {
 			method: 'GET'
 		})
 
 		if (!response.ok) {
-			console.error('BadRequest')
-			return
+			throw new RegistrationError()
 		}
 
 		const users: User[] = await response.json()
 		const user = users[0]
 
 		if (user?.email === data.email) {
-			console.error('this user is already registered')
-			return
+			throw new RegistrationError()
 		}
 
 		const createDataUser: CreateUser = {
@@ -77,8 +80,7 @@ export const AuthServices = {
 		})
 
 		if (!createUser.ok) {
-			console.log('bad registr')
-			return
+			throw new RegistrationError()
 		}
 
 		const thisUser: User = await createUser.json()
@@ -87,7 +89,7 @@ export const AuthServices = {
 		const cookie = await this.setSessionCookie(userData)
 
 		if (!cookie) {
-			return 'bad'
+			throw new Error()
 		}
 
 		return {
@@ -96,19 +98,19 @@ export const AuthServices = {
 			data: userData
 		}
 	},
-	async SingIn(data: AuthUser): Promise<unknown> {
+	async SingIn(data: AuthUser): Promise<ApiResponse<SessionUser>> {
 		const response = await fetch(`/api/user?email=${data.email}`, {
 			method: 'GET'
 		})
 		if (!response.ok) {
-			throw new Error()
+			throw new UnauthorizedError()
 		}
 
 		const users = await response.json()
 		const user: User = users[0]
 
 		if (user?.password !== data.password) {
-			throw new Error()
+			throw new UnauthorizedError()
 		}
 		const { password, ...newData } = user
 

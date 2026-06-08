@@ -30,6 +30,13 @@
       "role": "user",
       "name": "Nikoboss@mail.ru",
       "id": "6Nukv7AZkVE"
+    },
+    {
+      "email": "qwe",
+      "password": "31",
+      "role": "user",
+      "name": "qwe",
+      "id": "5bTLL54WS0Q"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
