@@ -10,20 +10,18 @@ import { AuthLayout } from '../layout'
 export const router = createBrowserRouter([
 	{
 		path: '/',
-		loader: async (): Promise<
-			| {
-					session: SessionUser
-			  }
-			| undefined
-		> => {
+		loader: async (): Promise<{
+			session: SessionUser
+		} | null> => {
 			try {
 				const session = await AuthServices.getSession()
 				if (session) {
 					return { session: session }
 				}
+				return null
 			} catch (e) {
 				console.error(e)
-				return undefined
+				return null
 			}
 		},
 		Component: App,
