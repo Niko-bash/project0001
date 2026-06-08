@@ -39,7 +39,8 @@ export class ApiError extends Error {
 
 export class UnauthorizedError extends ApiError {
 	constructor(message: string = 'Not authorized') {
-		super('UNAUTHORIZEDl', message, 401)
+		super('UNAUTHORIZED', message, 401)
+		this.name = 'UnauthorizedError'
 	}
 }
 

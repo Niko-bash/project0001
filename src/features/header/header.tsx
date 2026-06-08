@@ -1,5 +1,6 @@
 import { Container } from '@mui/material'
 import { Link } from 'react-router'
+import { useAuth } from '../auth/model/use-auth'
 
 type MenuType = {
 	key: string
@@ -40,6 +41,7 @@ const auth_menu = [
 ]
 
 export const Header = () => {
+	const { user } = useAuth()
 	return (
 		<header className="">
 			<Container>
@@ -55,16 +57,20 @@ export const Header = () => {
 						))}
 					</ul>
 
-					<ul className="flex gap-4 text-2xl">
-						{auth_menu.map((link) => (
-							<Link
-								key={link.key}
-								to={link.link}
-							>
-								{link.name}
-							</Link>
-						))}
-					</ul>
+					{user ? (
+						<div>{user.name}</div>
+					) : (
+						<ul className="flex gap-4 text-2xl">
+							{auth_menu.map((link) => (
+								<Link
+									key={link.key}
+									to={link.link}
+								>
+									{link.name}
+								</Link>
+							))}
+						</ul>
+					)}
 				</div>
 			</Container>
 		</header>
