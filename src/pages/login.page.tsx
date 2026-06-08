@@ -1,5 +1,6 @@
 import { AuthServices } from '@/features/auth/api/auth.services'
 import { type AuthUser } from '@/features/auth/api/type'
+import { UnauthorizedError } from '@/shared/api/type'
 import {
 	Box,
 	Button,
@@ -17,11 +18,17 @@ export const LoginPage = () => {
 	const { handleChange, handleSubmit, values } = useFormik<AuthUser>({
 		initialValues: { email: '', password: '' },
 		onSubmit: async (values) => {
-			const response = await AuthServices.SingIn(values)
-
-			if (response.success) {
-				console.log('123')
-				navigation('/')
+			try {
+				const response = await AuthServices.SingIn(values)
+				if (response.success) {
+					navigation('/')
+				}
+			} catch (e: unknown) {
+				if (e instanceof UnauthorizedError) {
+					throw new UnauthorizedError()
+				} else {
+					throw new Error(String(e), { cause: e })
+				}
 			}
 		}
 	})

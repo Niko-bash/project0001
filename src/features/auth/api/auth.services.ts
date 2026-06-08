@@ -103,7 +103,7 @@ export const AuthServices = {
 			method: 'GET'
 		})
 		if (!response.ok) {
-			throw new UnauthorizedError()
+			throw new UnauthorizedError('.sdf')
 		}
 
 		const users = await response.json()
