@@ -58,15 +58,16 @@ export const Header = () => {
 	}
 
 	return (
-		<header className="">
+		<header className="shadow-md">
 			<Container>
-				<div className="flex justify-between min-h-10 items-center">
-					<ul className="flex gap-4 text-2xl ">
+				<div className="flex justify-between min-h-16 items-center">
+					<ul className="flex gap-9 text-2xl ">
 						{MAIN_MENU &&
 							MAIN_MENU.map((link) => (
 								<Link
 									key={link.key}
 									to={link.link}
+									className="leading-10 px-3 rounded-3xl delay-75 duration-150 hover:bg-green-300 hover:text-white"
 								>
 									{link.name}
 								</Link>
@@ -80,12 +81,13 @@ export const Header = () => {
 							onSignOut={handleSignOut}
 						/>
 					) : (
-						<ul className="flex gap-4 text-2xl">
+						<ul className="flex gap-7 text-2xl">
 							{AUTH_MENU &&
 								AUTH_MENU.map((link) => (
 									<Link
 										key={link.key}
 										to={link.link}
+										className="relative after:delay-75 after:duration-150 after:absolute after:inset-0 after:top-full after:w-full after:h-1 hover:after:bg-green-300"
 									>
 										{link.name}
 									</Link>
