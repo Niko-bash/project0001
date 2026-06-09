@@ -1,5 +1,5 @@
 import type { SessionUser } from '@/features/auth/api/type'
-import { Avatar, IconButton, Menu, MenuItem } from '@mui/material'
+import { Avatar, Divider, IconButton, Menu, MenuItem } from '@mui/material'
 import { useState } from 'react'
 import { Link } from 'react-router'
 
@@ -11,19 +11,26 @@ export type MenuType = {
 
 export const AccountMenu = ({
 	user,
-	menu
+	menu,
+	onSignOut
 }: {
 	user: SessionUser
 	menu: MenuType[]
+	onSignOut: () => void
 }) => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+
 	const open = Boolean(anchorEl)
+
 	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget)
 	}
 	const handleClose = () => {
 		setAnchorEl(null)
 	}
+
+	const initialName = user.name[0].toUpperCase()
+
 	return (
 		<div>
 			<IconButton
@@ -32,7 +39,7 @@ export const AccountMenu = ({
 				aria-expanded={open}
 				onClick={handleClick}
 			>
-				<Avatar src={user.avatar}>U</Avatar>
+				<Avatar src={user.avatar}>{initialName}</Avatar>
 			</IconButton>
 			<Menu
 				anchorEl={anchorEl}
@@ -81,6 +88,8 @@ export const AccountMenu = ({
 							</Link>
 						</MenuItem>
 					))}
+				<Divider />
+				<MenuItem onClick={onSignOut}>Sign out</MenuItem>
 			</Menu>
 		</div>
 	)

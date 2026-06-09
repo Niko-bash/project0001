@@ -1,6 +1,7 @@
 import { AccountMenu, type MenuType } from '@/shared/ui/account-menu'
 import { Container } from '@mui/material'
 import { Link } from 'react-router'
+import { AuthServices } from '../auth/api/auth.services'
 import { useAuth } from '../auth/model/use-auth'
 
 //todo:Rework menu, synchronization router
@@ -49,7 +50,13 @@ const ACCOUNT_MENU: MenuType[] = [
 	}
 ]
 export const Header = () => {
-	const { user } = useAuth()
+	const { user, setUser } = useAuth()
+
+	const handleSignOut = async () => {
+		await AuthServices.logout()
+		setUser(null)
+	}
+
 	return (
 		<header className="">
 			<Container>
@@ -70,6 +77,7 @@ export const Header = () => {
 						<AccountMenu
 							user={user}
 							menu={ACCOUNT_MENU}
+							onSignOut={handleSignOut}
 						/>
 					) : (
 						<ul className="flex gap-4 text-2xl">
