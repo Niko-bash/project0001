@@ -26,6 +26,16 @@ export type CoursesType = {
 	reviews: CommentCoursesType[]
 }
 
+export type InfinityCoursesType = {
+	data: CoursesType[]
+	first: number
+	prev: number | null
+	next: number | null
+	last: number
+	pages: number
+	items: number
+}
+
 export const CardCourses = ({ course }: { course: CoursesType }) => {
 	// const [expanded, setExpanded] = useState(false)
 

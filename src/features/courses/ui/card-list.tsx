@@ -1,23 +1,35 @@
-import { CardCourses, type CoursesType } from './card'
+import type { Ref } from 'react'
+import { CardCourses, type InfinityCoursesType } from './card'
 
 export const CoursesList = ({
 	courses,
-	loading
+	onLoading,
+	ref
 }: {
-	courses: CoursesType[]
-	loading: boolean
+	courses: InfinityCoursesType
+	onLoading: boolean
+	ref: Ref<HTMLDivElement>
 }) => {
-	return loading ? (
+	return onLoading ? (
 		<div>Loading...</div>
 	) : (
-		<ul className="flex flex-wrap gap-4 justify-between">
-			{courses &&
-				courses.map((course) => (
-					<CardCourses
-						key={course.id}
-						course={course}
-					/>
-				))}
-		</ul>
+		<div className="relative">
+			<ul className="flex flex-wrap gap-4 justify-between">
+				{courses.data &&
+					courses.data.map((course) => (
+						<CardCourses
+							key={course.id}
+							course={course}
+						/>
+					))}
+			</ul>
+			{courses.next && (
+				<div
+					ref={ref}
+					className="w-full h-4"
+					aria-hidden="true"
+				/>
+			)}
+		</div>
 	)
 }
