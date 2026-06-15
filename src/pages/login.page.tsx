@@ -1,5 +1,5 @@
 import { AuthServices } from '@/features/auth/api/auth.services'
-import { type AuthUser } from '@/features/auth/api/type'
+import type { AuthUser } from '@/features/auth/api/type'
 import { UnauthorizedError } from '@/shared/api/type'
 import {
 	Box,
@@ -10,27 +10,32 @@ import {
 	CardHeader,
 	TextField
 } from '@mui/material'
-import { useFormik } from 'formik'
+import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useNavigate } from 'react-router'
 const LoginPage = () => {
 	const navigation = useNavigate()
-	const { handleChange, handleSubmit, values } = useFormik<AuthUser>({
-		initialValues: { email: '', password: '' },
-		onSubmit: async (values) => {
-			try {
-				const response = await AuthServices.SingIn(values)
-				if (response.success) {
-					navigation('/')
-				}
-			} catch (e: unknown) {
-				if (e instanceof UnauthorizedError) {
-					throw new UnauthorizedError()
-				} else {
-					throw new Error(String(e), { cause: e })
-				}
-			}
+	const { register, handleSubmit } = useForm<AuthUser>({
+		mode: 'onSubmit',
+		defaultValues: {
+			email: '',
+			password: ''
 		}
 	})
+
+	const onSubmit: SubmitHandler<AuthUser> = async (val) => {
+		try {
+			const response = await AuthServices.SingIn(val)
+			if (response.success) {
+				navigation('/')
+			}
+		} catch (e: unknown) {
+			if (e instanceof UnauthorizedError) {
+				throw new UnauthorizedError()
+			} else {
+				throw new Error(String(e), { cause: e })
+			}
+		}
+	}
 
 	return (
 		<Box sx={{ minWidth: 600 }}>
@@ -42,22 +47,18 @@ const LoginPage = () => {
 				<CardContent>
 					<form
 						className="flex flex-col gap-3"
-						onSubmit={handleSubmit}
+						onSubmit={handleSubmit(onSubmit)}
 						id="form"
 					>
 						<TextField
 							fullWidth
 							label="email"
-							name="email"
-							value={values.email}
-							onChange={handleChange}
+							{...register('email')}
 						/>
 						<TextField
 							fullWidth
 							label="password"
-							name="password"
-							value={values.password}
-							onChange={handleChange}
+							{...register('password')}
 						/>
 					</form>
 				</CardContent>
