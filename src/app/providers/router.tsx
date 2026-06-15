@@ -1,6 +1,6 @@
 import { AuthServices } from '@/features/auth/api/auth.services'
 import type { SessionUser } from '@/features/auth/api/type'
-import { createBrowserRouter } from 'react-router'
+import { createBrowserRouter, redirect } from 'react-router'
 import { App } from '../App'
 import { AuthLayout } from '../layout'
 
@@ -23,21 +23,32 @@ export const router = createBrowserRouter([
 		},
 		Component: App,
 		children: [
-			// {
-			// 	index: true,
-			// 	lazy: async () =>
-			// 		await import('../../pages/courses.page').then((m) => ({
-			// 			Component: m.default
-			// 		}))
-			// }
 			{
 				index: true,
 				lazy: async () => {
 					const { default: Component } =
 						await import('../../pages/courses.page')
 					return { Component }
+				}
+			},
+			{
+				path: '/profile/:id',
+				loader: async ({ params }) => {
+					const user = await AuthServices.getSession()
+
+					if (!user) {
+						return redirect('/')
+					}
+					if (user.id !== params.id) {
+						return redirect('/auth/login')
+					}
+					return user
 				},
-				hydrateFallbackElement: <div>Загрузка...</div>
+				lazy: async () => {
+					const { default: Component } =
+						await import('../../pages/profile.page')
+					return { Component }
+				}
 			}
 		]
 	},
@@ -45,14 +56,6 @@ export const router = createBrowserRouter([
 		path: 'auth',
 		Component: AuthLayout,
 		children: [
-			// {
-			// 	path: 'login',
-			// 	Component: LoginPage
-			// },
-			// {
-			// 	path: 'register',
-			// 	Component: RegisterPage
-			// }
 			{
 				path: 'login',
 				lazy: async () => {
