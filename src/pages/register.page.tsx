@@ -9,21 +9,26 @@ import {
 	CardHeader,
 	TextField
 } from '@mui/material'
-import { useFormik } from 'formik'
+import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useNavigate } from 'react-router'
 
 const RegisterPage = () => {
 	const navigation = useNavigate()
-	const { handleChange, handleSubmit, values } = useFormik<AuthUser>({
-		initialValues: { email: '', password: '' },
-		onSubmit: async (values) => {
-			const response = await AuthServices.SingUp(values)
-			if (response.success) {
-				console.log('321')
-				navigation('/')
-			}
+
+	const { register, handleSubmit } = useForm<AuthUser>({
+		mode: 'onSubmit',
+		defaultValues: {
+			email: '',
+			password: ''
 		}
 	})
+
+	const onSubmit: SubmitHandler<AuthUser> = async (val) => {
+		const response = await AuthServices.SingUp(val)
+		if (response.success) {
+			navigation('/')
+		}
+	}
 
 	return (
 		<Box sx={{ minWidth: 600 }}>
@@ -35,22 +40,19 @@ const RegisterPage = () => {
 				<CardContent>
 					<form
 						className="flex flex-col gap-3"
-						onSubmit={handleSubmit}
+						onSubmit={handleSubmit(onSubmit)}
 						id="form"
 					>
 						<TextField
 							fullWidth
 							label="email"
-							name="email"
-							value={values.email}
-							onChange={handleChange}
+							{...register('email')}
 						/>
+
 						<TextField
 							fullWidth
 							label="password"
-							name="password"
-							value={values.password}
-							onChange={handleChange}
+							{...register('password')}
 						/>
 					</form>
 				</CardContent>
