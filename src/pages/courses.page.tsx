@@ -1,195 +1,64 @@
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import MoreVertIcon from '@mui/icons-material/MoreVert'
-import ShareIcon from '@mui/icons-material/Share'
-import {
-	Box,
-	Card,
-	CardActions,
-	CardContent,
-	CardHeader,
-	CardMedia,
-	Container,
-	IconButton,
-	Typography
-} from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useInfinityScroll } from '@/features/courses/model/infinity-scroll'
+import { CoursesList } from '@/features/courses/ui/card-list'
+import { CoursesSearchForm } from '@/features/courses/ui/search-form'
+import { Container } from '@mui/material'
+import { useForm } from 'react-hook-form'
 
-type CommentCoursesType = {
-	username: string
-	rating: number
-	comment: string
+export type SearchType = {
+	title: string
+	sort: '-rating' | 'rating'
+	per_page: string
 }
-type CoursesType = {
-	id: string
-	name: string
-	description: string
-	img: string
-	rating: string
-	reviews: CommentCoursesType[]
-}
-export const CoursesPage = () => {
-	const [courses, setCourses] = useState<CoursesType[]>([])
 
-	const [loading, setLoading] = useState<boolean>(false)
-
-	useEffect(() => {
-		const abort = new AbortController()
-
-		const fetchData = async () => {
-			try {
-				setLoading(true)
-				const response = await fetch('/api/courses', {
-					method: 'GET',
-					signal: abort.signal
-				})
-				if (!response.ok) {
-					throw new Error()
-				}
-				const data = await response.json()
-				setCourses(data)
-			} catch (e: unknown) {
-				if (e instanceof DOMException && e.name === 'AbortError') {
-					return
-				}
-			} finally {
-				setLoading(false)
-			}
+const CoursesPage = () => {
+	const form = useForm<SearchType>({
+		mode: 'onChange',
+		defaultValues: {
+			title: '',
+			per_page: '10',
+			sort: '-rating'
 		}
-		fetchData()
-	}, [])
+	})
+
+	const { courses, handleSearchForm, observerRef, isLoading } =
+		useInfinityScroll(form.getValues())
 
 	return (
-		<div className="pt-10">
-			<Container>
-				{loading ? (
-					<div>Loading ...</div>
-				) : (
-					<ul className="flex flex-wrap gap-4 justify-between">
-						{courses &&
-							courses.map((course) => (
-								<CardCourses
-									key={course.id}
-									course={course}
-								/>
-							))}
-					</ul>
-				)}
-			</Container>
-		</div>
+		<PageLayout
+			form={
+				<CoursesSearchForm
+					onChange={handleSearchForm}
+					form={form}
+				/>
+			}
+			list={
+				<CoursesList
+					courses={courses}
+					onLoading={isLoading}
+					ref={observerRef}
+				/>
+			}
+		/>
 	)
 }
 
-const CardCourses = ({ course }: { course: CoursesType }) => {
-	// const [expanded, setExpanded] = useState(false)
+export default CoursesPage
 
-	// const handleExpandClick = () => {
-	// 	setExpanded(!expanded)
-	// }
+const PageLayout = ({
+	form,
+	list
+}: {
+	form: React.ReactNode
+	list: React.ReactNode
+}) => {
 	return (
-		<li className="w-full sm:w-1/2 md:w-1/3 lg:w-1/5 grow px-2">
-			<Card className="flex flex-col justify-between h-full w-full">
-				<CardHeader
-					action={
-						<IconButton aria-label="settings">
-							<MoreVertIcon />
-						</IconButton>
-					}
-					title={course.name}
-					className="text-center text-nowrap"
-				/>
-				<Box
-					sx={{
-						position: 'relative',
-						width: '100%',
-						paddingBottom: '56.25%',
-						overflow: 'hidden',
-						bgcolor: '#f5f5f5'
-					}}
-				>
-					<CardMedia
-						component="img"
-						image={course.img}
-						alt={course.name}
-						sx={{
-							position: 'absolute',
-							top: 0,
-							left: 0,
-							bottom: 0,
-							right: 0,
-							width: '100%',
-							height: '100%',
-							objectFit: 'cover',
-							transition: 'transform 0.3s',
-							'&:hover': {
-								transform: 'scale(1.05)'
-							},
-							aspectRatio: '16 / 9'
-						}}
-					/>
-				</Box>
-				<CardContent>
-					<Typography
-						variant="body2"
-						sx={{ color: 'text.secondary' }}
-					>
-						{course.description}
-					</Typography>
-				</CardContent>
-				<CardActions disableSpacing>
-					<IconButton aria-label="add to favorites">
-						<FavoriteIcon />
-					</IconButton>
-					<IconButton aria-label="share">
-						<ShareIcon />
-					</IconButton>
-					{/* <ExpandMore
-						expand={expanded}
-						onClick={handleExpandClick}
-						aria-expanded={expanded}
-						aria-label="show more"
-					>
-						<ExpandMoreIcon />
-					</ExpandMore> */}
-				</CardActions>
-				{/* <Collapse
-					in={expanded}
-					timeout="auto"
-					unmountOnExit
-				>
-					<CardContent>
-						<Typography sx={{ marginBottom: 2 }}>Method:</Typography>
-						<Typography sx={{ marginBottom: 2 }}>
-							Heat 1/2 cup of the broth in a pot until simmering, add
-							saffron and set aside for 10 minutes.
-						</Typography>
-						<Typography sx={{ marginBottom: 2 }}>
-							Heat oil in a (14- to 16-inch) paella pan or a large, deep
-							skillet over medium-high heat. Add chicken, shrimp and
-							chorizo, and cook, stirring occasionally until lightly
-							browned, 6 to 8 minutes. Transfer shrimp to a large plate
-							and set aside, leaving chicken and chorizo in the pan. Add
-							pimentón, bay leaves, garlic, tomatoes, onion, salt and
-							pepper, and cook, stirring often until thickened and
-							fragrant, about 10 minutes. Add saffron broth and remaining
-							4 1/2 cups chicken broth; bring to a boil.
-						</Typography>
-						<Typography sx={{ marginBottom: 2 }}>
-							Add rice and stir very gently to distribute. Top with
-							artichokes and peppers, and cook without stirring, until
-							most of the liquid is absorbed, 15 to 18 minutes. Reduce
-							heat to medium-low, add reserved shrimp and mussels,
-							tucking them down into the rice, and cook again without
-							stirring, until mussels have opened and rice is just
-							tender, 5 to 7 minutes more. (Discard any mussels that
-							don&apos;t open.)
-						</Typography>
-						<Typography>
-							Set aside off of the heat to let rest for 10 minutes, and
-							then serve.
-						</Typography>
-					</CardContent>
-				</Collapse> */}
-			</Card>
-		</li>
+		<section className="pt-10">
+			<Container>
+				<div className="flex flex-col gap-4">
+					{form}
+					{list}
+				</div>
+			</Container>
+		</section>
 	)
 }

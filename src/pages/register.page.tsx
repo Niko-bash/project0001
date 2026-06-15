@@ -12,7 +12,7 @@ import {
 import { useFormik } from 'formik'
 import { useNavigate } from 'react-router'
 
-export const RegisterPage = () => {
+const RegisterPage = () => {
 	const navigation = useNavigate()
 	const { handleChange, handleSubmit, values } = useFormik<AuthUser>({
 		initialValues: { email: '', password: '' },
@@ -67,3 +67,5 @@ export const RegisterPage = () => {
 		</Box>
 	)
 }
+
+export default RegisterPage
