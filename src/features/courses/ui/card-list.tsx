@@ -1,4 +1,4 @@
-import type { Ref } from 'react'
+import { type Ref } from 'react'
 import { CardCourses, type InfinityCoursesType } from './card'
 
 export const CoursesList = ({
@@ -10,9 +10,7 @@ export const CoursesList = ({
 	onLoading: boolean
 	ref: Ref<HTMLDivElement>
 }) => {
-	return onLoading ? (
-		<div>Loading...</div>
-	) : (
+	return (
 		<div className="relative">
 			<ul className="flex flex-wrap gap-4 justify-between">
 				{courses.data &&
@@ -23,13 +21,8 @@ export const CoursesList = ({
 						/>
 					))}
 			</ul>
-			{courses.next && (
-				<div
-					ref={ref}
-					className="w-full h-4"
-					aria-hidden="true"
-				/>
-			)}
+			{onLoading && <div>Loading...</div>}
+			{courses.next && <div ref={ref} />}
 		</div>
 	)
 }

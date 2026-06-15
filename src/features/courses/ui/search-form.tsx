@@ -6,8 +6,8 @@ import {
 	Select,
 	TextField
 } from '@mui/material'
-import type { FormikValues } from 'formik'
 import { useEffect, useState } from 'react'
+import { useWatch, type UseFormReturn } from 'react-hook-form'
 
 const useDebounce = <T,>(value: T, delay: number) => {
 	const [debounceState, setDebounceState] = useState<T>(value)
@@ -24,21 +24,22 @@ const useDebounce = <T,>(value: T, delay: number) => {
 }
 
 export const CoursesSearchForm = ({
-	form,
-	onChange
+	onChange,
+	form
 }: {
-	form: FormikValues
 	onChange: (params: SearchType, signal: AbortSignal) => Promise<void>
+	form: UseFormReturn<SearchType>
 }) => {
-	const value = useDebounce(form.values, 500)
+	const value = useWatch({ control: form.control })
+	const values = useDebounce(value, 500)
 
 	useEffect(() => {
 		const controller = new AbortController()
 
-		onChange(value, controller.signal)
+		onChange(values as SearchType, controller.signal)
 
 		return () => controller.abort()
-	}, [value, onChange])
+	}, [values, onChange])
 
 	return (
 		<form
@@ -48,19 +49,16 @@ export const CoursesSearchForm = ({
 			<TextField
 				fullWidth
 				label="title"
-				name="title"
-				value={form.values.title}
-				onChange={form.handleChange}
+				{...form.register('title')}
 			/>
-			<FormControl>
+			<FormControl fullWidth>
 				<InputLabel id="demo-simple-select-label">sort</InputLabel>
 				<Select
 					labelId="demo-simple-select-label"
 					id="demo-simple-select"
-					name="sort"
-					value={form.values.sort}
 					label="sort"
-					onChange={form.handleChange}
+					defaultValue="-rating"
+					{...form.register('sort')}
 				>
 					<MenuItem value={'rating'}>ASC</MenuItem>
 					<MenuItem value={'-rating'}>DESC</MenuItem>
