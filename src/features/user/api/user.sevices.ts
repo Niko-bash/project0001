@@ -64,8 +64,8 @@ export const UserServices = {
 			throw new Error('Error')
 		}
 
-		const res = await request.json()
-
+		const res: ProfileUser = await request.json()
+		await AuthServices.setSessionCookie(res)
 		return {
 			status: 200,
 			success: true,

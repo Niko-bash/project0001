@@ -54,7 +54,6 @@ export const router = createBrowserRouter([
 				path: '/myCourses/:id',
 				loader: async ({ params }): Promise<SessionUser | Response> => {
 					const user = await AuthServices.getSession()
-					console.log(user)
 					if (!user) {
 						return redirect('/')
 					}

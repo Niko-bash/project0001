@@ -1,24 +1,24 @@
 import type { ProfileUser } from '@/features/user/api/type'
 import {
 	Box,
+	Button,
 	Card,
+	CardActions,
 	CardContent,
 	CardHeader,
 	CardMedia,
 	Container,
 	Typography
 } from '@mui/material'
-import { useLoaderData } from 'react-router'
+import { Link, useLoaderData } from 'react-router'
 
 const MyCoursesPage = () => {
 	const data: ProfileUser = useLoaderData()
 
-	console.log(data)
-
 	return (
 		<Container>
 			<ul className="flex flex-col gap-5 mt-10">
-				{data.course ? (
+				{data.course.length ? (
 					data.course.map((item) => (
 						<li key={item.id}>
 							<Card className="h-72">
@@ -27,7 +27,7 @@ const MyCoursesPage = () => {
 									sx={{
 										position: 'relative',
 										width: '100%',
-										paddingBottom: '16.25%',
+										paddingBottom: '10.25%',
 										overflow: 'hidden',
 										bgcolor: '#f5f5f5'
 									}}
@@ -61,6 +61,16 @@ const MyCoursesPage = () => {
 										{item.description}
 									</Typography>
 								</CardContent>
+								<CardActions>
+									<Button
+										component={Link}
+										to="/"
+										variant="outlined"
+									>
+										Learn
+									</Button>
+									<Button>Deleted</Button>
+								</CardActions>
 							</Card>
 						</li>
 					))
