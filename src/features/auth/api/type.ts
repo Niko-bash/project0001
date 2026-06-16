@@ -9,7 +9,7 @@ export type User = {
 	password: string
 	avatar?: string
 	role: UserRole
-	courses: CoursesType[]
+	course: CoursesType[]
 }
 
 export type AuthUser = Pick<User, 'email' | 'password'>

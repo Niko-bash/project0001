@@ -53,7 +53,7 @@ export const UserServices = {
 
 		const dataUser: ProfileUser = await responseUser.json()
 
-		const reqData = { ...dataUser, course: [...dataUser.courses, course] }
+		const reqData = { ...dataUser, course: [...dataUser.course, course] }
 
 		const request = await fetch(`/api/user/${userId}`, {
 			method: 'PATCH',
