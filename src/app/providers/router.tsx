@@ -33,14 +33,13 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: '/profile/:id',
-				loader: async ({ params }) => {
+				loader: async ({ params }): Promise<SessionUser | Response> => {
 					const user = await AuthServices.getSession()
-
 					if (!user) {
 						return redirect('/')
 					}
 					if (user.id !== params.id) {
-						return redirect('/auth/login')
+						return redirect(`/profile:${user.id}`)
 					}
 					return user
 				},
