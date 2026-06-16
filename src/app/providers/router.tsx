@@ -49,6 +49,26 @@ export const router = createBrowserRouter([
 						await import('../../pages/profile.page')
 					return { Component }
 				}
+			},
+			{
+				path: '/myCourses/:id',
+				loader: async ({ params }): Promise<SessionUser | Response> => {
+					const user = await AuthServices.getSession()
+					console.log(user)
+					if (!user) {
+						return redirect('/')
+					}
+
+					if (user.id !== params.id) {
+						return redirect(`/myCourses/${user.id}`)
+					}
+					return user
+				},
+				lazy: async () => {
+					const { default: Component } =
+						await import('../../pages/mycourses.page')
+					return { Component }
+				}
 			}
 		]
 	},
