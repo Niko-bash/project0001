@@ -38,8 +38,7 @@ export const router = createBrowserRouter([
 					if (!user) {
 						return redirect('/')
 					}
-					console.log(user.id)
-					console.log(params.id)
+
 					if (user.id !== params.id) {
 						return redirect(`/profile/${user.id}`)
 					}
