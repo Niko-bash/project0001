@@ -86,7 +86,8 @@ export const AuthServices = {
 		const createDataUser: CreateUser = {
 			...data,
 			role: 'user',
-			name: data.email
+			name: data.email,
+			course: []
 		}
 
 		const createUser = await fetch('/api/user', {

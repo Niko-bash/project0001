@@ -47,6 +47,11 @@ const ACCOUNT_MENU: MenuType[] = [
 		key: '2',
 		name: 'Settings',
 		link: '/settings'
+	},
+	{
+		key: '3',
+		name: 'MyCourses',
+		link: '/mycourses'
 	}
 ]
 export const Header = () => {

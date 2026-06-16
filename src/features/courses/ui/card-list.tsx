@@ -1,3 +1,4 @@
+import { AddCourseButton } from '@/features/user/ui/add-course'
 import { type Ref } from 'react'
 import { CardCourses, type InfinityCoursesType } from './card'
 
@@ -18,6 +19,7 @@ export const CoursesList = ({
 						<CardCourses
 							key={course.id}
 							course={course}
+							actions={<AddCourseButton courseId={course.id} />}
 						/>
 					))}
 			</ul>
