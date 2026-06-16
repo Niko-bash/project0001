@@ -11,20 +11,7 @@ import {
 	IconButton,
 	Typography
 } from '@mui/material'
-
-type CommentCoursesType = {
-	username: string
-	rating: number
-	comment: string
-}
-export type CoursesType = {
-	id: string
-	name: string
-	description: string
-	img: string
-	rating: string
-	reviews: CommentCoursesType[]
-}
+import type { CoursesType } from '../api/type'
 
 export type InfinityCoursesType = {
 	data: CoursesType[]
