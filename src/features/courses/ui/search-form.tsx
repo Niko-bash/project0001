@@ -1,4 +1,5 @@
 import type { SearchType } from '@/pages/courses.page'
+import { useDebounce } from '@/shared/hook/useDebounce'
 import {
 	FormControl,
 	InputLabel,
@@ -6,22 +7,8 @@ import {
 	Select,
 	TextField
 } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useWatch, type UseFormReturn } from 'react-hook-form'
-
-const useDebounce = <T,>(value: T, delay: number) => {
-	const [debounceState, setDebounceState] = useState<T>(value)
-
-	useEffect(() => {
-		const timerId = setTimeout(() => {
-			setDebounceState(value)
-		}, delay)
-
-		return () => clearTimeout(timerId)
-	}, [value, delay])
-
-	return debounceState
-}
 
 export const CoursesSearchForm = ({
 	onChange,
@@ -36,7 +23,7 @@ export const CoursesSearchForm = ({
 	useEffect(() => {
 		const controller = new AbortController()
 
-		onChange(values as SearchType, controller.signal)
+		onChange(values, controller.signal)
 
 		return () => controller.abort()
 	}, [values, onChange])

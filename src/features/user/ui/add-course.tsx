@@ -1,9 +1,13 @@
-import { useAuth } from '@/features/auth/model/use-auth'
 import { Button } from '@mui/material'
 import { UserServices } from '../api/user.sevices'
 
-export const AddCourseButton = ({ courseId }: { courseId: string }) => {
-	const { user } = useAuth()
+export const AddCourseButton = ({
+	courseId,
+	userId
+}: {
+	courseId: string
+	userId: string
+}) => {
 	const handleAddingCourse = async (courseId: string, userId: string) => {
 		const response = await UserServices.AddCourses(courseId, userId)
 		if (response.success) {
@@ -11,10 +15,10 @@ export const AddCourseButton = ({ courseId }: { courseId: string }) => {
 		}
 	}
 	return (
-		user && (
+		userId && (
 			<Button
 				variant="outlined"
-				onClick={() => handleAddingCourse(courseId, user.id)}
+				onClick={() => handleAddingCourse(courseId, userId)}
 			>
 				Add
 			</Button>
