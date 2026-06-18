@@ -34,6 +34,7 @@ export const AccountMenu = ({
 	return (
 		<div>
 			<IconButton
+				id="account-menu"
 				aria-controls={open ? 'account-menu' : undefined}
 				aria-haspopup="true"
 				aria-expanded={open}
@@ -75,6 +76,7 @@ export const AccountMenu = ({
 				}}
 				transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 				anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+				onClose={handleClose}
 			>
 				{menu &&
 					menu.map((link) => (
