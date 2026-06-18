@@ -1,5 +1,5 @@
 import { Button } from '@mui/material'
-import { UserServices } from '../api/user.sevices'
+import { UserServices } from '../api/user.services'
 
 export const AddCourseButton = ({
 	courseId,

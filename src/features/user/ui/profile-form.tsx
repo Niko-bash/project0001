@@ -5,7 +5,9 @@ import { Button, TextField } from '@mui/material'
 import { useState } from 'react'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import type { ProfileUser } from '../api/type'
-import { UserServices } from '../api/user.sevices'
+import { UserServices } from '../api/user.services'
+
+const DEFAULT_AVATAR = '/assets/hero.png'
 
 export const ProfileForm = ({ data }: { data: SessionUser }) => {
 	const form = useForm<ProfileUser>({
@@ -16,8 +18,11 @@ export const ProfileForm = ({ data }: { data: SessionUser }) => {
 			name: data.name
 		}
 	})
+
 	const [preview, setPreview] = useState<string | undefined>(
-		data.avatar?.replace(/^"|"$/g, '') || ''
+		data.avatar === 'undefined'
+			? DEFAULT_AVATAR
+			: data.avatar?.replace(/^"|"$/g, '')
 	)
 
 	const onSubmit: SubmitHandler<ProfileUser> = async (val) => {
@@ -29,7 +34,6 @@ export const ProfileForm = ({ data }: { data: SessionUser }) => {
 
 	const handleChangeImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		const image = e.target.files?.[0]
-
 		if (image) {
 			const compress = await compressImage(image, 800, 0.7)
 			setPreview(compress)
@@ -45,7 +49,7 @@ export const ProfileForm = ({ data }: { data: SessionUser }) => {
 			<img
 				width={200}
 				height={200}
-				src={preview || '/public/assets/hero.png'}
+				src={preview || 'qwe'}
 			/>
 
 			<Button
