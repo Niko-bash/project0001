@@ -9,7 +9,7 @@ export const AddCourseButton = ({
 	userId: string
 }) => {
 	const handleAddingCourse = async (courseId: string, userId: string) => {
-		const response = await UserServices.AddCourses(courseId, userId)
+		const response = await UserServices.addCourses(courseId, userId)
 		if (response.success) {
 			console.log('SUC')
 		}
