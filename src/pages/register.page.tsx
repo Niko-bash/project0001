@@ -1,4 +1,4 @@
-import { RegisterForm } from '@/features/auth/ui/register-form'
+import { RegisterForm } from '@/features/auth'
 import {
 	Box,
 	Button,

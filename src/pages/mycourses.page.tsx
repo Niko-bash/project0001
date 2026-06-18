@@ -1,5 +1,4 @@
-import { MyCoursesCard } from '@/features/my-courses/ui/courses-card'
-import { MyCoursesList } from '@/features/my-courses/ui/courses-list'
+import { MyCoursesCard, MyCoursesList } from '@/features/my-courses'
 import type { ProfileUser } from '@/features/user/api/type'
 import { Container } from '@mui/material'
 import { useLoaderData } from 'react-router'

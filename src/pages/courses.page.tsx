@@ -1,9 +1,11 @@
 import { useAuth } from '@/features/auth/model/use-auth'
-import { useInfinityScroll } from '@/features/courses/model/infinity-scroll'
-import { CardCourses } from '@/features/courses/ui/card'
-import { CoursesList } from '@/features/courses/ui/card-list'
-import { CoursesSearchForm } from '@/features/courses/ui/search-form'
-import { AddCourseButton } from '@/features/user/ui/add-course'
+import {
+	CardCourses,
+	CoursesList,
+	CoursesSearchForm,
+	useInfinityScroll
+} from '@/features/courses'
+import { AddCourseButton } from '@/features/user'
 import { Container } from '@mui/material'
 import { useForm } from 'react-hook-form'
 

@@ -1,5 +1,6 @@
 import type { SessionUser } from '@/features/auth/api/type'
-import { ProfileForm } from '@/features/user/ui/profile-form'
+import { ProfileForm } from '@/features/user'
+
 import {
 	Button,
 	Card,
