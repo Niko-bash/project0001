@@ -1,6 +1,6 @@
 import { AccountMenu, type MenuType } from '@/shared/ui/account-menu'
 import { Container } from '@mui/material'
-import { Link } from 'react-router'
+import { Link, useRevalidator } from 'react-router'
 import { AuthServices } from '../auth/api/auth.services'
 import { useAuth } from '../auth/model/use-auth'
 
@@ -56,10 +56,13 @@ const ACCOUNT_MENU: MenuType[] = [
 ]
 export const Header = () => {
 	const { user, setUser } = useAuth()
-
+	const revalidator = useRevalidator()
 	const handleSignOut = async () => {
-		await AuthServices.logout()
-		setUser(null)
+		const response = await AuthServices.logout()
+		if (response) {
+			setUser(null)
+			revalidator.revalidate()
+		}
 	}
 
 	return (
