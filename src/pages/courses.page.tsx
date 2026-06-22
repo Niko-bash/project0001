@@ -6,7 +6,9 @@ import {
 	useInfinityScroll
 } from '@/features/courses'
 import { AddCourseButton } from '@/features/user'
+import { MyErrorFallback } from '@/shared/ui/error'
 import { Container } from '@mui/material'
+import { ErrorBoundary } from 'react-error-boundary'
 import { useForm } from 'react-hook-form'
 
 export type SearchType = {
@@ -33,10 +35,12 @@ export function CoursesPage() {
 	return (
 		<PageLayout
 			form={
-				<CoursesSearchForm
-					onChange={handleSearchForm}
-					form={form}
-				/>
+				<ErrorBoundary FallbackComponent={MyErrorFallback}>
+					<CoursesSearchForm
+						onChange={handleSearchForm}
+						form={form}
+					/>
+				</ErrorBoundary>
 			}
 			list={
 				<CoursesList
