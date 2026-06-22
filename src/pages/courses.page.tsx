@@ -1,16 +1,23 @@
-import { useInfinityScroll } from '@/features/courses/model/infinity-scroll'
-import { CoursesList } from '@/features/courses/ui/card-list'
-import { CoursesSearchForm } from '@/features/courses/ui/search-form'
+import { useAuth } from '@/features/auth/model/use-auth'
+import {
+	CardCourses,
+	CoursesList,
+	CoursesSearchForm,
+	useInfinityScroll
+} from '@/features/courses'
+import { AddCourseButton } from '@/features/user'
 import { Container } from '@mui/material'
 import { useForm } from 'react-hook-form'
 
 export type SearchType = {
-	title: string
-	sort: '-rating' | 'rating'
-	per_page: string
+	title?: string
+	sort?: '-rating' | 'rating'
+	per_page?: string
 }
 
-const CoursesPage = () => {
+export function CoursesPage() {
+	const { user } = useAuth()
+
 	const form = useForm<SearchType>({
 		mode: 'onChange',
 		defaultValues: {
@@ -36,13 +43,25 @@ const CoursesPage = () => {
 					courses={courses}
 					onLoading={isLoading}
 					ref={observerRef}
+					render={(item) => (
+						<CardCourses
+							key={item.id}
+							course={item}
+							actions={
+								user && (
+									<AddCourseButton
+										courseId={item.id}
+										userId={user.id}
+									/>
+								)
+							}
+						/>
+					)}
 				/>
 			}
 		/>
 	)
 }
-
-export default CoursesPage
 
 const PageLayout = ({
 	form,

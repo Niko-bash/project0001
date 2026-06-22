@@ -3,7 +3,7 @@ import type { ApiResponse } from '@/shared/api/type'
 import type { ProfileUser } from './type'
 
 export const UserServices = {
-	async Patch(
+	async updateUserProfile(
 		userData: ProfileUser,
 		userId: string
 	): Promise<ApiResponse<ProfileUser>> {
@@ -27,7 +27,7 @@ export const UserServices = {
 		}
 	},
 
-	async AddCourses(
+	async addCourses(
 		courseId: string,
 		userId: string
 	): Promise<ApiResponse<ProfileUser>> {

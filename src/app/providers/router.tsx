@@ -1,96 +1,61 @@
-import { AuthServices } from '@/features/auth/api/auth.services'
-import type { SessionUser } from '@/features/auth/api/type'
-import { createBrowserRouter, redirect } from 'react-router'
+import { ROUTES } from '@/shared/lib/router-config'
+import { createBrowserRouter, type RouteObject } from 'react-router'
 import { App } from '../App'
 import { AuthLayout } from '../layout'
+import { protectedLoader } from './loaders/protected'
+import { rootLoader } from './loaders/root'
 
-export const router = createBrowserRouter([
+const routes: RouteObject[] = [
 	{
-		path: '/',
-		loader: async (): Promise<{
-			session: SessionUser
-		} | null> => {
-			try {
-				const session = await AuthServices.getSession()
-				if (session) {
-					return { session: session }
-				}
-				return null
-			} catch (e) {
-				console.error(e)
-				return null
-			}
-		},
+		path: ROUTES.HOME,
+		loader: rootLoader,
 		Component: App,
 		children: [
 			{
 				index: true,
-				lazy: async () => {
-					const { default: Component } =
-						await import('../../pages/courses.page')
-					return { Component }
-				}
+				lazy: () =>
+					import('@/pages/courses.page').then(({ CoursesPage }) => ({
+						Component: CoursesPage
+					}))
 			},
 			{
-				path: '/profile/:id',
-				loader: async ({ params }): Promise<SessionUser | Response> => {
-					const user = await AuthServices.getSession()
-					if (!user) {
-						return redirect('/')
-					}
-
-					if (user.id !== params.id) {
-						return redirect(`/profile/${user.id}`)
-					}
-					return user
-				},
-				lazy: async () => {
-					const { default: Component } =
-						await import('../../pages/profile.page')
-					return { Component }
-				}
+				path: ROUTES.PROFILE.pattern,
+				loader: protectedLoader,
+				lazy: () =>
+					import('@/pages/profile.page').then(({ ProfilePage }) => ({
+						Component: ProfilePage
+					}))
 			},
 			{
-				path: '/myCourses/:id',
-				loader: async ({ params }): Promise<SessionUser | Response> => {
-					const user = await AuthServices.getSession()
-					if (!user) {
-						return redirect('/')
-					}
-
-					if (user.id !== params.id) {
-						return redirect(`/myCourses/${user.id}`)
-					}
-					return user
-				},
-				lazy: async () => {
-					const { default: Component } =
-						await import('../../pages/mycourses.page')
-					return { Component }
-				}
+				path: ROUTES.MY_COURSES.pattern,
+				loader: protectedLoader,
+				lazy: () =>
+					import('@/pages/mycourses.page').then(({ MyCoursesPage }) => ({
+						Component: MyCoursesPage
+					}))
 			}
 		]
 	},
 	{
-		path: 'auth',
+		path: ROUTES.AUTH.ROOT,
 		Component: AuthLayout,
 		children: [
 			{
-				path: 'login',
-				lazy: async () => {
-					const { default: Component } =
-						await import('../../pages/login.page')
-					return { Component }
-				}
+				path: ROUTES.AUTH.LOGIN,
+				lazy: () =>
+					import('@/pages/login.page').then(({ LoginPage }) => ({
+						Component: LoginPage
+					}))
 			},
 			{
-				path: 'register',
-				lazy: async () => {
-					const { default: Component } =
-						await import('../../pages/register.page')
-					return { Component }
-				}
+				path: ROUTES.AUTH.REGISTER,
+				lazy: () =>
+					import('@/pages/register.page').then(({ RegisterPage }) => ({
+						Component: RegisterPage
+					}))
 			}
 		]
 	}
-])
+]
+
+export const router = createBrowserRouter(routes)

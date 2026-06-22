@@ -1,5 +1,5 @@
 import type { SearchType } from '@/pages/courses.page'
-import { useCallback, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import type { InfinityCoursesType } from '../ui/card'
 
 const fetchData = async (
@@ -9,10 +9,10 @@ const fetchData = async (
 ) => {
 	try {
 		const queryParams = new URLSearchParams({
-			'name:contains': query.title,
+			'name:contains': query.title || '',
 			_page: String(page),
-			_per_page: query.per_page,
-			_sort: query.sort
+			_per_page: query.per_page || '10',
+			_sort: query.sort || '-rating'
 		}).toString()
 
 		const response = await fetch(`/api/courses?` + queryParams, {
@@ -31,7 +31,7 @@ const fetchData = async (
 	}
 }
 
-export const useInfinityScroll = (values: SearchType) => {
+export const useInfinityScroll = (value: SearchType) => {
 	const [courses, setCourses] = useState<InfinityCoursesType>({
 		data: [],
 		first: 0,
@@ -44,18 +44,22 @@ export const useInfinityScroll = (values: SearchType) => {
 	const [page, setPage] = useState(1)
 	const [hasMore, setHasMore] = useState(true)
 	const [isLoading, setIsLoading] = useState(false)
+	const abortControllerRef = useRef<AbortController | null>(null)
 
 	const fetchNext = useCallback(
 		async (nextPage: number) => {
 			if (isLoading || !hasMore) return
 
+			if (abortControllerRef.current) {
+				abortControllerRef.current.abort()
+			}
+
 			setIsLoading(true)
 
 			const controller = new AbortController()
-
+			abortControllerRef.current = controller
 			try {
-				setIsLoading(true)
-				const newData = await fetchData(values, nextPage, controller.signal)
+				const newData = await fetchData(value, nextPage, controller.signal)
 				if (newData) {
 					setCourses((prev) => ({
 						...newData,
@@ -64,14 +68,19 @@ export const useInfinityScroll = (values: SearchType) => {
 					const hasMorePages = Number(nextPage) < newData.last
 					setHasMore(hasMorePages)
 				}
-			} catch (e) {
-				console.error(e)
+			} catch (error) {
+				if (error instanceof DOMException && error.name === 'AbortError') {
+					return
+				}
+				console.error('Error fetching next page:', error)
 			} finally {
 				setIsLoading(false)
+				if (abortControllerRef.current === controller) {
+					abortControllerRef.current = null
+				}
 			}
-			return () => controller.abort()
 		},
-		[values, hasMore, isLoading]
+		[hasMore, isLoading, value]
 	)
 
 	const observerRef = useCallback(
@@ -108,7 +117,7 @@ export const useInfinityScroll = (values: SearchType) => {
 				setCourses(data)
 			}
 		},
-		[setCourses]
+		[]
 	)
 
 	return { courses, handleSearchForm, observerRef, isLoading }

@@ -1,20 +1,24 @@
-import { useAuth } from '@/features/auth/model/use-auth'
 import { Button } from '@mui/material'
-import { UserServices } from '../api/user.sevices'
+import { UserServices } from '../api/user.services'
 
-export const AddCourseButton = ({ courseId }: { courseId: string }) => {
-	const { user } = useAuth()
+export const AddCourseButton = ({
+	courseId,
+	userId
+}: {
+	courseId: string
+	userId: string
+}) => {
 	const handleAddingCourse = async (courseId: string, userId: string) => {
-		const response = await UserServices.AddCourses(courseId, userId)
+		const response = await UserServices.addCourses(courseId, userId)
 		if (response.success) {
 			console.log('SUC')
 		}
 	}
 	return (
-		user && (
+		userId && (
 			<Button
 				variant="outlined"
-				onClick={() => handleAddingCourse(courseId, user.id)}
+				onClick={() => handleAddingCourse(courseId, userId)}
 			>
 				Add
 			</Button>

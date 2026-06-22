@@ -7,7 +7,7 @@ export type User = {
 	email: string
 	name: string
 	password: string
-	avatar?: string
+	avatar: string | undefined
 	role: UserRole
 	course: CoursesType[]
 }
