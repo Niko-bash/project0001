@@ -19,7 +19,6 @@ export const CoursesSearchForm = ({
 }) => {
 	const value = useWatch({ control: form.control })
 	const values = useDebounce(value, 500)
-
 	useEffect(() => {
 		const controller = new AbortController()
 
