@@ -59,7 +59,6 @@ export const useInfinityScroll = (value: SearchType) => {
 			const controller = new AbortController()
 			abortControllerRef.current = controller
 			try {
-				setIsLoading(true)
 				const newData = await fetchData(value, nextPage, controller.signal)
 				if (newData) {
 					setCourses((prev) => ({

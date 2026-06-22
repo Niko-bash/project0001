@@ -16,8 +16,8 @@ export const App = () => {
 	return (
 		<Layout
 			header={<Header />}
-			footer={<div>footer</div>}
 			main={<Outlet />}
+			footer={<div>footer</div>}
 		/>
 	)
 }
