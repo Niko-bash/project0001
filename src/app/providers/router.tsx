@@ -1,3 +1,5 @@
+import { ErrorPage } from '@/pages/error.page'
+import { NotFoundPage } from '@/pages/not-found.page'
 import { ROUTES } from '@/shared/lib/router-config'
 import { createBrowserRouter, type RouteObject } from 'react-router'
 import { App } from '../App'
@@ -9,6 +11,7 @@ const routes: RouteObject[] = [
 	{
 		path: ROUTES.HOME,
 		loader: rootLoader,
+		errorElement: <ErrorPage />,
 		Component: App,
 		children: [
 			{
@@ -55,6 +58,10 @@ const routes: RouteObject[] = [
 					}))
 			}
 		]
+	},
+	{
+		path: '*',
+		Component: NotFoundPage
 	}
 ]
 
