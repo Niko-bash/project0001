@@ -15,13 +15,11 @@ export const AddCourseButton = ({
 		}
 	}
 	return (
-		userId && (
-			<Button
-				variant="outlined"
-				onClick={() => handleAddingCourse(courseId, userId)}
-			>
-				Add
-			</Button>
-		)
+		<Button
+			variant="outlined"
+			onClick={() => handleAddingCourse(courseId, userId)}
+		>
+			Add
+		</Button>
 	)
 }

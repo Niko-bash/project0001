@@ -1,10 +1,10 @@
-import { useAuth } from '@/features/auth/model/use-auth'
 import {
 	CardCourses,
 	CoursesList,
 	CoursesSearchForm,
 	useInfinityScroll
 } from '@/features/courses'
+import { useUserData } from '@/features/courses/model/user-data'
 import { AddCourseButton } from '@/features/user'
 import { MyErrorFallback } from '@/shared/ui/error'
 import { Container } from '@mui/material'
@@ -18,7 +18,7 @@ export type SearchType = {
 }
 
 export function CoursesPage() {
-	const { user } = useAuth()
+	const { user, userCoursesIds } = useUserData()
 
 	const form = useForm<SearchType>({
 		mode: 'onChange',
@@ -52,11 +52,13 @@ export function CoursesPage() {
 							key={item.id}
 							course={item}
 							actions={
-								user && (
+								!user ? null : !userCoursesIds.has(item.id) ? (
 									<AddCourseButton
 										courseId={item.id}
 										userId={user.id}
 									/>
+								) : (
+									<div>Learn</div>
 								)
 							}
 						/>
