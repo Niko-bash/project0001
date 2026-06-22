@@ -82,7 +82,7 @@ export const AccountMenu = ({
 					menu.map((link) => (
 						<MenuItem key={link.key}>
 							<Link
-								to={`${link.link}/${user.id}`}
+								to={`${link.link}`}
 								key={link.key}
 								onClick={handleClose}
 							>

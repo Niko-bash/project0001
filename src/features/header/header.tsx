@@ -1,3 +1,4 @@
+import { ROUTES } from '@/shared/lib/router-config'
 import { AccountMenu, type MenuType } from '@/shared/ui/account-menu'
 import { Container } from '@mui/material'
 import { Link, useRevalidator } from 'react-router'
@@ -10,7 +11,7 @@ const MAIN_MENU: MenuType[] = [
 	{
 		key: '1',
 		name: 'Courses',
-		link: '/'
+		link: ROUTES.HOME
 	},
 	{
 		key: '2',
@@ -28,12 +29,12 @@ const AUTH_MENU: MenuType[] = [
 	{
 		key: '1',
 		name: 'Sign In',
-		link: '/auth/login'
+		link: ROUTES.AUTH.LOGIN
 	},
 	{
 		key: '2',
 		name: 'Sign Up',
-		link: '/auth/register'
+		link: ROUTES.AUTH.REGISTER
 	}
 ]
 
@@ -41,7 +42,7 @@ const ACCOUNT_MENU: MenuType[] = [
 	{
 		key: '1',
 		name: 'Profile',
-		link: '/profile'
+		link: ROUTES.PROFILE.pattern
 	},
 	{
 		key: '2',
@@ -51,7 +52,7 @@ const ACCOUNT_MENU: MenuType[] = [
 	{
 		key: '3',
 		name: 'MyCourses',
-		link: '/mycourses'
+		link: ROUTES.MY_COURSES.pattern
 	}
 ]
 export const Header = () => {

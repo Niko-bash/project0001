@@ -15,7 +15,7 @@ export type SearchType = {
 	per_page?: string
 }
 
-const CoursesPage = () => {
+export function CoursesPage() {
 	const { user } = useAuth()
 
 	const form = useForm<SearchType>({
@@ -62,8 +62,6 @@ const CoursesPage = () => {
 		/>
 	)
 }
-
-export default CoursesPage
 
 const PageLayout = ({
 	form,

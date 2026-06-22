@@ -742,6 +742,14 @@
       "name": "cccc",
       "course": [],
       "id": "ZsQpULfVilg"
+    },
+    {
+      "email": "vvvv",
+      "password": "vvvv",
+      "role": "user",
+      "name": "vvvv",
+      "course": [],
+      "id": "pAFoiGCdKcY"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

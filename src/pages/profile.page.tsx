@@ -11,7 +11,7 @@ import {
 } from '@mui/material'
 import { useLoaderData } from 'react-router'
 
-const ProfilePage = () => {
+export function ProfilePage() {
 	const preloadData = useLoaderData<SessionUser>()
 
 	return (
@@ -39,5 +39,3 @@ const ProfilePage = () => {
 		</section>
 	)
 }
-
-export default ProfilePage

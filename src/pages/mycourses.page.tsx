@@ -3,7 +3,7 @@ import type { ProfileUser } from '@/features/user/api/type'
 import { Container } from '@mui/material'
 import { useLoaderData } from 'react-router'
 
-const MyCoursesPage = () => {
+export function MyCoursesPage() {
 	const data: ProfileUser = useLoaderData()
 
 	return (
@@ -20,5 +20,3 @@ const MyCoursesPage = () => {
 		</Container>
 	)
 }
-
-export default MyCoursesPage

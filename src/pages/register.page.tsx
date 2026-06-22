@@ -8,7 +8,7 @@ import {
 	CardHeader
 } from '@mui/material'
 
-const RegisterPage = () => {
+export function RegisterPage() {
 	return (
 		<Box sx={{ minWidth: 600 }}>
 			<Card
@@ -32,5 +32,3 @@ const RegisterPage = () => {
 		</Box>
 	)
 }
-
-export default RegisterPage

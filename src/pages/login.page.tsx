@@ -8,7 +8,7 @@ import {
 	CardHeader
 } from '@mui/material'
 
-const LoginPage = () => {
+export function LoginPage() {
 	return (
 		<Box sx={{ minWidth: 600 }}>
 			<Card
@@ -32,4 +32,3 @@ const LoginPage = () => {
 		</Box>
 	)
 }
-export default LoginPage
