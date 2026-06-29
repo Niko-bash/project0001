@@ -1,5 +1,3 @@
-import type { CoursesType } from '@/features/courses/api/type'
-
 type UserRole = 'admin' | 'user'
 
 export type User = {
@@ -9,7 +7,6 @@ export type User = {
 	password: string
 	avatar: string | undefined
 	role: UserRole
-	course: CoursesType[]
 }
 
 export type AuthUser = Pick<User, 'email' | 'password'>

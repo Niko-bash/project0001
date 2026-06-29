@@ -25,51 +25,51 @@ export const UserServices = {
 			status: 200,
 			data
 		}
-	},
-
-	async addCourses(
-		courseId: string,
-		userId: string
-	): Promise<ApiResponse<ProfileUser>> {
-		const responseCourse = await fetch(`/api/courses/${courseId}`, {
-			method: 'GET'
-		})
-
-		if (!responseCourse.ok) {
-			throw new Error('This course is no')
-		}
-
-		const course = await responseCourse.json()
-
-		console.log(course)
-
-		const responseUser = await fetch(`/api/user/${userId}`, {
-			method: 'GET'
-		})
-
-		if (!responseUser.ok) {
-			throw new Error('This user its no')
-		}
-
-		const dataUser: ProfileUser = await responseUser.json()
-
-		const reqData = { ...dataUser, course: [...dataUser.course, course] }
-
-		const request = await fetch(`/api/user/${userId}`, {
-			method: 'PATCH',
-			body: JSON.stringify(reqData)
-		})
-
-		if (!request.ok) {
-			throw new Error('Error')
-		}
-
-		const res: ProfileUser = await request.json()
-		await AuthServices.setSessionCookie(res)
-		return {
-			status: 200,
-			success: true,
-			data: res
-		}
 	}
+
+	// async addCourses(
+	// 	courseId: string,
+	// 	userId: string
+	// ): Promise<ApiResponse<ProfileUser>> {
+	// 	const responseCourse = await fetch(`/api/courses/${courseId}`, {
+	// 		method: 'GET'
+	// 	})
+
+	// 	if (!responseCourse.ok) {
+	// 		throw new Error('This course is no')
+	// 	}
+
+	// 	const course = await responseCourse.json()
+
+	// 	console.log(course)
+
+	// 	const responseUser = await fetch(`/api/user/${userId}`, {
+	// 		method: 'GET'
+	// 	})
+
+	// 	if (!responseUser.ok) {
+	// 		throw new Error('This user its no')
+	// 	}
+
+	// 	const dataUser: ProfileUser = await responseUser.json()
+
+	// 	const reqData = { ...dataUser, course: [...dataUser.course, course] }
+
+	// 	const request = await fetch(`/api/user/${userId}`, {
+	// 		method: 'PATCH',
+	// 		body: JSON.stringify(reqData)
+	// 	})
+
+	// 	if (!request.ok) {
+	// 		throw new Error('Error')
+	// 	}
+
+	// 	const res: ProfileUser = await request.json()
+	// 	await AuthServices.setSessionCookie(res)
+	// 	return {
+	// 		status: 200,
+	// 		success: true,
+	// 		data: res
+	// 	}
+	// }
 }
