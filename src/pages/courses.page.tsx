@@ -18,7 +18,7 @@ export type SearchType = {
 }
 
 export function CoursesPage() {
-	const { user } = useUserData()
+	const { user, state } = useUserData()
 
 	const form = useForm<SearchType>({
 		mode: 'onChange',
@@ -52,11 +52,13 @@ export function CoursesPage() {
 							key={item.id}
 							course={item}
 							actions={
-								user && (
+								user && !state.has(item.id) ? (
 									<AddCourseButton
 										courseId={item.id}
 										userId={user.id}
 									/>
+								) : (
+									<div>s</div>
 								)
 							}
 						/>
