@@ -9,5 +9,6 @@ export type CoursesType = {
 	description: string
 	img: string
 	rating: string
+	creatorId: string
 	reviews: CommentCoursesType[]
 }

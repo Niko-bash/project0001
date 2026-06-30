@@ -1,13 +1,25 @@
 import type { CoursesType } from '@/features/courses/api/type'
+import type { MyCoursesMode } from '@/pages/mycourses.page'
 import { RegistrationError, type ApiResponse } from '@/shared/api/type'
 import type { UserCourses } from './type'
+
+function isUserCoursesArray(data: any[]): data is UserCourses[] {
+	return data.length > 0 && 'courses' in data[0]
+}
 
 export const myCoursesServices = {
 	async getCoursesByUser(
 		userId: string,
-		options?: { signal?: AbortSignal }
+		options?: { mode?: MyCoursesMode; signal?: AbortSignal }
 	): Promise<ApiResponse<CoursesType[]>> {
-		const response = await fetch(`/api/userCourses?userId=${userId}`, {
+		const mode = options?.mode ?? 'Student'
+
+		const pathMode: Record<MyCoursesMode, string> = {
+			Student: `/api/userCourses?userId=${userId}`,
+			Teacher: `/api/courses?creatorId=${userId}`
+		}
+
+		const response = await fetch(`${pathMode[mode]}`, {
 			method: 'GET',
 			signal: options?.signal
 		})
@@ -16,9 +28,15 @@ export const myCoursesServices = {
 			throw new Error('this user has no added courses')
 		}
 
-		const result: UserCourses[] = await response.json()
+		const result: UserCourses[] | CoursesType[] = await response.json()
 
-		const data = result[0].courses
+		let data
+
+		if (isUserCoursesArray(result)) {
+			data = result[0].courses
+		} else {
+			data = result
+		}
 
 		return {
 			status: 200,
@@ -26,7 +44,7 @@ export const myCoursesServices = {
 			data: data
 		}
 	},
-	async addCourses(
+	async addCoursesStudent(
 		userId: string,
 		coursesId: string
 	): Promise<ApiResponse<UserCourses>> {

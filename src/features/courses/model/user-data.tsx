@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 export const useUserData = () => {
 	const { user } = useAuth()
 
-	const [state, setState] = useState<Set<string>>(new Set())
+	const [adding, setAdding] = useState<Set<string>>(new Set())
 
 	useEffect(() => {
 		const controller = new AbortController()
@@ -14,12 +14,19 @@ export const useUserData = () => {
 		const fetchData = async () => {
 			if (!user?.id) return
 
-			const response = await myCoursesServices.getCoursesByUser(user.id, {
-				signal: controller.signal
-			})
+			try {
+				const response = await myCoursesServices.getCoursesByUser(user.id, {
+					signal: controller.signal
+				})
 
-			if (response.success) {
-				setState(new Set(response.data.map((item) => item.id) || []))
+				if (response.success) {
+					setAdding(new Set(response.data.map((item) => item.id) || []))
+				}
+			} catch (error) {
+				if (error instanceof DOMException && error.name === 'AbortError') {
+					return
+				}
+				console.error(error)
 			}
 		}
 
@@ -29,6 +36,6 @@ export const useUserData = () => {
 
 	return {
 		user,
-		state
+		adding
 	}
 }
