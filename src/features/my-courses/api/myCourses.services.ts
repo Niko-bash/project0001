@@ -1,11 +1,8 @@
 import type { CoursesType } from '@/features/courses/api/type'
 import type { MyCoursesMode } from '@/pages/mycourses.page'
 import { RegistrationError, type ApiResponse } from '@/shared/api/type'
+import { isUserCoursesArray } from '../lib/isUserCoursesArray'
 import type { UserCourses } from './type'
-
-function isUserCoursesArray(data: any[]): data is UserCourses[] {
-	return data.length > 0 && 'courses' in data[0]
-}
 
 export const myCoursesServices = {
 	async getCoursesByUser(

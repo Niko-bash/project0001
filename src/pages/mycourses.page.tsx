@@ -63,10 +63,12 @@ export function MyCoursesPage() {
 				<Tab
 					value="Student"
 					label="Student"
+					disabled={isLoading}
 				/>
 				<Tab
 					value="Teacher"
 					label="Teacher"
+					disabled={isLoading}
 				/>
 			</Tabs>
 			<MyCoursesList
