@@ -1,5 +1,5 @@
+import { myCoursesServices } from '@/features/my-courses/api/myCourses.services'
 import { Button } from '@mui/material'
-import { UserServices } from '../api/user.services'
 
 export const AddCourseButton = ({
 	courseId,
@@ -9,7 +9,10 @@ export const AddCourseButton = ({
 	userId: string
 }) => {
 	const handleAddingCourse = async (courseId: string, userId: string) => {
-		const response = await UserServices.addCourses(courseId, userId)
+		const response = await myCoursesServices.addCoursesStudent(
+			userId,
+			courseId
+		)
 		if (response.success) {
 			console.log('SUC')
 		}

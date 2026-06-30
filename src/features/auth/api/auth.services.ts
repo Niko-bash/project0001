@@ -1,3 +1,4 @@
+import type { UserCourses } from '@/features/my-courses/api/type'
 import type { ProfileUser } from '@/features/user/api/type'
 import {
 	RegistrationError,
@@ -87,7 +88,6 @@ export const AuthServices = {
 			...data,
 			role: 'user',
 			name: data.email,
-			course: [],
 			avatar: undefined
 		}
 
@@ -101,6 +101,21 @@ export const AuthServices = {
 		}
 
 		const thisUser: User = await createUser.json()
+
+		const createUserCourses: UserCourses = {
+			userId: thisUser.id,
+			courses: []
+		}
+
+		const responseCourses = await fetch(`/api/userCourses`, {
+			method: 'POST',
+			body: JSON.stringify(createUserCourses)
+		})
+
+		if (!responseCourses.ok) {
+			throw new RegistrationError()
+		}
+
 		const { password, ...userData } = thisUser
 
 		const cookie = await this.setSessionCookie(userData)
