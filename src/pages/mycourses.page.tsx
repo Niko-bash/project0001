@@ -2,7 +2,7 @@ import type { SessionUser } from '@/features/auth/api/type'
 import type { CoursesType } from '@/features/courses/api/type'
 import { MyCoursesCard, MyCoursesList } from '@/features/my-courses'
 import { myCoursesServices } from '@/features/my-courses/api/myCourses.services'
-import { Container, Tab, Tabs } from '@mui/material'
+import { Tab, Tabs } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useLoaderData } from 'react-router'
 
@@ -53,7 +53,8 @@ export function MyCoursesPage() {
 	}, [data.id, mode])
 
 	return (
-		<Container>
+		// <Container>
+		<>
 			<Tabs
 				value={mode}
 				onChange={handleChange}
@@ -81,6 +82,7 @@ export function MyCoursesPage() {
 					/>
 				)}
 			/>
-		</Container>
+		</>
+		// </Container>
 	)
 }
