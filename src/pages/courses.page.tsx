@@ -7,7 +7,6 @@ import {
 import { useUserData } from '@/features/courses/model/user-data'
 import { AddCourseButton } from '@/features/user'
 import { MyErrorFallback } from '@/shared/ui/error'
-import { Container } from '@mui/material'
 import { ErrorBoundary } from 'react-error-boundary'
 import { useForm } from 'react-hook-form'
 
@@ -78,12 +77,10 @@ const PageLayout = ({
 }) => {
 	return (
 		<section className="pt-10">
-			<Container>
-				<div className="flex flex-col gap-4">
-					{form}
-					{list}
-				</div>
-			</Container>
+			<div className="flex flex-col gap-4">
+				{form}
+				{list}
+			</div>
 		</section>
 	)
 }

@@ -698,6 +698,36 @@
               "comment": "Well-structured curriculum. The kids are engaged and proud of their final projects. Would recommend."
             }
           ]
+        },
+        {
+          "id": "2",
+          "name": "Python для начинающих",
+          "rating": 5,
+          "description": "Изучаем Python с нуля: переменные, циклы и первые программы!",
+          "img": "https://cdn-icons-png.flaticon.com/512/5968/5968350.png",
+          "creatorId": "UaCC1nUJN1c",
+          "reviews": [
+            {
+              "username": "AnnaV",
+              "rating": 5,
+              "comment": "Отличный курс! Сын в восторге, сам написал своего первого чат-бота. Спасибо преподавателям!"
+            },
+            {
+              "username": "Ivan_Python",
+              "rating": 5,
+              "comment": "Очень понятно объясняют даже сложные темы. Циклы и условия теперь для меня простые."
+            },
+            {
+              "username": "OlegTeacher",
+              "rating": 4,
+              "comment": "Хорошая база для детей. Много практики, но хотелось бы больше домашних заданий."
+            },
+            {
+              "username": "NataliaMom",
+              "rating": 5,
+              "comment": "Дочь ждала каждое занятие. Результат - участие в олимпиаде по программированию. Рекомендую!"
+            }
+          ]
         }
       ],
       "id": "YckX_TusIic"

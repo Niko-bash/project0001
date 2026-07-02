@@ -1,6 +1,7 @@
 import { ROUTES } from '@/shared/lib/router-config'
 import { AccountMenu, type MenuType } from '@/shared/ui/account-menu'
 import { Container } from '@mui/material'
+import clsx from 'clsx'
 import { Link, useRevalidator } from 'react-router'
 import { AuthServices } from '../auth/api/auth.services'
 import { useAuth } from '../auth/model/use-auth'
@@ -55,7 +56,11 @@ const ACCOUNT_MENU: MenuType[] = [
 		link: ROUTES.MY_COURSES.pattern
 	}
 ]
-export const Header = () => {
+
+interface HeaderProps {
+	className?: string
+}
+export const Header = ({ className }: HeaderProps) => {
 	const { user, setUser } = useAuth()
 	const revalidator = useRevalidator()
 	const handleSignOut = async () => {
@@ -67,7 +72,7 @@ export const Header = () => {
 	}
 
 	return (
-		<header className="shadow-md">
+		<header className={clsx('shadow-md', className)}>
 			<Container>
 				<div className="flex justify-between min-h-16 items-center">
 					<ul className="flex gap-9 text-2xl ">

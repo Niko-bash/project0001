@@ -77,6 +77,7 @@ export const AccountMenu = ({
 				transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 				anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 				onClose={handleClose}
+				disableScrollLock
 			>
 				{menu &&
 					menu.map((link) => (
