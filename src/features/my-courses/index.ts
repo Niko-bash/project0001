@@ -1,2 +1,2 @@
-export { MyCoursesCard } from './ui/courses-card'
-export { MyCoursesList } from './ui/courses-list'
+export { CardFactory } from './ui/card/index'
+export { MyCoursesList } from './ui/list'

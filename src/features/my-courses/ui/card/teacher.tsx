@@ -11,7 +11,13 @@ import {
 } from '@mui/material'
 import { Link } from 'react-router'
 
-export const MyCoursesCard = ({ item }: { item: CoursesType }) => {
+export const CardTeacher = ({
+	item,
+	action
+}: {
+	item: CoursesType
+	action: React.ReactNode
+}) => {
 	return (
 		<li>
 			<Card className="h-72">
@@ -60,9 +66,10 @@ export const MyCoursesCard = ({ item }: { item: CoursesType }) => {
 						to="/"
 						variant="outlined"
 					>
-						Learn
+						Go to
 					</Button>
 					<Button>Deleted</Button>
+					{action}
 				</CardActions>
 			</Card>
 		</li>

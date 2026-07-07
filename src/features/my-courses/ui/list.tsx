@@ -1,12 +1,12 @@
-import type { CoursesType } from '@/features/courses/api/type'
+import type { MapCardType } from './type'
 
 export const MyCoursesList = ({
 	items,
 	render,
 	isLoading
 }: {
-	items: CoursesType[]
-	render: (item: CoursesType) => React.ReactNode
+	items: MapCardType[]
+	render: (item: MapCardType) => React.ReactNode
 	isLoading: boolean
 }) => {
 	if (isLoading) {

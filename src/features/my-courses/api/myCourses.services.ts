@@ -1,17 +1,17 @@
 import type { CoursesType } from '@/features/courses/api/type'
-import type { MyCoursesMode } from '@/pages/mycourses.page'
 import { RegistrationError, type ApiResponse } from '@/shared/api/type'
 import { isUserCoursesArray } from '../lib/isUserCoursesArray'
+import type { MapCardsKey } from '../ui/type'
 import type { UserCourses } from './type'
 
 export const myCoursesServices = {
 	async getCoursesByUser(
 		userId: string,
-		options?: { mode?: MyCoursesMode; signal?: AbortSignal }
+		options?: { mode?: MapCardsKey; signal?: AbortSignal }
 	): Promise<ApiResponse<CoursesType[]>> {
 		const mode = options?.mode ?? 'Student'
 
-		const pathMode: Record<MyCoursesMode, string> = {
+		const pathMode: Record<MapCardsKey, string> = {
 			Student: `/api/userCourses?userId=${userId}`,
 			Teacher: `/api/courses?creatorId=${userId}`
 		}
