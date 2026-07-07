@@ -1,25 +1,25 @@
 import type { SessionUser } from '@/features/auth/api/type'
-import type { CoursesType } from '@/features/courses/api/type'
-import { MyCoursesCard, MyCoursesList } from '@/features/my-courses'
+import { MyCoursesList } from '@/features/my-courses'
 import { myCoursesServices } from '@/features/my-courses/api/myCourses.services'
+import { CardFactory } from '@/features/my-courses/ui/card/wrapper'
+import type { MapCardsKey, MapCardType } from '@/features/my-courses/ui/type'
 import { Tab, Tabs } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useLoaderData } from 'react-router'
 
-export type MyCoursesMode = 'Teacher' | 'Student'
-
 export function MyCoursesPage() {
-	const data: SessionUser = useLoaderData()
+	const data = useLoaderData<SessionUser>()
 
-	const [courses, setCourses] = useState<CoursesType[]>([])
+	const [courses, setCourses] = useState<MapCardType[]>([])
 	const [isLoading, setIsLoading] = useState(false)
 
-	const [mode, setMode] = useState<MyCoursesMode>('Student')
+	const [mode, setMode] = useState<MapCardsKey>('Student')
 
 	const handleChange = (
 		event: React.SyntheticEvent,
-		newValue: MyCoursesMode
+		newValue: MapCardsKey
 	) => {
+		console.log(event)
 		setMode(newValue)
 	}
 
@@ -53,7 +53,6 @@ export function MyCoursesPage() {
 	}, [data.id, mode])
 
 	return (
-		// <Container>
 		<>
 			<Tabs
 				value={mode}
@@ -76,13 +75,12 @@ export function MyCoursesPage() {
 				isLoading={isLoading}
 				items={courses}
 				render={(item) => (
-					<MyCoursesCard
+					<CardFactory
 						item={item}
-						key={item.id}
+						mode={mode}
 					/>
 				)}
 			/>
 		</>
-		// </Container>
 	)
 }
