@@ -523,7 +523,38 @@
   "userCourses": [
     {
       "userId": "UaCC1nUJN1c",
-      "courses": [],
+      "courses": [
+        {
+          "id": "9",
+          "name": "Робототехника Lego",
+          "rating": 5,
+          "description": "Собираем роботов и программируем их на выполнение задач.",
+          "img": "https://cdn-icons-png.flaticon.com/512/2942/2942813.png",
+          "creatorId": "UaCC1nUJN1c",
+          "reviews": [
+            {
+              "username": "RoboKid",
+              "rating": 5,
+              "comment": "Собрал робота, который ездит по линии! Это круче, чем просто играть в лего."
+            },
+            {
+              "username": "EngineerDad",
+              "rating": 5,
+              "comment": "Отличный старт для будущего инженера. Сын 9 лет справляется отлично."
+            },
+            {
+              "username": "LegoFan",
+              "rating": 5,
+              "comment": "Лучший курс! Сочетание конструирования и программирования - то что нужно."
+            },
+            {
+              "username": "NinaTeacher",
+              "rating": 4,
+              "comment": "Очень качественные материалы и оборудование. Дети работают в команде и учатся решать задачи."
+            }
+          ]
+        }
+      ],
       "id": "YckX_TusIic"
     }
   ],
