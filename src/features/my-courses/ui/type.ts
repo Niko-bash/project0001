@@ -22,6 +22,13 @@ type RenderActionsMyCard<T extends MapCardsKey> = (
 export type MapCards = { [key in MapCardsKey]: RenderTypeMyCard<key> }
 export type MapActions = { [key in MapCardsKey]?: RenderActionsMyCard<key> }
 export type MapExtra = {
-	Student: { userId: string; handleClick: () => void }
-	Teacher: { userId: string }
+	Student: {
+		userId: string
+		handleClick: () => void
+		handleUnsubscribe: (userId: string, coursesId: string) => void
+	}
+	Teacher: {
+		userId: string
+		handleDeleted: (userId: string, coursesId: string) => void
+	}
 }
