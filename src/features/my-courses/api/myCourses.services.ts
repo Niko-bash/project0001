@@ -95,5 +95,11 @@ export const myCoursesServices = {
 			success: true,
 			data: result
 		}
+	},
+	async removeCoursesStudent(
+		userId: string,
+		coursesId: string
+	): Promise<ApiResponse<UserCourses>> {
+		//TODO: write
 	}
 }
