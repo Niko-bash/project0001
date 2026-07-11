@@ -13,10 +13,10 @@ import { Link } from 'react-router'
 
 export const CardTeacher = ({
 	item,
-	action
+	actions
 }: {
 	item: CoursesType
-	action: React.ReactNode
+	actions: React.ReactNode
 }) => {
 	return (
 		<li>
@@ -69,7 +69,7 @@ export const CardTeacher = ({
 						Go to
 					</Button>
 					<Button>Deleted</Button>
-					{action}
+					{actions}
 				</CardActions>
 			</Card>
 		</li>

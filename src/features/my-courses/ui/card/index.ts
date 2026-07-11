@@ -1,1 +1,1 @@
-export { CardFactory } from './wrapper'
+export { CardFactory } from './factory'

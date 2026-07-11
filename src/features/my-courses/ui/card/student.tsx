@@ -11,7 +11,13 @@ import {
 } from '@mui/material'
 import { Link } from 'react-router'
 
-export const CardStudent = ({ item }: { item: CoursesType }) => {
+export const CardStudent = ({
+	item,
+	actions
+}: {
+	item: CoursesType
+	actions: React.ReactNode
+}) => {
 	return (
 		<li>
 			<Card className="h-72">
@@ -62,7 +68,7 @@ export const CardStudent = ({ item }: { item: CoursesType }) => {
 					>
 						Learn
 					</Button>
-					<Button>unsubscribe</Button>
+					{actions}
 				</CardActions>
 			</Card>
 		</li>
