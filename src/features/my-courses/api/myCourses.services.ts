@@ -100,6 +100,46 @@ export const myCoursesServices = {
 		userId: string,
 		coursesId: string
 	): Promise<ApiResponse<UserCourses>> {
-		//TODO: write
+		const response = await fetch(`/api/userCourses?userId=${userId}`, {
+			method: 'GET'
+		})
+
+		if (!response.ok) {
+			throw new Error('user is not get')
+		}
+
+		const oldData: (UserCourses & { id: string })[] = await response.json()
+
+		const user = oldData[0]
+
+		const updateData = user.courses
+			? user.courses.filter((item) => item.id !== coursesId)
+			: []
+
+		const newData: UserCourses & { id: string } = {
+			userId,
+			courses: [...updateData],
+			id: user.id
+		}
+
+		const newResponse = await fetch(`/api/userCourses/${user.id}`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(newData)
+		})
+
+		if (!newResponse.ok) {
+			throw new Error('update is not success')
+		}
+
+		const data = await newResponse.json()
+
+		return {
+			status: 200,
+			success: true,
+			data
+		}
 	}
 }

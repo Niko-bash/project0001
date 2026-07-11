@@ -670,36 +670,6 @@
       "userId": "UaCC1nUJN1c",
       "courses": [
         {
-          "id": "1",
-          "name": "Web/Html/Css/Js",
-          "rating": 5,
-          "description": "Courses for kids, learning: html/css/js, good luck my little programmers!",
-          "img": "https://cdn-icons-png.flaticon.com/512/1051/1051277.png",
-          "creatorId": "UaCC1nUJN1c",
-          "reviews": [
-            {
-              "username": "AlexMom",
-              "rating": 5,
-              "comment": "My son Alex (10) absolutely loved this course! He built his first website in just two weeks. The instructors are very patient and explain everything in a fun way."
-            },
-            {
-              "username": "CodingDad",
-              "rating": 4,
-              "comment": "Great introduction to web development. My daughter enjoyed the interactive projects. A bit fast-paced for complete beginners, but overall excellent."
-            },
-            {
-              "username": "LittleProgrammer",
-              "rating": 5,
-              "comment": "I learned how to make my own game! The JavaScript part was hard but cool. I want to learn more now!"
-            },
-            {
-              "username": "TechTeacher",
-              "rating": 4,
-              "comment": "Well-structured curriculum. The kids are engaged and proud of their final projects. Would recommend."
-            }
-          ]
-        },
-        {
           "id": "2",
           "name": "Python для начинающих",
           "rating": 5,
