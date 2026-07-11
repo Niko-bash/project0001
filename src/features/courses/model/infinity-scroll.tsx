@@ -1,35 +1,7 @@
 import type { SearchType } from '@/pages/courses.page'
 import { useCallback, useRef, useState } from 'react'
+import { CoursesServices } from '../api/courses.services'
 import type { InfinityCoursesType } from '../ui/card'
-
-const fetchData = async (
-	query: SearchType,
-	page: number,
-	signal?: AbortSignal
-) => {
-	try {
-		const queryParams = new URLSearchParams({
-			'name:contains': query.title || '',
-			_page: String(page),
-			_per_page: query.per_page || '10',
-			_sort: query.sort || '-rating'
-		}).toString()
-
-		const response = await fetch(`/api/courses?` + queryParams, {
-			method: 'GET',
-			signal: signal
-		})
-		if (!response.ok) {
-			throw new Error()
-		}
-		const data: InfinityCoursesType = await response.json()
-		return data
-	} catch (e: unknown) {
-		if (e instanceof DOMException && e.name === 'AbortError') {
-			return
-		}
-	}
-}
 
 export const useInfinityScroll = (value: SearchType) => {
 	const [courses, setCourses] = useState<InfinityCoursesType>({
@@ -59,7 +31,11 @@ export const useInfinityScroll = (value: SearchType) => {
 			const controller = new AbortController()
 			abortControllerRef.current = controller
 			try {
-				const newData = await fetchData(value, nextPage, controller.signal)
+				const newData = await CoursesServices.getCourses(
+					value,
+					nextPage,
+					controller.signal
+				)
 				if (newData) {
 					setCourses((prev) => ({
 						...newData,
@@ -110,7 +86,7 @@ export const useInfinityScroll = (value: SearchType) => {
 
 	const handleSearchForm = useCallback(
 		async (params: SearchType, signal: AbortSignal) => {
-			const data = await fetchData({ ...params }, 1, signal)
+			const data = await CoursesServices.getCourses({ ...params }, 1, signal)
 			if (data) {
 				setPage(1)
 				setHasMore(true)

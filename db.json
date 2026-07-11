@@ -25,121 +25,6 @@
   ],
   "courses": [
     {
-      "id": "1",
-      "name": "Web/Html/Css/Js",
-      "rating": 5,
-      "description": "Courses for kids, learning: html/css/js, good luck my little programmers!",
-      "img": "https://cdn-icons-png.flaticon.com/512/1051/1051277.png",
-      "creatorId": "UaCC1nUJN1c",
-      "reviews": [
-        {
-          "username": "AlexMom",
-          "rating": 5,
-          "comment": "My son Alex (10) absolutely loved this course! He built his first website in just two weeks. The instructors are very patient and explain everything in a fun way."
-        },
-        {
-          "username": "CodingDad",
-          "rating": 4,
-          "comment": "Great introduction to web development. My daughter enjoyed the interactive projects. A bit fast-paced for complete beginners, but overall excellent."
-        },
-        {
-          "username": "LittleProgrammer",
-          "rating": 5,
-          "comment": "I learned how to make my own game! The JavaScript part was hard but cool. I want to learn more now!"
-        },
-        {
-          "username": "TechTeacher",
-          "rating": 4,
-          "comment": "Well-structured curriculum. The kids are engaged and proud of their final projects. Would recommend."
-        }
-      ]
-    },
-    {
-      "id": "2",
-      "name": "Python для начинающих",
-      "rating": 5,
-      "description": "Изучаем Python с нуля: переменные, циклы и первые программы!",
-      "img": "https://cdn-icons-png.flaticon.com/512/5968/5968350.png",
-      "creatorId": "UaCC1nUJN1c",
-      "reviews": [
-        {
-          "username": "AnnaV",
-          "rating": 5,
-          "comment": "Отличный курс! Сын в восторге, сам написал своего первого чат-бота. Спасибо преподавателям!"
-        },
-        {
-          "username": "Ivan_Python",
-          "rating": 5,
-          "comment": "Очень понятно объясняют даже сложные темы. Циклы и условия теперь для меня простые."
-        },
-        {
-          "username": "OlegTeacher",
-          "rating": 4,
-          "comment": "Хорошая база для детей. Много практики, но хотелось бы больше домашних заданий."
-        },
-        {
-          "username": "NataliaMom",
-          "rating": 5,
-          "comment": "Дочь ждала каждое занятие. Результат - участие в олимпиаде по программированию. Рекомендую!"
-        }
-      ]
-    },
-    {
-      "id": "3",
-      "name": "Мир Scratch",
-      "rating": 4,
-      "description": "Создавай свои первые игры и мультики с помощью блоков Scratch.",
-      "img": "https://cdn-icons-png.flaticon.com/512/528/528260.png",
-      "creatorId": "UaCC1nUJN1c",
-      "reviews": [
-        {
-          "username": "Kirill7",
-          "rating": 5,
-          "comment": "Мне очень нравится! Я сделал игру про котика и мышку. Друзья теперь тоже хотят научиться."
-        },
-        {
-          "username": "ScratchFan",
-          "rating": 4,
-          "comment": "Легко и весело. Для первого знакомства с программированием идеально."
-        },
-        {
-          "username": "ElenaMom",
-          "rating": 4,
-          "comment": "Сын 8 лет в восторге. Занимается с удовольствием, хотя сначала боялся, что сложно."
-        }
-      ]
-    },
-    {
-      "id": "4",
-      "name": "Разработка игр на Roblox",
-      "rating": 5,
-      "description": "Курс по созданию миров и игр в Roblox Studio для юных гейм-дизайнеров.",
-      "img": "https://cdn-icons-png.flaticon.com/512/3940/3940051.png",
-      "creatorId": "UaCC1nUJN1c",
-      "reviews": [
-        {
-          "username": "RobloxMaster",
-          "rating": 5,
-          "comment": "Крутой курс! Теперь я создаю свои карты и мои друзья играют на них. Спасибо!"
-        },
-        {
-          "username": "GameDevDad",
-          "rating": 5,
-          "comment": "Сын 11 лет освоил Lua за 2 месяца. Удивительно, как быстро дети учатся через игру."
-        },
-        {
-          "username": "Maria_Pro",
-          "rating": 4,
-          "comment": "Отличные преподаватели, много практики. Единственное - хотелось бы больше уроков по скриптингу."
-        },
-        {
-          "username": "MaxRoblox",
-          "rating": 5,
-          "comment": "Теперь я знаю, как сделать обсидиан и написать код для двери. Лучший курс!"
-        }
-      ]
-    },
-    {
       "id": "5",
       "name": "Математика и логика",
       "rating": 3,
@@ -161,36 +46,6 @@
           "username": "AndreyDad",
           "rating": 3,
           "comment": "Сын занимается с удовольствием, но мне кажется, что курс немного короткий."
-        }
-      ]
-    },
-    {
-      "id": "6",
-      "name": "Основы Minecraft",
-      "rating": 5,
-      "description": "Программирование в Minecraft: автоматизируй всё с помощью команд!",
-      "img": "https://cdn-icons-png.flaticon.com/512/888/888882.png",
-      "creatorId": "UaCC1nUJN1c",
-      "reviews": [
-        {
-          "username": "Miner2000",
-          "rating": 5,
-          "comment": "Лучшее, что было в моей жизни! Теперь я могу строить целые города за минуту с помощью команд."
-        },
-        {
-          "username": "CreeperKiller",
-          "rating": 5,
-          "comment": "Научился делать телепорты и командные блоки. Очень круто!"
-        },
-        {
-          "username": "MomOfMiner",
-          "rating": 4,
-          "comment": "Сын не вылезает из майнкрафта, но теперь хотя бы с пользой. Спасибо за курс!"
-        },
-        {
-          "username": "AlexTeacher",
-          "rating": 5,
-          "comment": "Отличный способ заинтересовать детей программированием. Рекомендую всем родителям."
         }
       ]
     },
@@ -670,32 +525,32 @@
       "userId": "UaCC1nUJN1c",
       "courses": [
         {
-          "id": "2",
-          "name": "Python для начинающих",
+          "id": "9",
+          "name": "Робототехника Lego",
           "rating": 5,
-          "description": "Изучаем Python с нуля: переменные, циклы и первые программы!",
-          "img": "https://cdn-icons-png.flaticon.com/512/5968/5968350.png",
+          "description": "Собираем роботов и программируем их на выполнение задач.",
+          "img": "https://cdn-icons-png.flaticon.com/512/2942/2942813.png",
           "creatorId": "UaCC1nUJN1c",
           "reviews": [
             {
-              "username": "AnnaV",
+              "username": "RoboKid",
               "rating": 5,
-              "comment": "Отличный курс! Сын в восторге, сам написал своего первого чат-бота. Спасибо преподавателям!"
+              "comment": "Собрал робота, который ездит по линии! Это круче, чем просто играть в лего."
             },
             {
-              "username": "Ivan_Python",
+              "username": "EngineerDad",
               "rating": 5,
-              "comment": "Очень понятно объясняют даже сложные темы. Циклы и условия теперь для меня простые."
+              "comment": "Отличный старт для будущего инженера. Сын 9 лет справляется отлично."
             },
             {
-              "username": "OlegTeacher",
+              "username": "LegoFan",
+              "rating": 5,
+              "comment": "Лучший курс! Сочетание конструирования и программирования - то что нужно."
+            },
+            {
+              "username": "NinaTeacher",
               "rating": 4,
-              "comment": "Хорошая база для детей. Много практики, но хотелось бы больше домашних заданий."
-            },
-            {
-              "username": "NataliaMom",
-              "rating": 5,
-              "comment": "Дочь ждала каждое занятие. Результат - участие в олимпиаде по программированию. Рекомендую!"
+              "comment": "Очень качественные материалы и оборудование. Дети работают в команде и учатся решать задачи."
             }
           ]
         }

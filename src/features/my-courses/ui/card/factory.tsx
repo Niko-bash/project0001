@@ -1,6 +1,5 @@
 import { Button } from '@mui/material'
 import type { MapActions, MapCards, MapCardsType, MapExtra } from '../type'
-import { UnsubscribeButton } from '../unsubscribeButton'
 import { CardStudent } from './student'
 import { CardTeacher } from './teacher'
 
@@ -22,12 +21,16 @@ const MapCards: MapCards = {
 const MapActions: MapActions = {
 	Student: (item, extra) => (
 		<>
-			<UnsubscribeButton
-				title="Unsubscribe"
-				coursesId={item.id}
-				userId={extra.userId}
-			/>
-			<Button onClick={extra.handleClick}>Test My COCKE</Button>
+			<Button onClick={() => extra.handleUnsubscribe(extra.userId, item.id)}>
+				Unsubscribe
+			</Button>
+		</>
+	),
+	Teacher: (item, extra) => (
+		<>
+			<Button onClick={() => extra.handleDeleted(extra.userId, item.id)}>
+				Delete
+			</Button>
 		</>
 	)
 }

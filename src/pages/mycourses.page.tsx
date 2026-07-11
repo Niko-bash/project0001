@@ -1,4 +1,5 @@
 import type { SessionUser } from '@/features/auth/api/type'
+import { CoursesServices } from '@/features/courses/api/courses.services'
 import type { CoursesType } from '@/features/courses/api/type'
 import { MyCoursesList } from '@/features/my-courses'
 import { myCoursesServices } from '@/features/my-courses/api/myCourses.services'
@@ -51,6 +52,28 @@ export function MyCoursesPage() {
 		return () => controller.abort()
 	}, [data.id, mode])
 
+	const handleDeleted = async (userId: string, coursesId: string) => {
+		const response = await CoursesServices.deletedCoursesTeacher(
+			userId,
+			coursesId
+		)
+
+		if (response.success) {
+			console.log('CHECK')
+		}
+	}
+
+	const handleUnsubscribe = async (userId: string, coursesId: string) => {
+		const response = await myCoursesServices.removeCoursesStudent(
+			userId,
+			coursesId
+		)
+
+		if (response.success) {
+			console.log('TEST')
+		}
+	}
+
 	return (
 		<>
 			<Tabs
@@ -80,7 +103,9 @@ export function MyCoursesPage() {
 						mode={mode}
 						extra={{
 							userId: data.id,
-							handleClick: () => console.log('123')
+							handleClick: () => console.log('123'),
+							handleDeleted,
+							handleUnsubscribe
 						}}
 					/>
 				)}

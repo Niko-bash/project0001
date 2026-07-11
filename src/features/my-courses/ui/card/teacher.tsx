@@ -68,7 +68,6 @@ export const CardTeacher = ({
 					>
 						Go to
 					</Button>
-					<Button>Deleted</Button>
 					{actions}
 				</CardActions>
 			</Card>
