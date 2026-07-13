@@ -18,9 +18,9 @@ export const ROUTES = {
 		pattern: '/myCourses/:id',
 		path: (id: string | number) => `/myCourses/${id}`
 	},
-	AUTH: {
-		ROOT: '/auth',
-		LOGIN: '/auth/login',
-		REGISTER: '/auth/register'
-	}
+	CREATE_COURSES: {
+		pattern: '/myCourses/:id/create-courses',
+		path: (id: string | number) => `/myCourses/${id}/create-courses`
+	},
+	AUTH: { ROOT: '/auth', LOGIN: '/auth/login', REGISTER: '/auth/register' }
 } as const
