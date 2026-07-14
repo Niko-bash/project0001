@@ -1,5 +1,7 @@
+import { CoursesServices } from '@/features/courses/api/courses.services'
 import { type CreateCoursesType } from '@/features/courses/api/type'
 import { compressImage } from '@/shared/lib/compress-image'
+import { videoToBase64 } from '@/shared/lib/videoToBase64'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { Button, TextareaAutosize, TextField } from '@mui/material'
 import { useState } from 'react'
@@ -24,8 +26,15 @@ export function CreateCoursesPage() {
 		}
 	})
 
-	const onSubmit: SubmitHandler<CreateCoursesType> = (values) => {
-		console.log(values)
+	const onSubmit: SubmitHandler<CreateCoursesType> = async (values) => {
+		const response = await CoursesServices.createCoursesTeacher(
+			data.id,
+			values
+		)
+
+		if (response.success) {
+			console.log('suc')
+		}
 	}
 	const handleChangeImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		const image = e.target.files?.[0]
@@ -40,13 +49,9 @@ export function CreateCoursesPage() {
 		const video = e.target.files?.[0]
 		console.log(video)
 		if (video) {
-			if (videoUrl) {
-				URL.revokeObjectURL(videoUrl)
-			}
-
-			const url = URL.createObjectURL(video)
-			setVideoUrl(url)
-			form.setValue('video.url', url)
+			const video64 = await videoToBase64(video)
+			setVideoUrl(video64)
+			form.setValue('video.url', video64)
 		}
 	}
 

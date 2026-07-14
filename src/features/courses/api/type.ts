@@ -11,9 +11,11 @@ export type CoursesType = {
 	rating: string
 	creatorId: string
 	reviews: CommentCoursesType[]
+	video: string
 }
 
-type VideoType = {
+export type VideoType = {
+	id?: string
 	url: string
 	description: string
 }
