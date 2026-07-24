@@ -31,7 +31,7 @@ export const useInfinityScroll = (value: SearchType) => {
 			const controller = new AbortController()
 			abortControllerRef.current = controller
 			try {
-				const newData = await CoursesServices.getCourses(
+				const newData = await CoursesServices.getInfinityCourses(
 					value,
 					nextPage,
 					controller.signal
@@ -86,7 +86,11 @@ export const useInfinityScroll = (value: SearchType) => {
 
 	const handleSearchForm = useCallback(
 		async (params: SearchType, signal: AbortSignal) => {
-			const data = await CoursesServices.getCourses({ ...params }, 1, signal)
+			const data = await CoursesServices.getInfinityCourses(
+				{ ...params },
+				1,
+				signal
+			)
 			if (data) {
 				setPage(1)
 				setHasMore(true)

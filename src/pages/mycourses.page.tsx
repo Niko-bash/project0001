@@ -4,9 +4,9 @@ import type { CoursesType } from '@/features/courses/api/type'
 import { MyCoursesList } from '@/features/my-courses'
 import { myCoursesServices } from '@/features/my-courses/api/myCourses.services'
 import { CardFactory } from '@/features/my-courses/ui/card/factory'
-import { Tab, Tabs } from '@mui/material'
+import { Button, Tab, Tabs } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { useLoaderData } from 'react-router'
+import { Link, useLoaderData } from 'react-router'
 
 export function MyCoursesPage() {
 	const data = useLoaderData<SessionUser>()
@@ -34,9 +34,17 @@ export function MyCoursesPage() {
 					signal: controller.signal
 				})
 
-				if (response.success) {
-					setCourses(response.data)
-				}
+				if (!response.success) return
+
+				const promises = response.data.map((ids) =>
+					fetch(`/api/courses/${ids}`)
+				)
+
+				const result = await Promise.all(promises)
+					.then((responses) => responses.filter((item) => item.ok))
+					.then((responses) => Promise.all(responses.map((i) => i.json())))
+
+				setCourses(result)
 			} catch (error) {
 				if (error instanceof DOMException && error.name === 'AbortError') {
 					return
@@ -81,6 +89,7 @@ export function MyCoursesPage() {
 				onChange={handleChange}
 				aria-label="wrapped label tabs example"
 				variant="fullWidth"
+				className="pb-2"
 			>
 				<Tab
 					value="Student"
@@ -93,6 +102,14 @@ export function MyCoursesPage() {
 					disabled={isLoading}
 				/>
 			</Tabs>
+			<Button
+				className="w-full h-32"
+				variant="contained"
+				component={Link}
+				to="create-courses"
+			>
+				Create Courses
+			</Button>
 			<MyCoursesList
 				isLoading={isLoading}
 				items={courses}

@@ -1,10 +1,15 @@
 import type { SearchType } from '@/pages/courses.page'
+import { IndexDbServices } from '@/shared/api/indexDb.services'
 import type { ApiResponse } from '@/shared/api/type'
 import type { InfinityCoursesType } from '../ui/card'
-import type { CoursesType } from './type'
+import type { CoursesType, CreateCoursesType, VideoType } from './type'
+
+export const INDEX_DB_KEYS = {
+	VIDEO: 'VIDEO'
+}
 
 export const CoursesServices = {
-	async getCourses(
+	async getInfinityCourses(
 		query: SearchType,
 		page: number,
 		signal?: AbortSignal
@@ -51,6 +56,60 @@ export const CoursesServices = {
 			status: 200,
 			success: true,
 			data
+		}
+	},
+	async createCoursesTeacher(
+		userId: string,
+		courses: CreateCoursesType
+	): Promise<ApiResponse<CoursesType>> {
+		const bodyData: Omit<CoursesType, 'id'> = {
+			description: courses.description,
+			creatorId: userId,
+			img: courses.img,
+			name: courses.name,
+			video: INDEX_DB_KEYS.VIDEO,
+			rating: '0',
+			reviews: []
+		}
+
+		const video: VideoType = {
+			url: courses.video.url,
+			description: courses.video.description,
+			id: Date.now().toString()
+		}
+
+		await IndexDbServices.saveVideo(video)
+
+		const response = await fetch('/api/courses', {
+			method: 'POST',
+			body: JSON.stringify(bodyData)
+		})
+
+		if (!response.ok) {
+			throw new Error('Courses is not created')
+		}
+
+		const data = await response.json()
+
+		return { status: 200, success: true, data }
+	},
+	async getOneCourses(id: string): Promise<ApiResponse<CoursesType>> {
+		const response = await fetch(`/api/courses/${id}`, {
+			method: 'GET'
+		})
+
+		if (!response.ok) {
+			throw new Error('this courses is does not exist')
+		}
+
+		const data = await response.json()
+
+		console.log(data)
+
+		return {
+			data,
+			success: true,
+			status: 200
 		}
 	}
 }

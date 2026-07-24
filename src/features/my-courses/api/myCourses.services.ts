@@ -8,7 +8,7 @@ export const myCoursesServices = {
 	async getCoursesByUser(
 		userId: string,
 		options?: { mode?: MapCardsKey; signal?: AbortSignal }
-	): Promise<ApiResponse<CoursesType[]>> {
+	): Promise<ApiResponse<string[]>> {
 		const mode = options?.mode ?? 'Student'
 
 		const pathMode: Record<MapCardsKey, string> = {
@@ -26,14 +26,16 @@ export const myCoursesServices = {
 		}
 
 		const result: UserCourses[] | CoursesType[] = await response.json()
+		console.log(result)
 
 		let data
 
 		if (isUserCoursesArray(result)) {
 			data = result[0].courses
 		} else {
-			data = result
+			data = result.map((item) => item.id)
 		}
+		console.log(data)
 
 		return {
 			status: 200,
@@ -67,13 +69,13 @@ export const myCoursesServices = {
 		const courses: CoursesType = await coursesFetch.json()
 		// Check courses in user-courses
 		const thisCourses = thisUser[0].courses ?? []
-		const check = thisCourses.some((item) => item.id === courses.id)
+		const check = thisCourses.some((item) => item === courses.id)
 
 		if (check) {
 			throw new Error('This courses already added')
 		}
 
-		const updateCourses = [...thisCourses, courses]
+		const updateCourses = [...thisCourses, courses.id]
 
 		const id = thisUser[0].id
 		// Patch user
@@ -111,10 +113,12 @@ export const myCoursesServices = {
 		const oldData: (UserCourses & { id: string })[] = await response.json()
 
 		const user = oldData[0]
+		console.log(user, coursesId)
 
 		const updateData = user.courses
-			? user.courses.filter((item) => item.id !== coursesId)
+			? user.courses.filter((item) => item !== coursesId)
 			: []
+		console.log(updateData)
 
 		const newData: UserCourses & { id: string } = {
 			userId,

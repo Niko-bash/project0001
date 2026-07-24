@@ -20,7 +20,7 @@ export const useUserData = () => {
 				})
 
 				if (response.success) {
-					setAdding(new Set(response.data.map((item) => item.id) || []))
+					setAdding(new Set(response.data.map((item) => item) || []))
 				}
 			} catch (error) {
 				if (error instanceof DOMException && error.name === 'AbortError') {

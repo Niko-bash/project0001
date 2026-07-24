@@ -11,4 +11,16 @@ export type CoursesType = {
 	rating: string
 	creatorId: string
 	reviews: CommentCoursesType[]
+	video: string
 }
+
+export type VideoType = {
+	id?: string
+	url: string
+	description: string
+}
+
+export type CreateCoursesType = Pick<
+	CoursesType,
+	'name' | 'description' | 'img'
+> & { video: VideoType }

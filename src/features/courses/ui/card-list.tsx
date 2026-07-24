@@ -16,7 +16,7 @@ export const CoursesList = ({
 	return (
 		<div className="relative">
 			<ul className="flex flex-wrap gap-4 justify-between">
-				{courses.data ? (
+				{courses.data.length ? (
 					courses.data.map((course) => render(course))
 				) : (
 					<div>List empty, sorry =(</div>
