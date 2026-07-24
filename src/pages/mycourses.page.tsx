@@ -34,9 +34,17 @@ export function MyCoursesPage() {
 					signal: controller.signal
 				})
 
-				if (response.success) {
-					setCourses(response.data)
-				}
+				if (!response.success) return
+
+				const promises = response.data.map((ids) =>
+					fetch(`/api/courses/${ids}`)
+				)
+
+				const result = await Promise.all(promises)
+					.then((responses) => responses.filter((item) => item.ok))
+					.then((responses) => Promise.all(responses.map((i) => i.json())))
+
+				setCourses(result)
 			} catch (error) {
 				if (error instanceof DOMException && error.name === 'AbortError') {
 					return

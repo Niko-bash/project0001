@@ -9,7 +9,7 @@ export const INDEX_DB_KEYS = {
 }
 
 export const CoursesServices = {
-	async getCourses(
+	async getInfinityCourses(
 		query: SearchType,
 		page: number,
 		signal?: AbortSignal
@@ -92,5 +92,24 @@ export const CoursesServices = {
 		const data = await response.json()
 
 		return { status: 200, success: true, data }
+	},
+	async getOneCourses(id: string): Promise<ApiResponse<CoursesType>> {
+		const response = await fetch(`/api/courses/${id}`, {
+			method: 'GET'
+		})
+
+		if (!response.ok) {
+			throw new Error('this courses is does not exist')
+		}
+
+		const data = await response.json()
+
+		console.log(data)
+
+		return {
+			data,
+			success: true,
+			status: 200
+		}
 	}
 }
