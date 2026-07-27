@@ -14,6 +14,15 @@ export function MyCoursesPage() {
 	const [courses, setCourses] = useState<CoursesType[]>([])
 	const [isLoading, setIsLoading] = useState(false)
 	const [mode, setMode] = useState<'Student' | 'Teacher'>('Student')
+	const [open, setOpen] = useState(false)
+
+	const handleClickOpen = () => {
+		setOpen(true)
+	}
+
+	const handleClose = () => {
+		setOpen(false)
+	}
 
 	const handleChange = (
 		event: React.SyntheticEvent,
@@ -120,9 +129,12 @@ export function MyCoursesPage() {
 						mode={mode}
 						extra={{
 							userId: data.id,
+							open,
 							handleClick: () => console.log('123'),
 							handleDeleted,
-							handleUnsubscribe
+							handleUnsubscribe,
+							handleClickOpen,
+							handleClose
 						}}
 					/>
 				)}

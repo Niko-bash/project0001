@@ -26,7 +26,6 @@ export const myCoursesServices = {
 		}
 
 		const result: UserCourses[] | CoursesType[] = await response.json()
-		console.log(result)
 
 		let data
 
@@ -35,7 +34,6 @@ export const myCoursesServices = {
 		} else {
 			data = result.map((item) => item.id)
 		}
-		console.log(data)
 
 		return {
 			status: 200,
@@ -113,12 +111,10 @@ export const myCoursesServices = {
 		const oldData: (UserCourses & { id: string })[] = await response.json()
 
 		const user = oldData[0]
-		console.log(user, coursesId)
 
 		const updateData = user.courses
 			? user.courses.filter((item) => item !== coursesId)
 			: []
-		console.log(updateData)
 
 		const newData: UserCourses & { id: string } = {
 			userId,
