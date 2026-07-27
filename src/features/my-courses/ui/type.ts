@@ -26,15 +26,11 @@ export type MapExtra = {
 		userId: string
 		open: boolean
 		handleClick: () => void
-		handleUnsubscribe: (userId: string, coursesId: string) => void
-		handleClickOpen: () => void
-		handleClose: () => void
+		handleClickOpen: (id: string) => void
 	}
 	Teacher: {
 		userId: string
 		open: boolean
-		handleDeleted: (userId: string, coursesId: string) => void
-		handleClickOpen: () => void
-		handleClose: () => void
+		handleClickOpen: (id: string) => void
 	}
 }
