@@ -5,3 +5,4 @@
 1. [-]: fix deleted links courses upon deleted courses
 2. [+]: fix change state pages without reload page(my-courses)
    2.1 [+]: fix dialog bag
+3. [-]: rework modalConfirm my-courses page
