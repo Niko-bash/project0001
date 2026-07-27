@@ -21,16 +21,14 @@ const MapCards: MapCards = {
 const MapActions: MapActions = {
 	Student: (item, extra) => (
 		<>
-			<Button onClick={() => extra.handleUnsubscribe(extra.userId, item.id)}>
+			<Button onClick={() => extra.handleClickOpen(item.id)}>
 				Unsubscribe
 			</Button>
 		</>
 	),
 	Teacher: (item, extra) => (
 		<>
-			<Button onClick={() => extra.handleDeleted(extra.userId, item.id)}>
-				Delete
-			</Button>
+			<Button onClick={() => extra.handleClickOpen(item.id)}>Delete</Button>
 		</>
 	)
 }

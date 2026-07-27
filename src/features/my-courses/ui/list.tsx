@@ -5,7 +5,7 @@ export const MyCoursesList = ({
 	render,
 	isLoading
 }: {
-	items: CoursesType[]
+	items: CoursesType[] | undefined
 	render: (item: CoursesType) => React.ReactNode
 	isLoading: boolean
 }) => {
@@ -14,7 +14,7 @@ export const MyCoursesList = ({
 	}
 	return (
 		<ul className="flex flex-col gap-5 mt-10">
-			{items.length ? (
+			{items && items.length ? (
 				items.map((item) => render(item))
 			) : (
 				<div>Sorry, you not adding courses</div>

@@ -24,11 +24,13 @@ export type MapActions = { [key in MapCardsKey]?: RenderActionsMyCard<key> }
 export type MapExtra = {
 	Student: {
 		userId: string
+		open: boolean
 		handleClick: () => void
-		handleUnsubscribe: (userId: string, coursesId: string) => void
+		handleClickOpen: (id: string) => void
 	}
 	Teacher: {
 		userId: string
-		handleDeleted: (userId: string, coursesId: string) => void
+		open: boolean
+		handleClickOpen: (id: string) => void
 	}
 }
