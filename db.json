@@ -23,7 +23,28 @@
       "postId": "1"
     }
   ],
-  "courses": [],
+  "courses": [
+    {
+      "description": "qwwwq",
+      "creatorId": "wvanWhDpxoY",
+      "img": {},
+      "name": "ddqdq",
+      "video": "VIDEO",
+      "rating": "0",
+      "reviews": [],
+      "id": "hDa2x44W60Q"
+    },
+    {
+      "description": "",
+      "creatorId": "wvanWhDpxoY",
+      "img": {},
+      "name": "qweqweqw",
+      "video": "VIDEO",
+      "rating": "0",
+      "reviews": [],
+      "id": "qh8vZ3N0NDo"
+    }
+  ],
   "user": [
     {
       "email": "Nikoboss@mail.ru",
@@ -37,7 +58,10 @@
   "userCourses": [
     {
       "userId": "wvanWhDpxoY",
-      "courses": [],
+      "courses": [
+        "hDa2x44W60Q",
+        "qh8vZ3N0NDo"
+      ],
       "id": "e1PMe0FOuEY"
     }
   ],

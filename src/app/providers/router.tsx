@@ -46,6 +46,16 @@ const routes: RouteObject[] = [
 							Component: CreateCoursesPage
 						})
 					)
+			},
+			{
+				path: ROUTES.MAIN_COURSES.pattern,
+				loader: protectedLoader,
+				lazy: () =>
+					import('@/pages/main-page-courses.page').then(
+						({ MainPageCoursesPage }) => ({
+							Component: MainPageCoursesPage
+						})
+					)
 			}
 		]
 	},
