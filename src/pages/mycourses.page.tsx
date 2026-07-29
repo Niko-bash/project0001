@@ -4,6 +4,7 @@ import type { CoursesType } from '@/features/courses/api/type'
 import { ModalConfirm, MyCoursesList } from '@/features/my-courses'
 import { myCoursesServices } from '@/features/my-courses/api/myCourses.services'
 import { CardFactory } from '@/features/my-courses/ui/card/factory'
+import { ROUTES } from '@/shared/lib/router-config'
 import { Button, Tab, Tabs } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { Link, useLoaderData } from 'react-router'
@@ -122,7 +123,7 @@ export function MyCoursesPage() {
 				className="w-full h-32"
 				variant="contained"
 				component={Link}
-				to="create-courses"
+				to={ROUTES.CREATE_COURSES.pattern}
 			>
 				Create Courses
 			</Button>

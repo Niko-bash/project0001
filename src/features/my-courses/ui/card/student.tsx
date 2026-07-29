@@ -14,9 +14,11 @@ import { Link } from 'react-router'
 
 export const CardStudent = ({
 	item,
+	userId,
 	actions
 }: {
 	item: CoursesType
+	userId: string
 	actions: React.ReactNode
 }) => {
 	return (
@@ -64,7 +66,7 @@ export const CardStudent = ({
 				<CardActions>
 					<Button
 						component={Link}
-						to={ROUTES.MAIN_COURSES.path(item.id)}
+						to={ROUTES.MAIN_COURSES.path(userId, item.id)}
 						variant="outlined"
 					>
 						Learn

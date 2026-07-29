@@ -15,8 +15,8 @@ export const ROUTES = {
 	},
 	MAIN_COURSES: {
 		pattern: '/myCourses/:id/courses/:coursesId',
-		path: (coursesId: string | number) =>
-			`/myCourses/:id/courses/${coursesId}`
+		path: (userId: string | number, coursesId: string | number) =>
+			`/myCourses/${userId}/courses/${coursesId}`
 	},
 	AUTH: { ROOT: '/auth', LOGIN: '/auth/login', REGISTER: '/auth/register' }
 } as const

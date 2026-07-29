@@ -12,3 +12,5 @@
 
 5. [+]: rework modalConfirm my-courses page
 6. [+]: feat create main-page-courses
+7. [*]: design start main-page-courses
+   7.1 [+]: create courses-loader
