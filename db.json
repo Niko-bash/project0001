@@ -23,18 +23,7 @@
       "postId": "1"
     }
   ],
-  "courses": [
-    {
-      "description": "qweqw",
-      "creatorId": "wvanWhDpxoY",
-      "img": {},
-      "name": "test1",
-      "video": "VIDEO",
-      "rating": "0",
-      "reviews": [],
-      "id": "FPcBrIcodMo"
-    }
-  ],
+  "courses": [],
   "user": [
     {
       "email": "Nikoboss@mail.ru",
