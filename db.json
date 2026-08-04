@@ -25,14 +25,24 @@
   ],
   "courses": [
     {
-      "description": "qweqw",
+      "description": "qwwwq",
       "creatorId": "wvanWhDpxoY",
       "img": {},
-      "name": "test1",
+      "name": "ddqdq",
       "video": "VIDEO",
       "rating": "0",
       "reviews": [],
-      "id": "FPcBrIcodMo"
+      "id": "hDa2x44W60Q"
+    },
+    {
+      "description": "",
+      "creatorId": "wvanWhDpxoY",
+      "img": {},
+      "name": "qweqweqw",
+      "video": "VIDEO",
+      "rating": "0",
+      "reviews": [],
+      "id": "qh8vZ3N0NDo"
     }
   ],
   "user": [
@@ -48,7 +58,10 @@
   "userCourses": [
     {
       "userId": "wvanWhDpxoY",
-      "courses": [],
+      "courses": [
+        "hDa2x44W60Q",
+        "qh8vZ3N0NDo"
+      ],
       "id": "e1PMe0FOuEY"
     }
   ],

@@ -4,15 +4,17 @@ import { CardStudent } from './student'
 import { CardTeacher } from './teacher'
 
 const MapCards: MapCards = {
-	Student: (item, actions) => (
+	Student: (item, userId, actions) => (
 		<CardStudent
 			item={item}
+			userId={userId}
 			actions={actions}
 		/>
 	),
-	Teacher: (item, actions) => (
+	Teacher: (item, userId, actions) => (
 		<CardTeacher
 			item={item}
+			userId={userId}
 			actions={actions}
 		/>
 	)
@@ -51,5 +53,5 @@ export const CardFactory = <T extends keyof MapCardsType>({
 		return null
 	}
 
-	return <>{render(item, action)}</>
+	return <>{render(item, extra.userId, action)}</>
 }

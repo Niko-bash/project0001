@@ -4,6 +4,7 @@ import { ROUTES } from '@/shared/lib/router-config'
 import { createBrowserRouter, type RouteObject } from 'react-router'
 import { App } from '../App'
 import { AuthLayout } from '../layout'
+import { coursesLoader } from './loaders/courses'
 import { protectedLoader } from './loaders/protected'
 import { rootLoader } from './loaders/root'
 
@@ -44,6 +45,16 @@ const routes: RouteObject[] = [
 					import('@/pages/create-courses.page').then(
 						({ CreateCoursesPage }) => ({
 							Component: CreateCoursesPage
+						})
+					)
+			},
+			{
+				path: ROUTES.MAIN_COURSES.pattern,
+				loader: coursesLoader,
+				lazy: () =>
+					import('@/pages/main-page-courses.page').then(
+						({ MainPageCoursesPage }) => ({
+							Component: MainPageCoursesPage
 						})
 					)
 			}

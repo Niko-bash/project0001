@@ -104,8 +104,6 @@ export const CoursesServices = {
 
 		const data = await response.json()
 
-		console.log(data)
-
 		return {
 			data,
 			success: true,

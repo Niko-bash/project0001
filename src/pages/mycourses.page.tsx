@@ -1,19 +1,11 @@
 import type { SessionUser } from '@/features/auth/api/type'
 import { CoursesServices } from '@/features/courses/api/courses.services'
 import type { CoursesType } from '@/features/courses/api/type'
-import { MyCoursesList } from '@/features/my-courses'
+import { ModalConfirm, MyCoursesList } from '@/features/my-courses'
 import { myCoursesServices } from '@/features/my-courses/api/myCourses.services'
 import { CardFactory } from '@/features/my-courses/ui/card/factory'
-import {
-	Button,
-	Dialog,
-	DialogActions,
-	DialogContent,
-	DialogContentText,
-	DialogTitle,
-	Tab,
-	Tabs
-} from '@mui/material'
+import { ROUTES } from '@/shared/lib/router-config'
+import { Button, Tab, Tabs } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { Link, useLoaderData } from 'react-router'
 
@@ -90,32 +82,23 @@ export function MyCoursesPage() {
 		return () => controller.abort()
 	}, [data.id, mode])
 
-	const handleDeleted = async () => {
+	const handleDelete = async () => {
 		if (!selectedId) return
-		const response = await CoursesServices.deletedCoursesTeacher(
-			data.id,
-			selectedId?.id
-		)
+
+		const services = {
+			Student: myCoursesServices.removeCoursesStudent,
+			Teacher: CoursesServices.deletedCoursesTeacher
+		}
+
+		const service = services[mode]
+
+		const response = await service(data.id, selectedId.id)
 
 		if (response.success) {
 			handleClose()
 			refetch()
 		}
 	}
-
-	const handleUnsubscribe = async () => {
-		if (!selectedId) return
-		const response = await myCoursesServices.removeCoursesStudent(
-			data.id,
-			selectedId?.id
-		)
-
-		if (response.success) {
-			handleClose()
-			refetch()
-		}
-	}
-
 	return (
 		<>
 			<Tabs
@@ -140,7 +123,7 @@ export function MyCoursesPage() {
 				className="w-full h-32"
 				variant="contained"
 				component={Link}
-				to="create-courses"
+				to={ROUTES.CREATE_COURSES.pattern}
 			>
 				Create Courses
 			</Button>
@@ -165,59 +148,8 @@ export function MyCoursesPage() {
 				mode={mode}
 				onClose={handleClose}
 				open={open}
-				onConfirmDelete={handleDeleted}
-				onConfirmUnsub={handleUnsubscribe}
+				onConfirmDelete={handleDelete}
 			/>
 		</>
-	)
-}
-
-const ModalConfirm = ({
-	mode,
-	open,
-	onClose,
-	onConfirmDelete,
-	onConfirmUnsub
-}: {
-	mode: 'Teacher' | 'Student'
-	open: boolean
-	onClose: () => void
-	onConfirmDelete: () => void
-	onConfirmUnsub: () => void
-}) => {
-	return (
-		<Dialog
-			open={open}
-			onClose={onClose}
-			aria-labelledby="alert-dialog-title"
-			aria-describedby="alert-dialog-description"
-			role="alertdialog"
-		>
-			<DialogTitle id="alert-dialog-title">
-				{mode === 'Teacher'
-					? 'You really want to delete this courses ??? All your student lost this courses and them money'
-					: 'You really unsubscribe this courses ???'}
-			</DialogTitle>
-			<DialogContent>
-				<DialogContentText id="alert-dialog-description">
-					{mode === 'Teacher'
-						? 'Warning !!! If you delete this courses, all your students lost them money'
-						: 'Warning !!! If you unsubscribe this courses your money will be lost'}
-				</DialogContentText>
-			</DialogContent>
-			<DialogActions>
-				<Button
-					onClick={onClose}
-					autoFocus
-				>
-					Disagree
-				</Button>
-				<Button
-					onClick={mode === 'Teacher' ? onConfirmDelete : onConfirmUnsub}
-				>
-					Agree
-				</Button>
-			</DialogActions>
-		</Dialog>
 	)
 }

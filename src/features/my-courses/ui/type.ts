@@ -11,6 +11,7 @@ export type MapCardType = MapCardsType[keyof MapCardsType]
 
 type RenderTypeMyCard<T extends MapCardsKey> = (
 	item: MapCardsType[T],
+	userId: string,
 	actions?: React.ReactNode
 ) => React.ReactNode
 

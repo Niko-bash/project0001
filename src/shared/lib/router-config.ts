@@ -1,12 +1,3 @@
-// export const ROUTER = {
-// 	HOME: '/',
-// 	PROFILE: '/profile/:id',
-// 	MY_COURSES: '/myCourses/:id',
-// 	AUTH: 'auth',
-// 	LOGIN: 'login',
-// 	REGISTER: 'register'
-// } as const
-
 // shared/constants/routes.ts
 export const ROUTES = {
 	HOME: '/',
@@ -21,6 +12,11 @@ export const ROUTES = {
 	CREATE_COURSES: {
 		pattern: '/myCourses/:id/create-courses',
 		path: (id: string | number) => `/myCourses/${id}/create-courses`
+	},
+	MAIN_COURSES: {
+		pattern: '/myCourses/:id/courses/:coursesId',
+		path: (userId: string | number, coursesId: string | number) =>
+			`/myCourses/${userId}/courses/${coursesId}`
 	},
 	AUTH: { ROOT: '/auth', LOGIN: '/auth/login', REGISTER: '/auth/register' }
 } as const
