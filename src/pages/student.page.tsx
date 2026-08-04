@@ -38,7 +38,7 @@ const TABS_CONFIG: TabType[] = [
 	}
 ]
 
-export function MainPageCoursesPage() {
+export function StudentPage() {
 	const data = useLoaderData()
 
 	const [mode, setMode] = useState<StudentCoursesMode>('Calendar')

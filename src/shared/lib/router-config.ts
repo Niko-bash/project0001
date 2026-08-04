@@ -16,8 +16,8 @@ export const ROUTES = {
 	},
 	STUDENT_COURSES: {
 		pattern: '/myCourses/student/:id/courses/:coursesId',
-		path: (userId: string | number, coursesId: string | number) =>
-			`/myCourses/student/${userId}/courses/${coursesId}`
+		path: (studentId: string | number, coursesId: string | number) =>
+			`/myCourses/student/${studentId}/courses/${coursesId}`
 	},
 	TEACHER_COURSES: {
 		pattern: '/myCourses/teacher/:id/courses/:coursesId',

@@ -53,11 +53,9 @@ const routes: RouteObject[] = [
 				path: ROUTES.STUDENT_COURSES.pattern,
 				loader: coursesLoader,
 				lazy: () =>
-					import('@/pages/main-page-courses.page').then(
-						({ MainPageCoursesPage }) => ({
-							Component: MainPageCoursesPage
-						})
-					)
+					import('@/pages/student.page').then(({ StudentPage }) => ({
+						Component: StudentPage
+					}))
 			},
 			{
 				path: ROUTES.TEACHER_COURSES.pattern,
