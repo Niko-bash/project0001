@@ -1,4 +1,5 @@
 import type { CoursesType } from '@/features/courses/api/type'
+import { ROUTES } from '@/shared/lib/router-config'
 import {
 	Box,
 	Button,
@@ -65,7 +66,7 @@ export const CardTeacher = ({
 				<CardActions>
 					<Button
 						component={Link}
-						to={`${userId}`}
+						to={ROUTES.TEACHER_COURSES.path(userId, item.id)}
 						variant="outlined"
 					>
 						Go to

@@ -1,4 +1,5 @@
 // shared/constants/routes.ts
+//!TODO: rework use flow role
 export const ROUTES = {
 	HOME: '/',
 	PROFILE: {
@@ -13,10 +14,15 @@ export const ROUTES = {
 		pattern: '/myCourses/:id/create-courses',
 		path: (id: string | number) => `/myCourses/${id}/create-courses`
 	},
-	MAIN_COURSES: {
-		pattern: '/myCourses/:id/courses/:coursesId',
+	STUDENT_COURSES: {
+		pattern: '/myCourses/student/:id/courses/:coursesId',
 		path: (userId: string | number, coursesId: string | number) =>
-			`/myCourses/${userId}/courses/${coursesId}`
+			`/myCourses/student/${userId}/courses/${coursesId}`
+	},
+	TEACHER_COURSES: {
+		pattern: '/myCourses/teacher/:id/courses/:coursesId',
+		path: (teacherId: string | number, coursesId: string | number) =>
+			`/myCourses/teacher/${teacherId}/courses/${coursesId}`
 	},
 	AUTH: { ROOT: '/auth', LOGIN: '/auth/login', REGISTER: '/auth/register' }
 } as const
