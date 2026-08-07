@@ -18,4 +18,8 @@
    04.08.2026
 
 8. [+]: create base student-calendar
-9. [*]: create base teacher-page
+9. [+]: create base teacher-page
+10.   [+]: create table-user-student in teacher-page
+      11.1 [+]: create adaptive table
+      11.2 [-]: sort table
+      11.3 [-]: virtualize(infinity) table
