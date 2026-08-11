@@ -7,6 +7,7 @@ import { AuthLayout } from '../layout'
 import { coursesLoader } from './loaders/courses'
 import { protectedLoader } from './loaders/protected'
 import { rootLoader } from './loaders/root'
+import { teacherLoader } from './loaders/teacher'
 
 const routes: RouteObject[] = [
 	{
@@ -49,14 +50,20 @@ const routes: RouteObject[] = [
 					)
 			},
 			{
-				path: ROUTES.MAIN_COURSES.pattern,
+				path: ROUTES.STUDENT_COURSES.pattern,
 				loader: coursesLoader,
 				lazy: () =>
-					import('@/pages/main-page-courses.page').then(
-						({ MainPageCoursesPage }) => ({
-							Component: MainPageCoursesPage
-						})
-					)
+					import('@/pages/student.page').then(({ StudentPage }) => ({
+						Component: StudentPage
+					}))
+			},
+			{
+				path: ROUTES.TEACHER_COURSES.pattern,
+				loader: teacherLoader,
+				lazy: () =>
+					import('@/pages/teacher.page').then(({ TeacherPage }) => ({
+						Component: TeacherPage
+					}))
 			}
 		]
 	},

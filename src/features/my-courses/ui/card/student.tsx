@@ -66,7 +66,7 @@ export const CardStudent = ({
 				<CardActions>
 					<Button
 						component={Link}
-						to={ROUTES.MAIN_COURSES.path(userId, item.id)}
+						to={ROUTES.STUDENT_COURSES.path(userId, item.id)}
 						variant="outlined"
 					>
 						Learn

@@ -1,4 +1,4 @@
-import { Calendar } from '@/features/main-courses'
+import { Calendar } from '@/features/students'
 import { Tab, Tabs } from '@mui/material'
 import { useState, type ComponentType } from 'react'
 import { useLoaderData } from 'react-router'
@@ -38,7 +38,7 @@ const TABS_CONFIG: TabType[] = [
 	}
 ]
 
-export function MainPageCoursesPage() {
+export function StudentPage() {
 	const data = useLoaderData()
 
 	const [mode, setMode] = useState<StudentCoursesMode>('Calendar')
