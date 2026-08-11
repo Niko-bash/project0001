@@ -109,6 +109,13 @@
       "role": "user",
       "name": "dfgsdfgd1",
       "id": "tn4PUhzpj58"
+    },
+    {
+      "email": "zxczxczx",
+      "password": "123",
+      "role": "user",
+      "name": "zxczxczx",
+      "id": "Ml1elotWx8A"
     }
   ],
   "userCourses": [
@@ -174,6 +181,13 @@
         "hDa2x44W60Q"
       ],
       "id": "32icpxeItTg"
+    },
+    {
+      "userId": "Ml1elotWx8A",
+      "courses": [
+        "hDa2x44W60Q"
+      ],
+      "id": "fRHEABsc1ZU"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

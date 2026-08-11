@@ -22,4 +22,4 @@
 10.   [+]: create table-user-student in teacher-page
       11.1 [+]: create adaptive table
       11.2 [-]: sort table
-      11.3 [-]: virtualize(infinity) table
+      11.3 [*]: virtualize(infinity) table

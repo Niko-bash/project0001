@@ -1,6 +1,11 @@
-import type { User, UserTableData } from '@/features/auth/api/type'
+import type { User } from '@/features/auth/api/type'
 import type { CoursesType } from '@/features/courses/api/type'
 import { TeacherServices } from '@/features/teacher/api/api'
+import type {
+	InfinityStudentsTableDataAdapter,
+	UserTableData
+} from '@/features/teacher/api/type'
+import { Button } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useLoaderData } from 'react-router'
 
@@ -11,20 +16,32 @@ type TeacherLoaderData = {
 
 export function TeacherPage() {
 	const { data, user } = useLoaderData<TeacherLoaderData>()
-	const [users, setUsers] = useState<UserTableData[]>([])
+	const [users, setUsers] = useState<
+		InfinityStudentsTableDataAdapter<UserTableData>
+	>({
+		data: [],
+		first: 0,
+		prev: null,
+		next: null,
+		last: 0,
+		pages: 0,
+		items: 0
+	})
 	const [isLoading, setIsLoading] = useState(false)
+	const [page, setPage] = useState(1)
 
 	useEffect(() => {
 		const fetchUsers = async () => {
 			try {
 				setIsLoading(true)
-				const users = await TeacherServices.getAllStudents(data.id)
+				const usersPaginate =
+					await TeacherServices.getAllStudentsPagination(data.id, page)
 
-				if (!users.success) {
+				if (!usersPaginate.success) {
 					throw new Error('bad request')
 				}
-
-				setUsers(users.data)
+				console.log(usersPaginate)
+				setUsers(usersPaginate.data)
 			} catch (e) {
 				console.error(e)
 			} finally {
@@ -33,16 +50,37 @@ export function TeacherPage() {
 		}
 
 		fetchUsers()
-	}, [data.id])
+	}, [data.id, page])
 
-	if (isLoading) {
-		return <div>Loading...</div>
+	const handleNextPage = () => {
+		setPage((prev) => prev + 1)
 	}
 
-	return <TableStudent data={users} />
+	const handlePrevPage = () => {
+		setPage((prev) => prev - 1)
+	}
+
+	return (
+		<TableStudent
+			data={users}
+			onPrev={handlePrevPage}
+			onNext={handleNextPage}
+			onLoading={isLoading}
+		/>
+	)
 }
 
-const TableStudent = ({ data }: { data: UserTableData[] }) => {
+const TableStudent = ({
+	data,
+	onPrev,
+	onNext,
+	onLoading
+}: {
+	data: InfinityStudentsTableDataAdapter<UserTableData>
+	onPrev: () => void
+	onNext: () => void
+	onLoading: boolean
+}) => {
 	return (
 		<TableCustom
 			data={data}
@@ -57,6 +95,16 @@ const TableStudent = ({ data }: { data: UserTableData[] }) => {
 					<td className="p-2">{item.email}</td>
 				</tr>
 			)}
+			pagination={
+				<Pagination
+					onNext={onNext}
+					onPrev={onPrev}
+					onLoading={onLoading}
+					prev={data.prev}
+					next={data.next}
+					pages={data.pages}
+				/>
+			}
 		/>
 	)
 }
@@ -64,11 +112,13 @@ const TableStudent = ({ data }: { data: UserTableData[] }) => {
 const TableCustom = <T,>({
 	data,
 	columns,
-	renderRows
+	renderRows,
+	pagination
 }: {
-	data: T[]
+	data: InfinityStudentsTableDataAdapter<T>
 	columns: string[]
 	renderRows: (item: T) => React.ReactNode
+	pagination: React.ReactNode
 }) => {
 	return (
 		<div className="mt-5 pt-5 pb-5 rounded-md shadow-[0_0px_0_#000,0_1px_3px_rgba(0,0,0,0.3)] overflow-hidden">
@@ -81,6 +131,7 @@ const TableCustom = <T,>({
 							<th
 								key={column}
 								className="font-medium p-2"
+								style={{ width: `${100 / columns.length}%` }}
 							>
 								{column}
 								<button
@@ -93,9 +144,45 @@ const TableCustom = <T,>({
 						))}
 					</tr>
 				</thead>
-				<tbody>{data.map(renderRows)}</tbody>
+				<tbody>{data.data.map(renderRows)}</tbody>
 			</table>
-			<div>footer</div>
+			{pagination}
+		</div>
+	)
+}
+
+const Pagination = ({
+	onPrev,
+	onNext,
+	onLoading,
+	prev,
+	next,
+	pages
+}: {
+	onPrev: () => void
+	onNext: () => void
+	onLoading: boolean
+	prev: number | null
+	next: number | null
+	pages: number
+}) => {
+	return (
+		<div className="w-full flex justify-end gap-2 p-2 items-center">
+			<Button
+				variant="contained"
+				onClick={onPrev}
+				disabled={!prev || onLoading}
+			>
+				{'<<'}
+			</Button>
+			<Button>{pages}</Button>
+			<Button
+				variant="contained"
+				onClick={onNext}
+				disabled={!next || onLoading}
+			>
+				{'>>'}
+			</Button>
 		</div>
 	)
 }
