@@ -64,6 +64,16 @@ const routes: RouteObject[] = [
 					import('@/pages/teacher.page').then(({ TeacherPage }) => ({
 						Component: TeacherPage
 					}))
+			},
+			{
+				path: ROUTES.TEACHER_STUDENT.pattern,
+				loader: teacherLoader,
+				lazy: () =>
+					import('@/pages/teacher-student.page').then(
+						({ TeacherStudentPage }) => ({
+							Component: TeacherStudentPage
+						})
+					)
 			}
 		]
 	},
