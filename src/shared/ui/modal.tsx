@@ -13,9 +13,9 @@ export const Modal = ({
 	open,
 	onClose
 }: {
-	title: React.ReactNode
-	content: React.ReactNode
-	actions: React.ReactNode
+	title?: React.ReactNode
+	content?: React.ReactNode
+	actions?: React.ReactNode
 	open: boolean
 	onClose: () => void
 }) => {
