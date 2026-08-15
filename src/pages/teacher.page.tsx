@@ -1,19 +1,13 @@
-import type { User } from '@/features/auth/api/type'
-import type { CoursesType } from '@/features/courses/api/type'
 import { TeacherServices } from '@/features/teacher/api/api'
 import type {
 	InfinityStudentsTableDataAdapter,
+	TeacherLoaderData,
 	UserTableData
 } from '@/features/teacher/api/type'
 import { ROUTES } from '@/shared/lib/router-config'
 import { Button } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useLoaderData, useNavigate } from 'react-router'
-
-type TeacherLoaderData = {
-	user: User
-	data: CoursesType
-}
 
 export function TeacherPage() {
 	const { data, user } = useLoaderData<TeacherLoaderData>()
