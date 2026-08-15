@@ -2,7 +2,6 @@ import {
 	Dialog,
 	DialogActions,
 	DialogContent,
-	DialogContentText,
 	DialogTitle
 } from '@mui/material'
 
@@ -26,13 +25,11 @@ export const Modal = ({
 			aria-labelledby="modal-dialog-title"
 			aria-describedby="modal-dialog-description"
 			role="dialog"
+			maxWidth="sm"
+			fullWidth
 		>
 			<DialogTitle id="modal-dialog-title">{title}</DialogTitle>
-			<DialogContent>
-				<DialogContentText id="modal-dialog-description">
-					{content}
-				</DialogContentText>
-			</DialogContent>
+			<DialogContent>{content}</DialogContent>
 			<DialogActions>{actions}</DialogActions>
 		</Dialog>
 	)

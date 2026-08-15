@@ -1,13 +1,13 @@
 import type { SessionUser } from '@/features/auth/api/type'
 import { CoursesServices } from '@/features/courses/api/courses.services'
 import type { CoursesType } from '@/features/courses/api/type'
-import { MyCoursesList } from '@/features/my-courses'
-import { myCoursesServices } from '@/features/my-courses/api/myCourses.services'
-import { CardFactory } from '@/features/my-courses/ui/card/factory'
 import {
+	MyCoursesList,
 	MyCoursesModalTitle,
 	MyCoursesModelContent
-} from '@/features/my-courses/ui/modal-content'
+} from '@/features/my-courses'
+import { myCoursesServices } from '@/features/my-courses/api/myCourses.services'
+import { CardFactory } from '@/features/my-courses/ui/card/factory'
 import { ROUTES } from '@/shared/lib/router-config'
 import { Modal } from '@/shared/ui/modal'
 import { Button, Tab, Tabs } from '@mui/material'
