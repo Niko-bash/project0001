@@ -1,18 +1,13 @@
-import type { User } from '@/features/auth/api/type'
-import type { CoursesType } from '@/features/courses/api/type'
 import { TeacherServices } from '@/features/teacher/api/api'
 import type {
 	InfinityStudentsTableDataAdapter,
+	TeacherLoaderData,
 	UserTableData
 } from '@/features/teacher/api/type'
+import { ROUTES } from '@/shared/lib/router-config'
 import { Button } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { useLoaderData } from 'react-router'
-
-type TeacherLoaderData = {
-	user: User
-	data: CoursesType
-}
+import { useLoaderData, useNavigate } from 'react-router'
 
 export function TeacherPage() {
 	const { data, user } = useLoaderData<TeacherLoaderData>()
@@ -66,6 +61,8 @@ export function TeacherPage() {
 			onPrev={handlePrevPage}
 			onNext={handleNextPage}
 			onLoading={isLoading}
+			teacherId={user.id}
+			coursesId={data.id}
 		/>
 	)
 }
@@ -74,13 +71,19 @@ const TableStudent = ({
 	data,
 	onPrev,
 	onNext,
-	onLoading
+	onLoading,
+	teacherId,
+	coursesId
 }: {
 	data: InfinityStudentsTableDataAdapter<UserTableData>
 	onPrev: () => void
 	onNext: () => void
 	onLoading: boolean
+	teacherId: string
+	coursesId: string
 }) => {
+	const navigate = useNavigate()
+
 	return (
 		<TableCustom
 			data={data}
@@ -89,6 +92,11 @@ const TableStudent = ({
 				<tr
 					key={item.id}
 					className="border border-gray-200 hover:bg-gray-200 hover:translate-x-6 duration-300 ease-in-out cursor-pointer"
+					onClick={() =>
+						navigate(
+							ROUTES.TEACHER_STUDENT.path(teacherId, coursesId, item.id)
+						)
+					}
 				>
 					<td className="p-2">{item.id}</td>
 					<td className="p-2">{item.name}</td>

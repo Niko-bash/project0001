@@ -8,6 +8,7 @@ import { coursesLoader } from './loaders/courses'
 import { protectedLoader } from './loaders/protected'
 import { rootLoader } from './loaders/root'
 import { teacherLoader } from './loaders/teacher'
+import { teacherStudentLoader } from './loaders/teacher-student'
 
 const routes: RouteObject[] = [
 	{
@@ -64,6 +65,16 @@ const routes: RouteObject[] = [
 					import('@/pages/teacher.page').then(({ TeacherPage }) => ({
 						Component: TeacherPage
 					}))
+			},
+			{
+				path: ROUTES.TEACHER_STUDENT.pattern,
+				loader: teacherStudentLoader,
+				lazy: () =>
+					import('@/pages/teacher-student.page').then(
+						({ TeacherStudentPage }) => ({
+							Component: TeacherStudentPage
+						})
+					)
 			}
 		]
 	},

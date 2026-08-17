@@ -24,5 +24,14 @@ export const ROUTES = {
 		path: (teacherId: string | number, coursesId: string | number) =>
 			`/myCourses/teacher/${teacherId}/courses/${coursesId}`
 	},
+	TEACHER_STUDENT: {
+		pattern: '/myCourses/teacher/:id/courses/:coursesId/student/:studentId',
+		path: (
+			teacherId: string | number,
+			coursesId: string | number,
+			studentId: string | number
+		) =>
+			`/myCourses/teacher/${teacherId}/courses/${coursesId}/student/${studentId}`
+	},
 	AUTH: { ROOT: '/auth', LOGIN: '/auth/login', REGISTER: '/auth/register' }
 } as const
