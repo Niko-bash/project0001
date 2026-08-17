@@ -4,7 +4,6 @@ import {
 	type Homework,
 	type StatusHomeWork,
 	type Student,
-	type StudentHomeWork,
 	type TeacherStudentLoaderData
 } from '@/features/teacher/api/type'
 import { Modal } from '@/shared/ui/modal'
@@ -39,20 +38,13 @@ export function TeacherStudentPage() {
 		const fetchHomeWork = async (studentId: string) => {
 			setIsLoading(true)
 			try {
-				const response = await fetch(
-					`/api/userQuest?studentId=${studentId}`,
-					{
-						method: 'GET'
-					}
-				)
+				const data = await TeacherServices.getStudentHomeWork(studentId)
 
-				if (!response.ok) {
-					throw new Error('This student is not search')
+				if (!data.success) {
+					throw new Error('Homework students is error')
 				}
 
-				const data: StudentHomeWork[] = await response.json()
-
-				setHomeWork(data[0] && data[0].homework)
+				setHomeWork(data.data)
 			} catch (e) {
 				console.error(e)
 			} finally {
