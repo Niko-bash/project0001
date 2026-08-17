@@ -1,21 +1,8 @@
-import { Calendar } from '@/features/students'
+import { Calendar, Courses, Tasks } from '@/features/students'
+import type { StudentCoursesMode, TabType } from '@/features/students/ui/type'
 import { Tab, Tabs } from '@mui/material'
 import { useState, type ComponentType } from 'react'
 import { useLoaderData } from 'react-router'
-
-type StudentCoursesMode = 'Calendar' | 'Tasks' | 'Courses'
-type TabType = {
-	value: StudentCoursesMode
-	label: Lowercase<StudentCoursesMode>
-}
-
-const Courses = () => {
-	return <div>Courses</div>
-}
-
-const Tasks = () => {
-	return <div>Tasks</div>
-}
 
 const MODE_COMPONENTS: Record<StudentCoursesMode, ComponentType> = {
 	Courses: Courses,
@@ -39,7 +26,7 @@ const TABS_CONFIG: TabType[] = [
 ]
 
 export function StudentPage() {
-	const data = useLoaderData()
+	const loaderData = useLoaderData()
 
 	const [mode, setMode] = useState<StudentCoursesMode>('Calendar')
 	// const [isLoading, setIsLoading] = useState(false)
