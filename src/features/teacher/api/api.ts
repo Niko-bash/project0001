@@ -116,7 +116,12 @@ export const TeacherServices = {
 			const createUser: Omit<StudentHomeWork, 'id'> = {
 				studentId,
 				homework: [
-					{ ...data, status: 'progress', id: Date.now().toString() }
+					{
+						...data,
+						date: new Date(data.date).toISOString(),
+						status: 'progress',
+						id: Date.now().toString()
+					}
 				]
 			}
 
@@ -144,7 +149,11 @@ export const TeacherServices = {
 			...user,
 			homework: [
 				...user.homework,
-				{ ...data, status: 'progress', id: Date.now().toString() }
+				{
+					...data,
+					status: 'progress',
+					id: new Date(data.date).toISOString()
+				}
 			]
 		}
 

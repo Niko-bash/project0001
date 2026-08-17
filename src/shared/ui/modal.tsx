@@ -27,6 +27,7 @@ export const Modal = ({
 			role="dialog"
 			maxWidth="sm"
 			fullWidth
+			disableRestoreFocus
 		>
 			<DialogTitle id="modal-dialog-title">{title}</DialogTitle>
 			<DialogContent>{content}</DialogContent>

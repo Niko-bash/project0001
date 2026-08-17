@@ -33,7 +33,7 @@ export type TeacherStudentLoaderData = {
 
 export type TeacherLoaderData = Omit<TeacherStudentLoaderData, 'student'>
 
-type StatusHomeWork = 'completed' | 'review' | 'overdue' | 'progress'
+export type StatusHomeWork = 'completed' | 'review' | 'overdue' | 'progress'
 
 export type Homework = {
 	id: string
