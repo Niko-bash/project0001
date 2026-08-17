@@ -32,3 +32,21 @@ export type TeacherStudentLoaderData = {
 }
 
 export type TeacherLoaderData = Omit<TeacherStudentLoaderData, 'student'>
+
+type StatusHomeWork = 'completed' | 'review' | 'overdue' | 'progress'
+
+export type Homework = {
+	id: string
+	name: string
+	description: string
+	date: string
+	status: StatusHomeWork
+}
+
+export type CreateHomework = Omit<Homework, 'id'>
+
+export type StudentHomeWork = {
+	id: string
+	studentId: string
+	homework: Homework[]
+}

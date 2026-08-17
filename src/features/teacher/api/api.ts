@@ -1,7 +1,12 @@
 import type { User } from '@/features/auth/api/type'
 import type { UserCourses } from '@/features/my-courses/api/type'
 import type { ApiResponse } from '@/shared/api/type'
-import type { InfinityStudentsTableDataAdapter, UserTableData } from './type'
+import type {
+	CreateHomework,
+	InfinityStudentsTableDataAdapter,
+	StudentHomeWork,
+	UserTableData
+} from './type'
 
 export const TeacherServices = {
 	async getAllStudents(
@@ -88,6 +93,76 @@ export const TeacherServices = {
 				last: last,
 				pages: page
 			}
+		}
+	},
+	async createAddingHomework(
+		data: CreateHomework,
+		studentId: string
+	): Promise<ApiResponse<StudentHomeWork>> {
+		const searchStudent = await fetch(
+			`/api/userQuest?studentId=${studentId}`,
+			{
+				method: 'GET'
+			}
+		)
+
+		if (!searchStudent.ok) {
+			throw new Error('This student is not')
+		}
+
+		const student = await searchStudent.json()
+
+		if (student.length === 0) {
+			const createUser: Omit<StudentHomeWork, 'id'> = {
+				studentId,
+				homework: [
+					{ ...data, status: 'progress', id: Date.now().toString() }
+				]
+			}
+
+			const createStudent = await fetch('/api/userQuest', {
+				method: 'POST',
+				body: JSON.stringify(createUser)
+			})
+
+			if (!createStudent.ok) {
+				throw new Error('Error create Student and homework')
+			}
+
+			const response = await createStudent.json()
+
+			return {
+				status: 200,
+				success: true,
+				data: response
+			}
+		}
+
+		const user: StudentHomeWork = student[0]
+
+		const updateStudent: StudentHomeWork = {
+			...user,
+			homework: [
+				...user.homework,
+				{ ...data, status: 'progress', id: Date.now().toString() }
+			]
+		}
+
+		const update = await fetch(`/api/userQuest/${updateStudent.id}`, {
+			method: 'PATCH',
+			body: JSON.stringify(updateStudent)
+		})
+
+		if (!update.ok) {
+			throw new Error('Update homework student error')
+		}
+
+		const updateData = await update.json()
+
+		return {
+			status: 201,
+			success: true,
+			data: updateData
 		}
 	}
 }

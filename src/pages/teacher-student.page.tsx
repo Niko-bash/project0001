@@ -1,22 +1,14 @@
+import { TeacherServices } from '@/features/teacher/api/api'
 import type {
+	CreateHomework,
 	Student,
 	TeacherStudentLoaderData
 } from '@/features/teacher/api/type'
 import { Modal } from '@/shared/ui/modal'
 import { Button, TextareaAutosize, TextField } from '@mui/material'
 import { useState } from 'react'
-import { useForm, type SubmitHandler } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { useLoaderData } from 'react-router'
-
-type Homework = {
-	id: string
-	studentId: string
-	name: string
-	description: string
-	date: string
-}
-
-type CreateHomework = Omit<Homework, 'id' | 'studentId'>
 
 export function TeacherStudentPage() {
 	const data: TeacherStudentLoaderData = useLoaderData()
@@ -24,6 +16,15 @@ export function TeacherStudentPage() {
 
 	const handleClose = () => {
 		setOpen(false)
+	}
+	const onSubmit = async (val: CreateHomework) => {
+		const response = await TeacherServices.createAddingHomework(
+			val,
+			data.student.id
+		)
+		if (response.success) {
+			console.log('Suc')
+		}
 	}
 
 	return (
@@ -39,7 +40,7 @@ export function TeacherStudentPage() {
 				open={open}
 				onClose={handleClose}
 				title={<div>Create homework for {data.student.name}</div>}
-				content={<TeacherCreateForm />}
+				content={<TeacherCreateForm onSubmit={onSubmit} />}
 				actions={
 					<>
 						<Button
@@ -65,12 +66,13 @@ const ProfileStudent = ({ user }: { user: Student }) => {
 	)
 }
 
-const TeacherCreateForm = () => {
+const TeacherCreateForm = ({
+	onSubmit
+}: {
+	onSubmit: (val: CreateHomework) => void
+}) => {
 	const { register, handleSubmit } = useForm<CreateHomework>()
 
-	const onSubmit: SubmitHandler<CreateHomework> = async (val) => {
-		console.log(val)
-	}
 	return (
 		<form
 			onSubmit={handleSubmit(onSubmit)}
