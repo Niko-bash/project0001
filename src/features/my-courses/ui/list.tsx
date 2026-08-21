@@ -14,7 +14,7 @@ export const MyCoursesList = ({
 	}
 	return (
 		<ul className="flex flex-col gap-5 mt-10">
-			{items && items.length ? (
+			{items && items.length > 0 ? (
 				items.map((item) => render(item))
 			) : (
 				<div>Sorry, you not adding courses</div>

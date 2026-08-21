@@ -4,9 +4,9 @@ import { ROUTES } from '@/shared/lib/router-config'
 import { createBrowserRouter, type RouteObject } from 'react-router'
 import { App } from '../App'
 import { AuthLayout } from '../layout'
-import { coursesLoader } from './loaders/courses'
 import { protectedLoader } from './loaders/protected'
 import { rootLoader } from './loaders/root'
+import { studentLoader } from './loaders/student'
 import { teacherLoader } from './loaders/teacher'
 import { teacherStudentLoader } from './loaders/teacher-student'
 
@@ -52,7 +52,7 @@ const routes: RouteObject[] = [
 			},
 			{
 				path: ROUTES.STUDENT_COURSES.pattern,
-				loader: coursesLoader,
+				loader: studentLoader,
 				lazy: () =>
 					import('@/pages/student.page').then(({ StudentPage }) => ({
 						Component: StudentPage

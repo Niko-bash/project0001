@@ -23,3 +23,9 @@
       11.1 [+]: create adaptive table
       11.2 [-]: sort table
       11.3 [*]: virtualize(infinity) table
+
+      21.08.2026
+
+11.   [-]: feat payment courses
+12.   [-]: feat base chat student-teacher
+13.   [-]: create lesson-class-room
