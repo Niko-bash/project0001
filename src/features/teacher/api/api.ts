@@ -3,6 +3,7 @@ import type { UserCourses } from '@/features/my-courses/api/type'
 import type { ApiResponse } from '@/shared/api/type'
 import type {
 	CreateHomework,
+	Homework,
 	InfinityStudentsTableDataAdapter,
 	StudentHomeWork,
 	UserTableData
@@ -172,6 +173,25 @@ export const TeacherServices = {
 			status: 201,
 			success: true,
 			data: updateData
+		}
+	},
+	async getStudentHomeWork(
+		studentId: string
+	): Promise<ApiResponse<Homework[]>> {
+		const response = await fetch(`/api/userQuest?studentId=${studentId}`, {
+			method: 'GET'
+		})
+
+		if (!response.ok) {
+			throw new Error('This student is not search')
+		}
+
+		const data: StudentHomeWork[] = await response.json()
+
+		return {
+			status: 200,
+			success: true,
+			data: data[0].homework
 		}
 	}
 }

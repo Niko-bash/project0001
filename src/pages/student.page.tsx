@@ -1,36 +1,28 @@
-import { Calendar } from '@/features/students'
+import { Calendar, Courses, Tasks } from '@/features/students'
+import type { StudentLoaderData } from '@/features/students/api/api'
+import type {
+	MapTabType,
+	StudentCoursesMode,
+	TabType
+} from '@/features/students/ui/type'
 import { Tab, Tabs } from '@mui/material'
-import { useState, type ComponentType } from 'react'
+import { useState } from 'react'
 import { useLoaderData } from 'react-router'
 
-type StudentCoursesMode = 'Calendar' | 'Tasks' | 'Courses'
-type TabType = {
-	value: StudentCoursesMode
-	label: Lowercase<StudentCoursesMode>
-}
-
-const Courses = () => {
-	return <div>Courses</div>
-}
-
-const Tasks = () => {
-	return <div>Tasks</div>
-}
-
-const MODE_COMPONENTS: Record<StudentCoursesMode, ComponentType> = {
+const MODE_COMPONENTS: MapTabType = {
+	Calendar: (studentId) => <Calendar studentId={studentId} />,
 	Courses: Courses,
-	Calendar: Calendar,
 	Tasks: Tasks
 }
 
 const TABS_CONFIG: TabType[] = [
 	{
-		value: 'Calendar',
-		label: 'calendar'
-	},
-	{
 		value: 'Courses',
 		label: 'courses'
+	},
+	{
+		value: 'Calendar',
+		label: 'calendar'
 	},
 	{
 		value: 'Tasks',
@@ -39,12 +31,10 @@ const TABS_CONFIG: TabType[] = [
 ]
 
 export function StudentPage() {
-	const data = useLoaderData()
+	const loaderData: StudentLoaderData = useLoaderData()
 
-	const [mode, setMode] = useState<StudentCoursesMode>('Calendar')
+	const [mode, setMode] = useState<StudentCoursesMode>('Courses')
 	// const [isLoading, setIsLoading] = useState(false)
-
-	const View = MODE_COMPONENTS[mode]
 
 	return (
 		<>
@@ -62,7 +52,26 @@ export function StudentPage() {
 					/>
 				))}
 			</Tabs>
-			<View />
+			<ViewTabs
+				mode={mode}
+				studentId={loaderData.user.id}
+			/>
 		</>
 	)
+}
+
+const ViewTabs = ({
+	mode,
+	studentId
+}: {
+	mode: StudentCoursesMode
+	studentId: string
+}) => {
+	const render = MODE_COMPONENTS[mode]
+
+	if (!render) {
+		return null
+	}
+
+	return <>{render(studentId)}</>
 }
