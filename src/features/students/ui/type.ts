@@ -2,7 +2,7 @@ export type StudentCoursesMode = 'Calendar' | 'Tasks' | 'Courses'
 
 export type MapTabType = {
 	Calendar: (studentId: string) => React.ReactNode
-	Tasks: () => React.ReactNode
+	Tasks: (studentId: string) => React.ReactNode
 	Courses: () => React.ReactNode
 }
 export type TabType = {

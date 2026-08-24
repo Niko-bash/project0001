@@ -153,7 +153,7 @@ export const TeacherServices = {
 				{
 					...data,
 					status: 'progress',
-					id: new Date(data.date).toISOString()
+					id: Date.now().toString()
 				}
 			]
 		}
@@ -191,7 +191,7 @@ export const TeacherServices = {
 		return {
 			status: 200,
 			success: true,
-			data: data[0].homework
+			data: data[0] ? data[0].homework : []
 		}
 	}
 }

@@ -64,7 +64,7 @@ export const Calendar = ({ studentId }: { studentId: string }) => {
 			}
 
 			const date: StudentHomeWork[] = await dateHW.json()
-			setDateHW(date[0].homework)
+			setDateHW(date[0] ? date[0].homework : [])
 		}
 
 		fetchData()

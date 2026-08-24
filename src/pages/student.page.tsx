@@ -12,7 +12,7 @@ import { useLoaderData } from 'react-router'
 const MODE_COMPONENTS: MapTabType = {
 	Calendar: (studentId) => <Calendar studentId={studentId} />,
 	Courses: Courses,
-	Tasks: Tasks
+	Tasks: (studentId) => <Tasks studentId={studentId} />
 }
 
 const TABS_CONFIG: TabType[] = [
