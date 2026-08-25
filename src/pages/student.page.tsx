@@ -1,5 +1,5 @@
 import { Calendar, Courses, Tasks } from '@/features/students'
-import type { StudentLoaderData } from '@/features/students/api/api'
+import type { StudentLoaderData } from '@/features/students/api/type'
 import type {
 	MapTabType,
 	StudentCoursesMode,

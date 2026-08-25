@@ -170,28 +170,28 @@
       "studentId": "wvanWhDpxoY",
       "homework": [
         {
-          "name": "qweqwe",
+          "name": "qweqweq",
           "description": "qweqwe",
-          "date": "2026-08-26T00:00:00.000Z",
+          "date": "2026-08-21T00:00:00.000Z",
           "status": "progress",
-          "id": "1787613670000"
+          "id": "1787625618777"
         },
         {
-          "name": "Onposa",
-          "description": "saddf",
+          "name": "xvxcvxc",
+          "description": "vxcvxcv",
+          "date": "2026-08-22",
+          "status": "review",
+          "id": "1787626784242"
+        },
+        {
+          "name": "xcvz",
+          "description": "vxzcvxzcv",
           "date": "2026-08-30",
           "status": "progress",
-          "id": "1787614988093"
-        },
-        {
-          "name": "zxc,zjf",
-          "description": "qweqwe",
-          "date": "2026-08-28",
-          "status": "progress",
-          "id": "1787614995371"
+          "id": "1787626797656"
         }
       ],
-      "id": "6y15FpCrv78"
+      "id": "Cst81gByq6k"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

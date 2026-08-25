@@ -5,12 +5,8 @@ import {
 } from '@/features/teacher/api/type'
 import clsx from 'clsx'
 import { useEffect, useState } from 'react'
-
-type BoardList = {
-	id: string
-	status: StatusHomeWork
-	title: string
-}
+import { StudentServices } from '../api/students.services'
+import type { BoardList } from './type'
 
 const BOARD_LIST: BoardList[] = [
 	{
@@ -28,7 +24,7 @@ const BOARD_LIST: BoardList[] = [
 		status: 'completed',
 		title: 'Completed'
 	}
-]
+] as const
 
 export const Tasks = ({ studentId }: { studentId: string }) => {
 	const [homeWork, setHomeWork] = useState<Homework[]>([])
@@ -40,6 +36,8 @@ export const Tasks = ({ studentId }: { studentId: string }) => {
 	) => {
 		setDraggedIndex(index)
 		e.dataTransfer.setData('text/plain', index)
+		e.dataTransfer.effectAllowed = 'move'
+
 		e.currentTarget.style.opacity = '0.5'
 	}
 
@@ -53,7 +51,7 @@ export const Tasks = ({ studentId }: { studentId: string }) => {
 		e.dataTransfer.dropEffect = 'move'
 	}
 
-	const handleDrop = (
+	const handleDrop = async (
 		e: React.DragEvent<HTMLDivElement>,
 		status: StatusHomeWork
 	) => {
@@ -66,11 +64,32 @@ export const Tasks = ({ studentId }: { studentId: string }) => {
 			return
 		}
 
-		setHomeWork((prev) =>
-			prev.map((item) =>
-				item.id === dragIndex ? { ...item, status } : item
-			)
+		const updateTask = homeWork.find((item) => item.id === dragIndex)
+
+		if (!updateTask) {
+			return
+		}
+
+		updateTask.status = status
+
+		const newHomeWork = homeWork.map((item) =>
+			item.id === dragIndex ? updateTask : item
 		)
+
+		setHomeWork(newHomeWork)
+
+		localStorage.setItem('tasks', JSON.stringify(newHomeWork))
+
+		const updateTasksStudent = await StudentServices.updateTasks(
+			updateTask,
+			studentId
+		)
+
+		if (!updateTasksStudent.success) {
+			const homeWork = localStorage.getItem('tasks')
+			setHomeWork(homeWork && JSON.parse(homeWork))
+		}
+
 		setDraggedIndex(null)
 	}
 

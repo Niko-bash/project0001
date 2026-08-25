@@ -1,3 +1,5 @@
+import type { StatusHomeWork } from '@/features/teacher/api/type'
+
 export type StudentCoursesMode = 'Calendar' | 'Tasks' | 'Courses'
 
 export type MapTabType = {
@@ -12,4 +14,10 @@ export type TabType = {
 
 export type Calendar = {
 	studentId: string
+}
+
+export type BoardList = {
+	id: string
+	status: StatusHomeWork
+	title: string
 }
