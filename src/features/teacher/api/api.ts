@@ -76,36 +76,42 @@ export const TeacherServices = {
 			fetch(`/api/userQuest?studentId=${user.userId}`)
 		)
 
-		const promiseStatus: StudentHomeWork[] = await Promise.all(
-			fetchesReviewStatus
+		const [userResults, statusResults] = await Promise.all([
+			Promise.all(
+				fetches.map((fetch) =>
+					fetch.then((res) => (res.ok ? res.json() : null))
+				)
+			),
+			Promise.all(
+				fetchesReviewStatus.map((fetch) =>
+					fetch.then((res) => (res.ok ? res.json() : null))
+				)
+			)
+		])
+
+		const statusMap = new Map(
+			statusResults
+				.filter(
+					(student): student is [StudentHomeWork] =>
+						student !== null && student.length > 0
+				)
+
+				.map(([item]) => [item.studentId, item])
 		)
-			.then((res) => res.filter((res) => res.ok))
-			.then((res) => Promise.all(res.map((res) => res.json())))
-			.then((res) =>
-				res.map((item) => item[0]).filter((item) => item !== undefined)
-			)
 
-		const promiseUsers: UserTableData[] = await Promise.all(fetches)
-			.then((res) => res.filter((response) => response.ok))
-			.then((res) => Promise.all(res.map((response) => response.json())))
-			.then((res) =>
-				res.map((user: User) => {
-					const studentHomeWork =
-						promiseStatus &&
-						promiseStatus.find((student) => student.studentId === user.id)
+		const promiseUsers: UserTableData[] = userResults
+			.filter((user): user is User => user !== null)
+			.map((user) => {
+				const { avatar, password, role, ...data } = user
 
-					const status =
-						studentHomeWork &&
-						studentHomeWork.homework.find(
-							(item) => item.status === 'review'
-						)
-							? true
-							: false
+				const statusHomeWork = statusMap.get(data.id)
 
-					const { avatar, password, role, ...data } = user
-					return { ...data, status: status }
-				})
-			)
+				const status =
+					statusHomeWork &&
+					statusHomeWork.homework.some((item) => item.status === 'review')
+
+				return { ...data, status }
+			})
 
 		return {
 			status: 200,
