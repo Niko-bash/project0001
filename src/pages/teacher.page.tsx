@@ -35,7 +35,6 @@ export function TeacherPage() {
 				if (!usersPaginate.success) {
 					throw new Error('bad request')
 				}
-				console.log(usersPaginate)
 				setUsers(usersPaginate.data)
 			} catch (e) {
 				console.error(e)
@@ -87,7 +86,7 @@ const TableStudent = ({
 	return (
 		<TableCustom
 			data={data}
-			columns={['ID', 'Name', 'Email']}
+			columns={['ID', 'Name', 'Email', 'Status']}
 			renderRows={(item) => (
 				<tr
 					key={item.id}
@@ -101,6 +100,7 @@ const TableStudent = ({
 					<td className="p-2">{item.id}</td>
 					<td className="p-2">{item.name}</td>
 					<td className="p-2">{item.email}</td>
+					<td className="p-2">{item.status ? 'e' : 'n'}</td>
 				</tr>
 			)}
 			pagination={

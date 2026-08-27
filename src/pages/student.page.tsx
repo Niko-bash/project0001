@@ -1,5 +1,5 @@
 import { Calendar, Courses, Tasks } from '@/features/students'
-import type { StudentLoaderData } from '@/features/students/api/api'
+import type { StudentLoaderData } from '@/features/students/api/type'
 import type {
 	MapTabType,
 	StudentCoursesMode,
@@ -12,7 +12,7 @@ import { useLoaderData } from 'react-router'
 const MODE_COMPONENTS: MapTabType = {
 	Calendar: (studentId) => <Calendar studentId={studentId} />,
 	Courses: Courses,
-	Tasks: Tasks
+	Tasks: (studentId) => <Tasks studentId={studentId} />
 }
 
 const TABS_CONFIG: TabType[] = [
