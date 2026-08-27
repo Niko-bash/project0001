@@ -2,7 +2,10 @@ import type { User } from '@/features/auth/api/type'
 import type { CoursesType } from '@/features/courses/api/type'
 import type { UserCourses } from '@/features/my-courses/api/type'
 
-export type UserTableData = Pick<User, 'id' | 'email' | 'name'>
+export type UserTableData = Pick<User, 'id' | 'email' | 'name'> & {
+	status?: boolean
+}
+
 export type InfinityStudentsTableData = {
 	data: UserCourses[]
 	first: number

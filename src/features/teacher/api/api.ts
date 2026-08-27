@@ -72,13 +72,38 @@ export const TeacherServices = {
 
 		const fetches = needUsers.map((user) => fetch(`/api/user/${user.userId}`))
 
+		const fetchesReviewStatus = needUsers.map((user) =>
+			fetch(`/api/userQuest?studentId=${user.userId}`)
+		)
+
+		const promiseStatus: StudentHomeWork[] = await Promise.all(
+			fetchesReviewStatus
+		)
+			.then((res) => res.filter((res) => res.ok))
+			.then((res) => Promise.all(res.map((res) => res.json())))
+			.then((res) =>
+				res.map((item) => item[0]).filter((item) => item !== undefined)
+			)
+
 		const promiseUsers: UserTableData[] = await Promise.all(fetches)
 			.then((res) => res.filter((response) => response.ok))
 			.then((res) => Promise.all(res.map((response) => response.json())))
 			.then((res) =>
 				res.map((user: User) => {
+					const studentHomeWork =
+						promiseStatus &&
+						promiseStatus.find((student) => student.studentId === user.id)
+
+					const status =
+						studentHomeWork &&
+						studentHomeWork.homework.find(
+							(item) => item.status === 'review'
+						)
+							? true
+							: false
+
 					const { avatar, password, role, ...data } = user
-					return data
+					return { ...data, status: status }
 				})
 			)
 
