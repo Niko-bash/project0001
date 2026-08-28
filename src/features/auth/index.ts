@@ -3,3 +3,5 @@ export { LoginForm } from './ui/login-form'
 export { RegisterForm } from './ui/register-form'
 
 export { useAuth } from './model/use-auth'
+
+export { LayoutAuth } from './ui/layout'
