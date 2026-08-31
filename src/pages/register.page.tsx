@@ -8,6 +8,7 @@ export function RegisterPage() {
 			form={<RegisterForm />}
 			buttons={[
 				<Button
+					key={'key-form'}
 					className="w-full"
 					type="submit"
 					form="form"

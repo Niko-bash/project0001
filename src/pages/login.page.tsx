@@ -9,6 +9,7 @@ export function LoginPage() {
 			form={<LoginForm />}
 			buttons={[
 				<Button
+					key={'key-form'}
 					className="w-full"
 					type="submit"
 					form="form"

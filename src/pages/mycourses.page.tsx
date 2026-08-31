@@ -1,137 +1,76 @@
 import type { SessionUser } from '@/features/auth/api/type'
-import { CoursesServices } from '@/features/courses/api/courses.services'
-import type { CoursesType } from '@/features/courses/api/type'
 import {
+	CreateCourses,
 	MyCoursesList,
 	MyCoursesModalTitle,
-	MyCoursesModelContent
+	MyCoursesModelContent,
+	useCourses,
+	useCoursesDeletion,
+	useModal
 } from '@/features/my-courses'
-import { myCoursesServices } from '@/features/my-courses/api/myCourses.services'
+
 import { CardFactory } from '@/features/my-courses/ui/card/factory'
-import { ROUTES } from '@/shared/lib/router-config'
+import {
+	TABS_MODS,
+	type Mode,
+	type TabsMode
+} from '@/features/my-courses/ui/type'
 import { Modal } from '@/shared/ui/modal'
 import { Button, Tab, Tabs } from '@mui/material'
-import { useEffect, useState } from 'react'
-import { Link, useLoaderData } from 'react-router'
+import { useState } from 'react'
+import { useLoaderData } from 'react-router'
 
-const loadCourses = async (
-	id: string,
-	mode: 'Teacher' | 'Student',
-	signal?: AbortSignal
-) => {
-	const response = await myCoursesServices.getCoursesByUser(id, {
-		mode,
-		signal: signal
-	})
-
-	if (!response.success) return
-
-	const promises = response.data.map((ids) => fetch(`/api/courses/${ids}`))
-
-	const result: CoursesType[] = await Promise.all(promises)
-		.then((responses) => responses.filter((item) => item.ok))
-		.then((responses) => Promise.all(responses.map((i) => i.json())))
-	return result
-}
+const TABS_MODE: TabsMode[] = [
+	{
+		id: 1,
+		value: TABS_MODS.Student,
+		label: TABS_MODS.Student
+	},
+	{
+		id: 2,
+		value: TABS_MODS.Teacher,
+		label: TABS_MODS.Teacher
+	}
+]
 
 export function MyCoursesPage() {
 	const data = useLoaderData<SessionUser>()
 
-	const [courses, setCourses] = useState<CoursesType[] | undefined>([])
-	const [isLoading, setIsLoading] = useState(false)
-	const [mode, setMode] = useState<'Student' | 'Teacher'>('Student')
-	const [open, setOpen] = useState(false)
-	const [selectedId, setSelectedId] = useState<{ id: string } | null>(null)
+	const [mode, setMode] = useState<Mode>('Student')
 
-	const handleClickOpen = (coursesId: string) => {
-		setSelectedId({ id: coursesId })
-		setOpen(true)
-	}
-
-	const handleClose = () => {
-		setOpen(false)
-		setSelectedId(null)
-	}
-
-	const handleChange = (
-		event: React.SyntheticEvent,
-		newValue: 'Student' | 'Teacher'
-	) => {
-		// console.log(event)
-		setMode(newValue)
-	}
-
-	const refetch = async () => {
-		setCourses(await loadCourses(data.id, mode))
-	}
-
-	useEffect(() => {
-		const controller = new AbortController()
-		const fetchData = async (signal?: AbortSignal) => {
-			setIsLoading(true)
-			try {
-				const courses = await loadCourses(data.id, mode, signal)
-				setCourses(courses)
-			} catch (error) {
-				if (error instanceof DOMException && error.name === 'AbortError') {
-					return
-				}
-				console.error(error)
-			} finally {
-				setIsLoading(false)
-			}
-		}
-
-		fetchData(controller.signal)
-
-		return () => controller.abort()
-	}, [data.id, mode])
+	const { courses, isLoading, refetch } = useCourses(data.id, mode)
+	const { open, handleClickOpen, handleClose, selectedId } = useModal()
+	const { deleted } = useCoursesDeletion(data.id, mode)
 
 	const handleDelete = async () => {
 		if (!selectedId) return
 
-		const services = {
-			Student: myCoursesServices.removeCoursesStudent,
-			Teacher: CoursesServices.deletedCoursesTeacher
-		}
+		const response = await deleted(selectedId.id)
 
-		const service = services[mode]
-
-		const response = await service(data.id, selectedId.id)
-
-		if (response.success) {
+		if (response) {
 			handleClose()
-			refetch()
+			await refetch()
 		}
 	}
+
 	return (
 		<>
 			<Tabs
 				value={mode}
-				onChange={handleChange}
+				onChange={(_, val) => setMode(val)}
 				aria-label="wrapped label tabs example"
 				variant="fullWidth"
 				className="pb-2"
 			>
-				<Tab
-					value="Student"
-					label="Student"
-					disabled={isLoading}
-				/>
-				<Tab
-					value="Teacher"
-					label="Teacher"
-					disabled={isLoading}
-				/>
+				{TABS_MODE.map((tab) => (
+					<Tab
+						value={tab.value}
+						label={tab.label}
+						disabled={isLoading}
+					/>
+				))}
 			</Tabs>
-			<Button
-				className="w-full h-32"
-				variant="contained"
-				component={Link}
-				to={ROUTES.CREATE_COURSES.pattern}
-			>
-				Create Courses
-			</Button>
+			<CreateCourses title={'Create Courses'} />
 			<MyCoursesList
 				isLoading={isLoading}
 				items={courses}
@@ -143,7 +82,6 @@ export function MyCoursesPage() {
 						extra={{
 							userId: data.id,
 							open,
-							handleClick: () => console.log('123'),
 							handleClickOpen
 						}}
 					/>
