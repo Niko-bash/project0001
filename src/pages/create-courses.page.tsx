@@ -1,60 +1,59 @@
+import type { SessionUser } from '@/features/auth'
+import type { CreateCoursesType } from '@/features/courses'
 import { CoursesServices } from '@/features/courses/api/courses.services'
-import { type CreateCoursesType } from '@/features/courses/api/type'
 import { compressImage } from '@/shared/lib/compress-image'
 import { videoToBase64 } from '@/shared/lib/videoToBase64'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { Button, TextareaAutosize, TextField } from '@mui/material'
-import { useState } from 'react'
-import { useForm, type SubmitHandler } from 'react-hook-form'
+import React, { useState } from 'react'
+import {
+	useForm,
+	type SubmitHandler,
+	type UseFormReturn
+} from 'react-hook-form'
 import { useLoaderData } from 'react-router'
 
 const DEFAULT_AVATAR = '/assets/courses.webp'
 
 export function CreateCoursesPage() {
-	const data = useLoaderData()
-	const [preview, setPreview] = useState<string | undefined>(DEFAULT_AVATAR)
-	const [videoUrl, setVideoUrl] = useState<string | undefined>(undefined)
+	const data = useLoaderData<SessionUser>()
 
-	const form = useForm<CreateCoursesType>({
-		defaultValues: {
-			name: '',
-			description: '',
-			video: {
-				description: '',
-				url: undefined
-			}
-		}
-	})
+	const {
+		handleChangeImage,
+		handleChangeVideo,
+		onSubmit,
+		preview,
+		videoUrl,
+		form
+	} = useChangeForm(data.id)
 
-	const onSubmit: SubmitHandler<CreateCoursesType> = async (values) => {
-		const response = await CoursesServices.createCoursesTeacher(
-			data.id,
-			values
-		)
+	return (
+		<CreateCoursesForm
+			form={form}
+			onChangeImage={handleChangeImage}
+			onChangeVideo={handleChangeVideo}
+			onSubmit={onSubmit}
+			preview={preview}
+			videoUrl={videoUrl}
+		/>
+	)
+}
 
-		if (response.success) {
-			console.log('suc')
-		}
-	}
-	const handleChangeImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-		const image = e.target.files?.[0]
-		if (image) {
-			const compress = await compressImage(image, 800, 0.7)
-			setPreview(compress)
-			form.setValue('img', compress)
-		}
-	}
-
-	const handleChangeVideo = async (e: React.ChangeEvent<HTMLInputElement>) => {
-		const video = e.target.files?.[0]
-		console.log(video)
-		if (video) {
-			const video64 = await videoToBase64(video)
-			setVideoUrl(video64)
-			form.setValue('video.url', video64)
-		}
-	}
-
+const CreateCoursesForm = ({
+	form,
+	onChangeImage,
+	onChangeVideo,
+	onSubmit,
+	preview,
+	videoUrl
+}: {
+	form: UseFormReturn<CreateCoursesType>
+	onChangeImage: (e: React.ChangeEvent<HTMLInputElement>) => void
+	onChangeVideo: (e: React.ChangeEvent<HTMLInputElement>) => void
+	onSubmit: SubmitHandler<CreateCoursesType>
+	preview: string | undefined
+	videoUrl: string | undefined
+}) => {
 	return (
 		<form
 			onSubmit={form.handleSubmit(onSubmit)}
@@ -78,7 +77,7 @@ export function CreateCoursesPage() {
 					type="file"
 					accept="image/**"
 					hidden
-					onChange={handleChangeImage}
+					onChange={(e) => onChangeImage(e)}
 				/>
 			</Button>
 			<TextField
@@ -118,7 +117,7 @@ export function CreateCoursesPage() {
 					type="file"
 					accept="video/**"
 					hidden
-					onChange={handleChangeVideo}
+					onChange={(e) => onChangeVideo(e)}
 				/>
 			</Button>
 			<TextareaAutosize
@@ -135,4 +134,58 @@ export function CreateCoursesPage() {
 			<Button type="submit">Create Courses</Button>
 		</form>
 	)
+}
+
+const useChangeForm = (userId: string) => {
+	const [preview, setPreview] = useState<string | undefined>(DEFAULT_AVATAR)
+	const [videoUrl, setVideoUrl] = useState<string | undefined>(undefined)
+
+	const form = useForm<CreateCoursesType>({
+		defaultValues: {
+			name: '',
+			description: '',
+			video: {
+				description: '',
+				url: undefined
+			}
+		}
+	})
+
+	const onSubmit: SubmitHandler<CreateCoursesType> = async (values) => {
+		const response = await CoursesServices.createCoursesTeacher(
+			userId,
+			values
+		)
+
+		if (response.success) {
+			console.log('suc')
+		}
+	}
+	const handleChangeImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+		const image = e.target.files?.[0]
+		if (image) {
+			const compress = await compressImage(image, 800, 0.7)
+			setPreview(compress)
+			form.setValue('img', compress)
+		}
+	}
+
+	const handleChangeVideo = async (e: React.ChangeEvent<HTMLInputElement>) => {
+		const video = e.target.files?.[0]
+		console.log(video)
+		if (video) {
+			const video64 = await videoToBase64(video)
+			setVideoUrl(video64)
+			form.setValue('video.url', video64)
+		}
+	}
+
+	return {
+		handleChangeImage,
+		handleChangeVideo,
+		onSubmit,
+		preview,
+		videoUrl,
+		form
+	}
 }
