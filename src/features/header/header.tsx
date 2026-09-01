@@ -3,8 +3,8 @@ import { AccountMenu, type MenuType } from '@/shared/ui/account-menu'
 import { Container } from '@mui/material'
 import clsx from 'clsx'
 import { Link, useRevalidator } from 'react-router'
-import { AuthServices } from '../auth/api/auth.services'
-import { useAuth } from '../auth/model/use-auth'
+import type { IAuthServices } from '../auth'
+import { useAuth } from '../auth/model/useAuth'
 
 //todo:Rework menu, synchronization router
 
@@ -59,8 +59,9 @@ const ACCOUNT_MENU: MenuType[] = [
 
 interface HeaderProps {
 	className?: string
+	AuthServices: IAuthServices
 }
-export const Header = ({ className }: HeaderProps) => {
+export const Header = ({ className, AuthServices }: HeaderProps) => {
 	const { user, setUser } = useAuth()
 	const revalidator = useRevalidator()
 	const handleSignOut = async () => {

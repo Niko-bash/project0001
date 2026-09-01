@@ -1,5 +1,5 @@
 import { type SessionUser } from '@/features/auth/api/type'
-import { AuthContext } from '@/features/auth/model/use-context'
+import { AuthContext } from '@/features/auth/model/useContext'
 import { useState } from 'react'
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {

@@ -1,5 +1,6 @@
+import { AuthServices } from '@/features/auth/api/auth.services'
 import type { SessionUser } from '@/features/auth/api/type'
-import { useAuth } from '@/features/auth/model/use-auth'
+import { useAuth } from '@/features/auth/model/useAuth'
 import { Header } from '@/features/header'
 import { Container } from '@mui/material'
 import { useEffect } from 'react'
@@ -37,7 +38,12 @@ export const App = () => {
 
 	return (
 		<Layout
-			header={<Header className="pr-sb-compensate" />}
+			header={
+				<Header
+					className="pr-sb-compensate"
+					AuthServices={AuthServices}
+				/>
+			}
 			main={
 				<div className="pr-sb-compensate">
 					<Container>
