@@ -3,13 +3,15 @@ import {
 	useStudents,
 	type TeacherLoaderData
 } from '@/features/teacher'
+import { TeacherServices } from '@/features/teacher/api/api'
 import { useLoaderData } from 'react-router'
 
 export function TeacherPage() {
 	const { data, user } = useLoaderData<TeacherLoaderData>()
 
 	const { handleNextPage, handlePrevPage, isLoading, users } = useStudents(
-		data.id
+		data.id,
+		TeacherServices
 	)
 
 	return (

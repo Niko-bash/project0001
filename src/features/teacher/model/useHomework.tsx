@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
-import { TeacherServices } from '../api/api'
-import type { CreateHomework, Homework } from '../api/type'
+import type { CreateHomework, Homework, ITeacherServices } from '../api/type'
 
-export const useHomework = (studentId: string, onClose: () => void) => {
+export const useHomework = (
+	studentId: string,
+	onClose: () => void,
+	TeacherServices: ITeacherServices
+) => {
 	const [homeWork, setHomeWork] = useState<Homework[]>([])
 	const [isLoading, setIsLoading] = useState(false)
 

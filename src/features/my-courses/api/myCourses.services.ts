@@ -2,9 +2,9 @@ import type { CoursesType } from '@/features/courses/api/type'
 import { RegistrationError, type ApiResponse } from '@/shared/api/type'
 import { isUserCoursesArray } from '../lib/isUserCoursesArray'
 import type { Mode } from '../ui/type'
-import type { UserCourses } from './type'
+import type { IMyCoursesServices, UserCourses } from './type'
 
-export const myCoursesServices = {
+export const myCoursesServices: IMyCoursesServices = {
 	async getCoursesByUser(
 		userId: string,
 		options?: { mode?: Mode; signal?: AbortSignal }

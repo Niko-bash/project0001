@@ -1,5 +1,5 @@
 import type { SessionUser } from '@/features/auth'
-import type { CreateCoursesType } from '@/features/courses'
+import type { CreateCoursesType, ICoursesServices } from '@/features/courses'
 import { CoursesServices } from '@/features/courses/api/courses.services'
 import { compressImage } from '@/shared/lib/compress-image'
 import { videoToBase64 } from '@/shared/lib/videoToBase64'
@@ -25,7 +25,7 @@ export function CreateCoursesPage() {
 		preview,
 		videoUrl,
 		form
-	} = useChangeForm(data.id)
+	} = useChangeForm(data.id, CoursesServices)
 
 	return (
 		<CreateCoursesForm
@@ -136,7 +136,7 @@ const CreateCoursesForm = ({
 	)
 }
 
-const useChangeForm = (userId: string) => {
+const useChangeForm = (userId: string, CoursesServices: ICoursesServices) => {
 	const [preview, setPreview] = useState<string | undefined>(DEFAULT_AVATAR)
 	const [videoUrl, setVideoUrl] = useState<string | undefined>(undefined)
 

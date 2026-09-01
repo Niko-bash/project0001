@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
-import { TeacherServices } from '../api/api'
 import type {
 	InfinityStudentsTableDataAdapter,
+	ITeacherServices,
 	UserTableData
 } from '../api/type'
 
-export const useStudents = (dataId: string) => {
+export const useStudents = (
+	dataId: string,
+	TeacherServices: ITeacherServices
+) => {
 	const [users, setUsers] = useState<
 		InfinityStudentsTableDataAdapter<UserTableData>
 	>({
@@ -25,7 +28,7 @@ export const useStudents = (dataId: string) => {
 			try {
 				setIsLoading(true)
 				const usersPaginate =
-					await TeacherServices.getAllStudentsPagination(dataId, page)
+					await TeacherServices.getAllStudentsPagination(dataId, page, 4)
 
 				if (!usersPaginate.success) {
 					throw new Error('bad request')
@@ -39,7 +42,7 @@ export const useStudents = (dataId: string) => {
 		}
 
 		fetchUsers()
-	}, [dataId, page])
+	}, [dataId, page, TeacherServices])
 
 	const handleNextPage = () => {
 		setPage((prev) => prev + 1)
