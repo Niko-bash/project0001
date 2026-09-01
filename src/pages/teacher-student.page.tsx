@@ -2,11 +2,11 @@ import {
 	AddingHomeWork,
 	HomeworkList,
 	ProfileStudent,
-	TeacherCreateForm
+	TeacherCreateForm,
+	useHomework,
+	useModal,
+	type TeacherStudentLoaderData
 } from '@/features/teacher'
-import { type TeacherStudentLoaderData } from '@/features/teacher/api/type'
-import { useHomework } from '@/features/teacher/model/useHomework'
-import { useModal } from '@/features/teacher/model/useModal'
 
 import { Modal } from '@/shared/ui/modal'
 import { Button } from '@mui/material'

@@ -1,5 +1,4 @@
-import { LayoutAuth } from '@/features/auth'
-import { LoginForm } from '@/features/auth/ui/login-form'
+import { LayoutAuth, LoginForm } from '@/features/auth'
 import { Button } from '@mui/material'
 
 export function LoginPage() {

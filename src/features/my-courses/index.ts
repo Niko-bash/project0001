@@ -7,3 +7,5 @@ export { useCoursesDeletion } from './model/useDeletedCourses'
 export { useCourses } from './model/useFindCourses'
 export { useModal } from './model/useModal'
 export { useRemoveCoursesStudent } from './model/useRemoveCoursesStudent'
+
+export * from './api/type'

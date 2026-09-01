@@ -1,4 +1,4 @@
-import type { SessionUser } from '@/features/auth/api/type'
+import type { SessionUser } from '@/features/auth'
 import { ProfileForm } from '@/features/user'
 
 import {

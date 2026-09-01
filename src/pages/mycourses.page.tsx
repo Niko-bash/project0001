@@ -1,5 +1,6 @@
-import type { SessionUser } from '@/features/auth/api/type'
+import type { SessionUser } from '@/features/auth'
 import {
+	CardFactory,
 	CreateCourses,
 	MyCoursesList,
 	MyCoursesModalTitle,
@@ -9,7 +10,6 @@ import {
 	useModal
 } from '@/features/my-courses'
 
-import { CardFactory } from '@/features/my-courses/ui/card/factory'
 import {
 	TABS_MODS,
 	type Mode,

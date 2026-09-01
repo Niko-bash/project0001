@@ -1,6 +1,6 @@
-import { type SessionUser } from '@/features/auth/api/type'
+import type { SessionUser } from '@/features/auth'
+import type { CreateCoursesType } from '@/features/courses'
 import { CoursesServices } from '@/features/courses/api/courses.services'
-import { type CreateCoursesType } from '@/features/courses/api/type'
 import { compressImage } from '@/shared/lib/compress-image'
 import { videoToBase64 } from '@/shared/lib/videoToBase64'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
