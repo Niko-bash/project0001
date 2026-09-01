@@ -4,12 +4,17 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { Button, TextField } from '@mui/material'
 import { useState } from 'react'
 import { useForm, type SubmitHandler } from 'react-hook-form'
-import type { ProfileUser } from '../api/type'
-import { UserServices } from '../api/user.services'
+import type { IUserServices, ProfileUser } from '../api/type'
 
 const DEFAULT_AVATAR = '/assets/hero.png'
 
-export const ProfileForm = ({ data }: { data: SessionUser }) => {
+export const ProfileForm = ({
+	data,
+	UserServices
+}: {
+	data: SessionUser
+	UserServices: IUserServices
+}) => {
 	const form = useForm<ProfileUser>({
 		mode: 'onSubmit',
 		defaultValues: {

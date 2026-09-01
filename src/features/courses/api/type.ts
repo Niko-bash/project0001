@@ -1,3 +1,7 @@
+import type { SearchType } from '@/pages/courses.page'
+import type { ApiResponse } from '@/shared/api/type'
+import type { InfinityCoursesType } from '../ui/card'
+
 type CommentCoursesType = {
 	username: string
 	rating: number
@@ -24,3 +28,20 @@ export type CreateCoursesType = Pick<
 	CoursesType,
 	'name' | 'description' | 'img'
 > & { video: VideoType }
+
+export interface ICoursesServices {
+	getInfinityCourses: (
+		query: SearchType,
+		page: number,
+		signal?: AbortSignal
+	) => Promise<InfinityCoursesType>
+	deletedCoursesTeacher: (
+		userId: string,
+		coursesId: string
+	) => Promise<ApiResponse<CoursesType>>
+	createCoursesTeacher: (
+		userId: string,
+		courses: CreateCoursesType
+	) => Promise<ApiResponse<CoursesType>>
+	getOneCourses: (id: string) => Promise<ApiResponse<CoursesType>>
+}

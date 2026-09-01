@@ -7,6 +7,7 @@ import {
 	useModal,
 	type TeacherStudentLoaderData
 } from '@/features/teacher'
+import { TeacherServices } from '@/features/teacher/api/api'
 
 import { Modal } from '@/shared/ui/modal'
 import { Button } from '@mui/material'
@@ -19,7 +20,8 @@ export function TeacherStudentPage() {
 
 	const { homeWork, isLoading, onSubmit } = useHomework(
 		loaderData.student.id,
-		handleClose
+		handleClose,
+		TeacherServices
 	)
 
 	return (

@@ -5,7 +5,13 @@ import {
 	UnauthorizedError,
 	type ApiResponse
 } from '@/shared/api/type'
-import type { AuthUser, CreateUser, SessionUser, User } from './type'
+import type {
+	AuthUser,
+	CreateUser,
+	IAuthServices,
+	SessionUser,
+	User
+} from './type'
 
 const COOKIE_KEYS = {
 	SESSION: 'session'
@@ -13,7 +19,7 @@ const COOKIE_KEYS = {
 const LOCAL_STORAGE_KEYS = {
 	IMAGE: 'image'
 }
-export const AuthServices = {
+export const AuthServices: IAuthServices = {
 	async getSessionCookie(): Promise<
 		(CookieListItem & { avatar: string | null }) | null
 	> {

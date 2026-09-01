@@ -9,6 +9,7 @@ import {
 	useCoursesDeletion,
 	useModal
 } from '@/features/my-courses'
+import { myCoursesServices } from '@/features/my-courses/api/myCourses.services'
 
 import {
 	TABS_MODS,
@@ -38,7 +39,11 @@ export function MyCoursesPage() {
 
 	const [mode, setMode] = useState<Mode>('Student')
 
-	const { courses, isLoading, refetch } = useCourses(data.id, mode)
+	const { courses, isLoading, refetch } = useCourses(
+		data.id,
+		mode,
+		myCoursesServices
+	)
 	const { open, handleClickOpen, handleClose, selectedId } = useModal()
 	const { deleted } = useCoursesDeletion(data.id, mode)
 

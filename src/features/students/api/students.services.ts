@@ -1,7 +1,8 @@
 import type { Homework, StudentHomeWork } from '@/features/teacher/api/type'
 import type { ApiResponse } from '@/shared/api/type'
+import type { IStudentServices } from './type'
 
-export const StudentServices = {
+export const StudentServices: IStudentServices = {
 	async updateTasks(
 		body: Homework,
 		studentId: string

@@ -2,10 +2,13 @@ import { UnauthorizedError } from '@/shared/api/type'
 import { TextField } from '@mui/material'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useNavigate } from 'react-router'
-import { AuthServices } from '../api/auth.services'
-import type { AuthUser } from '../api/type'
+import type { AuthUser, IAuthServices } from '../api/type'
 
-export const LoginForm = () => {
+export const LoginForm = ({
+	AuthServices
+}: {
+	AuthServices: IAuthServices
+}) => {
 	const navigation = useNavigate()
 	const { register, handleSubmit } = useForm<AuthUser>({
 		mode: 'onSubmit',

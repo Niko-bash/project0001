@@ -1,8 +1,8 @@
 import { AuthServices } from '@/features/auth/api/auth.services'
 import type { ApiResponse } from '@/shared/api/type'
-import type { ProfileUser } from './type'
+import type { IUserServices, ProfileUser } from './type'
 
-export const UserServices = {
+export const UserServices: IUserServices = {
 	async updateUserProfile(
 		userData: ProfileUser,
 		userId: string

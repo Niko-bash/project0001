@@ -4,6 +4,7 @@ import {
 	CoursesSearchForm,
 	useInfinityScroll
 } from '@/features/courses'
+import { CoursesServices } from '@/features/courses/api/courses.services'
 import { useUserData } from '@/features/courses/model/user-data'
 import { AddCourseButton } from '@/features/user'
 import { MyErrorFallback } from '@/shared/ui/error'
@@ -29,7 +30,7 @@ export function CoursesPage() {
 	})
 
 	const { courses, handleSearchForm, observerRef, isLoading } =
-		useInfinityScroll(form.getValues())
+		useInfinityScroll(form.getValues(), CoursesServices)
 
 	return (
 		<PageLayout

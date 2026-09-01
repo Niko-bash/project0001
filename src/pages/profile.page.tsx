@@ -1,5 +1,6 @@
 import type { SessionUser } from '@/features/auth'
 import { ProfileForm } from '@/features/user'
+import { UserServices } from '@/features/user/api/user.services'
 
 import {
 	Button,
@@ -21,7 +22,10 @@ export function ProfilePage() {
 					<Card variant="outlined">
 						<CardHeader title="Profile" />
 						<CardContent>
-							<ProfileForm data={preloadData} />
+							<ProfileForm
+								data={preloadData}
+								UserServices={UserServices}
+							/>
 						</CardContent>
 						<CardActions className="m-2">
 							<Button

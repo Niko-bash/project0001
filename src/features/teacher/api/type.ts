@@ -1,6 +1,7 @@
 import type { User } from '@/features/auth/api/type'
 import type { CoursesType } from '@/features/courses/api/type'
 import type { UserCourses } from '@/features/my-courses/api/type'
+import type { ApiResponse } from '@/shared/api/type'
 
 export type UserTableData = Pick<User, 'id' | 'email' | 'name'> & {
 	status?: boolean
@@ -52,4 +53,18 @@ export type StudentHomeWork = {
 	id: string
 	studentId: string
 	homework: Homework[]
+}
+
+export interface ITeacherServices {
+	getAllStudents: (coursesId: string) => Promise<ApiResponse<UserTableData[]>>
+	getAllStudentsPagination: (
+		coursesId: string,
+		page: number,
+		limit: number
+	) => Promise<ApiResponse<InfinityStudentsTableDataAdapter<UserTableData>>>
+	createAddingHomework: (
+		data: CreateHomework,
+		studentId: string
+	) => Promise<ApiResponse<StudentHomeWork>>
+	getStudentHomeWork: (studentId: string) => Promise<ApiResponse<Homework[]>>
 }

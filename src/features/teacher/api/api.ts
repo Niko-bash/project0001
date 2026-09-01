@@ -5,11 +5,12 @@ import type {
 	CreateHomework,
 	Homework,
 	InfinityStudentsTableDataAdapter,
+	ITeacherServices,
 	StudentHomeWork,
 	UserTableData
 } from './type'
 
-export const TeacherServices = {
+export const TeacherServices: ITeacherServices = {
 	async getAllStudents(
 		coursesId: string
 	): Promise<ApiResponse<UserTableData[]>> {

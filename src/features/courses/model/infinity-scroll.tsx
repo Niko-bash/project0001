@@ -1,9 +1,12 @@
 import type { SearchType } from '@/pages/courses.page'
 import { useCallback, useRef, useState } from 'react'
-import { CoursesServices } from '../api/courses.services'
+import type { ICoursesServices } from '..'
 import type { InfinityCoursesType } from '../ui/card'
 
-export const useInfinityScroll = (value: SearchType) => {
+export const useInfinityScroll = (
+	value: SearchType,
+	CoursesServices: ICoursesServices
+) => {
 	const [courses, setCourses] = useState<InfinityCoursesType>({
 		data: [],
 		first: 0,

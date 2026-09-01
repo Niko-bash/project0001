@@ -2,13 +2,18 @@ import type { SearchType } from '@/pages/courses.page'
 import { IndexDbServices } from '@/shared/api/indexDb.services'
 import type { ApiResponse } from '@/shared/api/type'
 import type { InfinityCoursesType } from '../ui/card'
-import type { CoursesType, CreateCoursesType, VideoType } from './type'
+import type {
+	CoursesType,
+	CreateCoursesType,
+	ICoursesServices,
+	VideoType
+} from './type'
 
 export const INDEX_DB_KEYS = {
 	VIDEO: 'VIDEO'
 }
 
-export const CoursesServices = {
+export const CoursesServices: ICoursesServices = {
 	async getInfinityCourses(
 		query: SearchType,
 		page: number,
