@@ -34,3 +34,4 @@
 
 14.   [+]: adding services props
 15.   [+]: refactoring full pages
+16.   [*]: refactor create-courses -> step-create

@@ -1,0 +1,14 @@
+import { TextField } from '@mui/material'
+import { type StepNameProps } from '../type'
+
+export const NameStep = ({ form }: StepNameProps) => {
+	return (
+		<div className=" flex flex-col gap-4">
+			<div>Name Courses</div>
+			<TextField
+				{...form.register('name')}
+				placeholder="Name Courses"
+			/>
+		</div>
+	)
+}

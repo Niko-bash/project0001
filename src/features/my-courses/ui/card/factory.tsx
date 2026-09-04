@@ -38,11 +38,11 @@ const MapActions: MapActions = {
 export const CardFactory = <T extends keyof MapCardsType>({
 	mode,
 	item,
-	extra = {} as MapExtra[T]
+	extra
 }: {
 	mode: T
 	item: MapCardsType[T]
-	extra?: MapExtra[T]
+	extra: MapExtra[T]
 }) => {
 	const render = MapCards[mode]
 	const actions = MapActions[mode]
