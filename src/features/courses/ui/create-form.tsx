@@ -34,7 +34,7 @@ export const CreateCoursesForm = ({ userId }: { userId: string }) => {
 					onPrev={handlePrev}
 					isLast={isLast}
 					isFirst={isFirst}
-					isSubmitting={true}
+					isSubmitting={false}
 				/>
 			</div>
 		</form>

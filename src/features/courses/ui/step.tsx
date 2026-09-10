@@ -28,7 +28,15 @@ export const StepNavigation = ({
 					Create Courses
 				</Button>
 			) : (
-				<Button onClick={onNext}>Next</Button>
+				<Button
+					type="button"
+					onClick={(e) => {
+						e.preventDefault()
+						onNext()
+					}}
+				>
+					Next
+				</Button>
 			)}
 		</div>
 	)

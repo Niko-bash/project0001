@@ -7,6 +7,7 @@ export const VideoStep = ({
 	form,
 	onChangeVideo
 }: StepVideoProps) => {
+	const { errors } = form.formState
 	return (
 		<div className="flex flex-col gap-5">
 			{videoUrl ? (
@@ -27,13 +28,14 @@ export const VideoStep = ({
 			>
 				Upload video
 				<input
-					{...form.register('video')}
+					{...form.register('video.url')}
 					type="file"
 					accept="video/**"
 					hidden
 					onChange={(e) => onChangeVideo(e)}
 				/>
 			</Button>
+			{errors.video?.url && <div>{errors.video.url.message}</div>}
 			<TextareaAutosize
 				{...form.register('video.description')}
 				minRows={3}
@@ -45,7 +47,7 @@ export const VideoStep = ({
 					borderRadius: '5px'
 				}}
 			/>
-			<Button type="submit">Create Courses</Button>
+			{errors.video?.description && <div>Error</div>}
 		</div>
 	)
 }

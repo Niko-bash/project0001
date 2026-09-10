@@ -2,6 +2,7 @@ import { TextareaAutosize } from '@mui/material'
 import { type StepDescriptionProps } from '../type'
 
 export const DescriptionStep = ({ form }: StepDescriptionProps) => {
+	const { errors } = form.formState
 	return (
 		<div className="flex flex-col gap-5">
 			<div>Description courses:</div>
@@ -16,6 +17,7 @@ export const DescriptionStep = ({ form }: StepDescriptionProps) => {
 					borderRadius: '5px'
 				}}
 			/>
+			{errors.description && <div>descript</div>}
 		</div>
 	)
 }

@@ -7,6 +7,7 @@ export const PreviewStep = ({
 	form,
 	onChangeImage
 }: StepPreviewProps) => {
+	const { errors } = form.formState
 	return (
 		<div className="flex flex-col gap-5">
 			<img
@@ -30,6 +31,7 @@ export const PreviewStep = ({
 					onChange={(e) => onChangeImage(e)}
 				/>
 			</Button>
+			{errors.img && <div>123</div>}
 		</div>
 	)
 }
