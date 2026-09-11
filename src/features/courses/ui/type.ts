@@ -1,4 +1,4 @@
-import type { UseFormReturn } from 'react-hook-form'
+import type { FieldPath, UseFormReturn } from 'react-hook-form'
 import type { CreateCoursesType } from '..'
 
 export type Step = 'preview' | 'name' | 'description' | 'video'
@@ -36,4 +36,10 @@ export type StepComponentsMap = {
 
 export type StepPropsMapTest = {
 	[K in Step]: StepPropsMap[K]
+}
+
+export type StepType = {
+	id: string
+	step: Step
+	fields: FieldPath<CreateCoursesType>[]
 }

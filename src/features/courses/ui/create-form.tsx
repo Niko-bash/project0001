@@ -5,7 +5,6 @@ import { RenderForm } from './form-step'
 import { StepNavigation } from './step'
 
 export const CreateCoursesForm = ({ userId }: { userId: string }) => {
-	const { handleNext, handlePrev, step, isLast, isFirst } = useNavigationForm()
 	const {
 		handleChangeImage,
 		handleChangeVideo,
@@ -14,6 +13,9 @@ export const CreateCoursesForm = ({ userId }: { userId: string }) => {
 		videoUrl,
 		form
 	} = useChangeForm(userId, CoursesServices)
+
+	const { handleNext, handlePrev, step, isLast, isFirst } =
+		useNavigationForm(form)
 
 	return (
 		<form

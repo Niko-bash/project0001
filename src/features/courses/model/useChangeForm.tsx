@@ -8,7 +8,7 @@ import { useForm, type SubmitHandler } from 'react-hook-form'
 
 const DEFAULT_AVATAR = '/assets/courses.webp'
 
-const MAX_IMAGE_SIZE = 5 * 1024 * 1024 // 5MB
+const MAX_IMAGE_SIZE = 6 * 1024 * 1024 // 5MB
 
 const VideoSchema = z.object({
 	description: z.string().check(z.minLength(3)),
@@ -31,14 +31,13 @@ export const useChangeForm = (
 
 	const form = useForm<CreateCoursesType>({
 		resolver: zodResolver(CreateCoursesTypeSchema),
-		mode: 'onTouched',
+		mode: 'onChange',
 		shouldUnregister: false,
 		defaultValues: {
 			name: '',
 			description: '',
 			video: {
-				description: '',
-				url: undefined
+				description: ''
 			}
 		}
 	})
