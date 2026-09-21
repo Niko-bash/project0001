@@ -18,16 +18,15 @@ export type CoursesType = {
 	video: string
 }
 
+export type CreateCoursesType = Pick<
+	CoursesType,
+	'name' | 'description' | 'img'
+> & { video: VideoType }
 export type VideoType = {
 	id?: string
 	url: string
 	description: string
 }
-
-export type CreateCoursesType = Pick<
-	CoursesType,
-	'name' | 'description' | 'img'
-> & { video: VideoType }
 
 export interface ICoursesServices {
 	getInfinityCourses: (

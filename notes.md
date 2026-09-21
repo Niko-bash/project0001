@@ -22,10 +22,25 @@
 10.   [+]: create table-user-student in teacher-page
       11.1 [+]: create adaptive table
       11.2 [-]: sort table
-      11.3 [*]: virtualize(infinity) table
+      11.3 [+]: virtualize(infinity) table
 
       21.08.2026
 
 11.   [-]: feat payment courses
 12.   [-]: feat base chat student-teacher
 13.   [-]: create lesson-class-room
+
+      2.09.2026
+
+14.   [+]: adding services props
+15.   [+]: refactoring full pages
+16.   [+]: refactor create-courses -> step-create
+
+      17.09.2026
+
+17.   [+]: adding zod-validator
+
+      21.09.2026
+
+18.   [-]: write errors and loaders full app
+19.   [-]: adding React Hot Toast for push-notifications

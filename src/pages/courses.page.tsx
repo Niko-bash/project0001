@@ -5,7 +5,7 @@ import {
 	useInfinityScroll
 } from '@/features/courses'
 import { CoursesServices } from '@/features/courses/api/courses.services'
-import { useUserData } from '@/features/courses/model/user-data'
+import { useUserData } from '@/features/courses/model/useUserData'
 import { AddCourseButton } from '@/features/user'
 import { MyErrorFallback } from '@/shared/ui/error'
 import { ErrorBoundary } from 'react-error-boundary'
