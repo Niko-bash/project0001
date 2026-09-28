@@ -31,7 +31,7 @@ export const useChangeForm = (
 
 	const form = useForm<CreateCoursesType>({
 		resolver: zodResolver(CreateCoursesTypeSchema),
-		mode: 'onChange',
+		mode: 'onSubmit',
 		shouldUnregister: false,
 		defaultValues: {
 			name: '',

@@ -18,8 +18,6 @@ export const useNavigationForm = (form: UseFormReturn<CreateCoursesType>) => {
 	const handleNext = async () => {
 		const isValid = await form.trigger(step.fields, { shouldFocus: true })
 
-		console.log(isValid)
-
 		if (!isValid) {
 			return
 		}

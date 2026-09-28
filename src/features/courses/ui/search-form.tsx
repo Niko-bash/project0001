@@ -1,5 +1,3 @@
-import type { SearchType } from '@/pages/courses.page'
-import { useDebounce } from '@/shared/hook/useDebounce'
 import {
 	FormControl,
 	InputLabel,
@@ -7,26 +5,9 @@ import {
 	Select,
 	TextField
 } from '@mui/material'
-import { useEffect } from 'react'
-import { useWatch, type UseFormReturn } from 'react-hook-form'
+import { type UseFormReturn } from 'react-hook-form'
 
-export const CoursesSearchForm = ({
-	onChange,
-	form
-}: {
-	onChange: (params: SearchType, signal: AbortSignal) => Promise<void>
-	form: UseFormReturn<SearchType>
-}) => {
-	const value = useWatch({ control: form.control })
-	const values = useDebounce(value, 500)
-	useEffect(() => {
-		const controller = new AbortController()
-
-		onChange(values, controller.signal)
-
-		return () => controller.abort()
-	}, [values, onChange])
-
+export const CoursesSearchForm = ({ form }: { form: UseFormReturn }) => {
 	return (
 		<form
 			className="flex flex-col gap-3"

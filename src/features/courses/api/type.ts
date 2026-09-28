@@ -1,4 +1,3 @@
-import type { SearchType } from '@/pages/courses.page'
 import type { ApiResponse } from '@/shared/api/type'
 import type { InfinityCoursesType } from '../ui/card'
 
@@ -27,6 +26,18 @@ export type VideoType = {
 	url: string
 	description: string
 }
+export type SearchType = {
+	title?: string
+	sort?: '-rating' | 'rating'
+	per_page?: string
+}
+export type CoursesStatus =
+	| 'idle' // ничего не запрашивали
+	| 'loading' // первая загрузка (данных ещё нет)
+	| 'loadingMore' // дозагрузка (данные уже есть)
+	| 'success' // загружено (может быть пусто — это тоже success)
+	| 'error' // ошибка, данных нет
+	| 'errorMore' // ошибка при дозагрузке, но старые данные есть
 
 export interface ICoursesServices {
 	getInfinityCourses: (

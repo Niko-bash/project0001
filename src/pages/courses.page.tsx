@@ -2,20 +2,16 @@ import {
 	CardCourses,
 	CoursesList,
 	CoursesSearchForm,
-	useInfinityScroll
+	useInfinityScroll,
+	useUserData,
+	type SearchType
 } from '@/features/courses'
 import { CoursesServices } from '@/features/courses/api/courses.services'
-import { useUserData } from '@/features/courses/model/useUserData'
 import { AddCourseButton } from '@/features/user'
+import { useDebounce } from '@/shared/hook/useDebounce'
 import { MyErrorFallback } from '@/shared/ui/error'
 import { ErrorBoundary } from 'react-error-boundary'
-import { useForm } from 'react-hook-form'
-
-export type SearchType = {
-	title?: string
-	sort?: '-rating' | 'rating'
-	per_page?: string
-}
+import { useForm, useWatch } from 'react-hook-form'
 
 export function CoursesPage() {
 	const { user, adding } = useUserData()
@@ -29,24 +25,28 @@ export function CoursesPage() {
 		}
 	})
 
-	const { courses, handleSearchForm, observerRef, isLoading } =
-		useInfinityScroll(form.getValues(), CoursesServices)
+	const value = useWatch({ control: form.control })
+
+	const values = useDebounce(value, 500)
+
+	const { courses, error, hasData, loadMore, retry, status } =
+		useInfinityScroll(values, CoursesServices)
 
 	return (
 		<PageLayout
 			form={
 				<ErrorBoundary FallbackComponent={MyErrorFallback}>
-					<CoursesSearchForm
-						onChange={handleSearchForm}
-						form={form}
-					/>
+					<CoursesSearchForm form={form} />
 				</ErrorBoundary>
 			}
 			list={
 				<CoursesList
+					hasData={hasData}
+					onLoadMore={loadMore}
+					onRetry={retry}
+					status={status}
 					courses={courses}
-					onLoading={isLoading}
-					ref={observerRef}
+					error={error}
 					render={(item) => (
 						<CardCourses
 							key={item.id}
