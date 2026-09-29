@@ -54,6 +54,33 @@ export type StudentHomeWork = {
 	studentId: string
 	homework: Homework[]
 }
+export type HomeStatus = 'idle' | 'success' | 'error' | 'loading'
+
+export type State = {
+	homework: Homework[]
+	status: HomeStatus
+	error: Error | null
+}
+
+export type Action = Request | Fail | Success | Reset
+
+type Request = {
+	type: 'request'
+}
+
+type Success = {
+	type: 'success'
+	homework: Homework[]
+}
+
+type Fail = {
+	type: 'fail'
+	error: Error
+}
+
+type Reset = {
+	type: 'reset'
+}
 
 export interface ITeacherServices {
 	getAllStudents: (coursesId: string) => Promise<ApiResponse<UserTableData[]>>

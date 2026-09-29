@@ -1,28 +1,57 @@
-import { useEffect, useState } from 'react'
-import type { CreateHomework, Homework, ITeacherServices } from '../api/type'
+import { useCallback, useEffect, useReducer, useRef } from 'react'
+import type { Action, ITeacherServices, State } from '../api/type'
+
+const INITIAL: State = {
+	homework: [],
+	error: null,
+	status: 'idle'
+}
+
+function reducer(state: State, action: Action): State {
+	switch (action.type) {
+		case 'request':
+			return {
+				...state,
+				status: 'loading',
+				error: null
+			}
+		case 'success':
+			return {
+				...state,
+				homework: action.homework,
+				status: 'success',
+				error: null
+			}
+		case 'fail':
+			return {
+				...state,
+				status: 'error',
+				error: action.error
+			}
+		case 'reset':
+			return INITIAL
+		default:
+			return state
+	}
+}
 
 export const useHomework = (
 	studentId: string,
-	onClose: () => void,
 	TeacherServices: ITeacherServices
 ) => {
-	const [homeWork, setHomeWork] = useState<Homework[]>([])
-	const [isLoading, setIsLoading] = useState(false)
+	const [state, dispatch] = useReducer(reducer, INITIAL)
+	const abortRef = useRef<AbortController | null>(null)
 
-	const onSubmit = async (val: CreateHomework) => {
-		const response = await TeacherServices.createAddingHomework(
-			val,
-			studentId
-		)
-		if (response.success) {
-			console.log('Suc')
-			onClose()
-		}
-	}
+	const fetchHomeWork = useCallback(
+		async (studentId: string) => {
+			abortRef.current?.abort()
 
-	useEffect(() => {
-		const fetchHomeWork = async (studentId: string) => {
-			setIsLoading(true)
+			const controller = new AbortController()
+
+			abortRef.current = controller
+
+			dispatch({ type: 'request' })
+
 			try {
 				const homework = await TeacherServices.getStudentHomeWork(studentId)
 
@@ -30,20 +59,39 @@ export const useHomework = (
 					throw new Error('Homework students is error')
 				}
 
-				setHomeWork(homework.data)
-			} catch (e) {
-				console.error(e)
-			} finally {
-				setIsLoading(false)
-			}
-		}
+				if (controller.signal.aborted) return
 
+				dispatch({ type: 'success', homework: homework.data })
+			} catch (error) {
+				if (error instanceof DOMException && error.name === 'AbortError')
+					return
+				if (controller.signal.aborted) return
+
+				dispatch({
+					type: 'fail',
+					error: error instanceof Error ? error : new Error(String(error))
+				})
+			} finally {
+				if (abortRef.current === controller) {
+					abortRef.current = null
+				}
+			}
+		},
+		[TeacherServices]
+	)
+
+	useEffect(() => {
 		fetchHomeWork(studentId)
-	}, [studentId])
+	}, [studentId, TeacherServices, fetchHomeWork])
+
+	const refetch = useCallback(() => {
+		fetchHomeWork(studentId)
+	}, [fetchHomeWork, studentId])
 
 	return {
-		onSubmit,
-		homeWork,
-		isLoading
+		homeWork: state.homework,
+		status: state.status,
+		error: state.error,
+		refetch
 	}
 }
