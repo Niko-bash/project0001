@@ -124,6 +124,7 @@ export const useCourses = (
 	return {
 		courses: state.myCourses,
 		status: state.status,
-		refetch: fetchData
+		refetch: fetchData,
+		error: state.error
 	}
 }

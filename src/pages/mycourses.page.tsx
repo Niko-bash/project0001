@@ -39,7 +39,7 @@ export function MyCoursesPage() {
 
 	const [mode, setMode] = useState<Mode>('Student')
 
-	const { courses, status, refetch } = useCourses(
+	const { courses, status, refetch, error } = useCourses(
 		user.id,
 		mode,
 		myCoursesServices
@@ -77,6 +77,7 @@ export function MyCoursesPage() {
 			<CreateCourses title={'Create Courses'} />
 			<MyCoursesList
 				status={status}
+				error={error}
 				items={courses}
 				render={(item) => (
 					<CardFactory
