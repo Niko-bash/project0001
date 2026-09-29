@@ -35,17 +35,17 @@ const TABS_MODE: TabsMode[] = [
 ]
 
 export function MyCoursesPage() {
-	const data = useLoaderData<SessionUser>()
+	const user = useLoaderData<SessionUser>()
 
 	const [mode, setMode] = useState<Mode>('Student')
 
-	const { courses, isLoading, refetch } = useCourses(
-		data.id,
+	const { courses, status, refetch, error } = useCourses(
+		user.id,
 		mode,
 		myCoursesServices
 	)
 	const { open, handleClickOpen, handleClose, selectedId } = useModal()
-	const { deleted } = useCoursesDeletion(data.id, mode)
+	const { deleted } = useCoursesDeletion(user.id, mode)
 
 	const handleDelete = async () => {
 		if (!selectedId) return
@@ -71,13 +71,13 @@ export function MyCoursesPage() {
 					<Tab
 						value={tab.value}
 						label={tab.label}
-						disabled={isLoading}
 					/>
 				))}
 			</Tabs>
 			<CreateCourses title={'Create Courses'} />
 			<MyCoursesList
-				isLoading={isLoading}
+				status={status}
+				error={error}
 				items={courses}
 				render={(item) => (
 					<CardFactory
@@ -85,7 +85,7 @@ export function MyCoursesPage() {
 						item={item}
 						mode={mode}
 						extra={{
-							userId: data.id,
+							userId: user.id,
 							open,
 							handleClickOpen
 						}}

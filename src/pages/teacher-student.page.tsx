@@ -5,6 +5,7 @@ import {
 	TeacherCreateForm,
 	useHomework,
 	useModal,
+	type CreateHomework,
 	type TeacherStudentLoaderData
 } from '@/features/teacher'
 import { TeacherServices } from '@/features/teacher/api/api'
@@ -14,33 +15,44 @@ import { Button } from '@mui/material'
 import { useLoaderData } from 'react-router'
 
 export function TeacherStudentPage() {
-	const loaderData: TeacherStudentLoaderData = useLoaderData()
+	const teacher = useLoaderData<TeacherStudentLoaderData>()
 
-	const { handleClose, handleOpen, open } = useModal()
+	const { onClose, onOpen, open } = useModal()
 
-	const { homeWork, isLoading, onSubmit } = useHomework(
-		loaderData.student.id,
-		handleClose,
+	const { homeWork, error, status, refetch } = useHomework(
+		teacher.student.id,
 		TeacherServices
 	)
+	const onSubmit = async (val: CreateHomework) => {
+		const response = await TeacherServices.createAddingHomework(
+			val,
+			teacher.student.id
+		)
+		if (response.success) {
+			refetch()
+			onClose()
+		}
+	}
 
 	return (
 		<>
 			<div className="pt-10 flex flex-col gap-4">
-				<ProfileStudent user={loaderData.student} />
+				<ProfileStudent user={teacher.student} />
 				<AddingHomeWork
-					title={'Create Homework'}
-					onChange={handleOpen}
+					title={<>Create Homework</>}
+					onChange={onOpen}
 				/>
 				<HomeworkList
-					title={'Homework List'}
+					title={<h2>Homework List</h2>}
 					items={homeWork}
+					status={status}
+					error={error}
 				/>
 			</div>
 			<Modal
 				open={open}
-				onClose={handleClose}
-				title={<div>Create homework for {loaderData.student.name}</div>}
+				onClose={onClose}
+				title={<div>Create homework for {teacher.student.name}</div>}
 				content={<TeacherCreateForm onSubmit={onSubmit} />}
 				actions={
 					<>
@@ -50,7 +62,7 @@ export function TeacherStudentPage() {
 						>
 							Create
 						</Button>
-						<Button onClick={handleClose}>Close</Button>
+						<Button onClick={onClose}>Close</Button>
 					</>
 				}
 			/>

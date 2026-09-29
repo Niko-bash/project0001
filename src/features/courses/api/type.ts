@@ -1,4 +1,3 @@
-import type { SearchType } from '@/pages/courses.page'
 import type { ApiResponse } from '@/shared/api/type'
 import type { InfinityCoursesType } from '../ui/card'
 
@@ -27,6 +26,53 @@ export type VideoType = {
 	url: string
 	description: string
 }
+export type SearchType = {
+	title?: string
+	sort?: '-rating' | 'rating'
+	per_page?: string
+}
+export type CoursesStatus =
+	| 'idle' // ничего не запрашивали
+	| 'loading' // первая загрузка (данных ещё нет)
+	| 'loadingMore' // дозагрузка (данные уже есть)
+	| 'success' // загружено (может быть пусто — это тоже success)
+	| 'error' // ошибка, данных нет
+	| 'errorMore' // ошибка при дозагрузке, но старые данные есть
+
+export type State = {
+	courses: InfinityCoursesType
+	status: CoursesStatus
+	error: Error | null
+	page: number
+	query: SearchType
+}
+
+type Request = {
+	type: 'request'
+	query: SearchType
+	page: number
+	append: boolean
+}
+
+type Success = {
+	type: 'success'
+	data: InfinityCoursesType
+	page: number
+	append: boolean
+}
+
+type Fail = {
+	type: 'fail'
+	error: Error
+	append: boolean
+	page: number
+}
+
+type Reset = {
+	type: 'reset'
+}
+
+export type Action = Request | Success | Fail | Reset
 
 export interface ICoursesServices {
 	getInfinityCourses: (
@@ -42,5 +88,8 @@ export interface ICoursesServices {
 		userId: string,
 		courses: CreateCoursesType
 	) => Promise<ApiResponse<CoursesType>>
-	getOneCourses: (id: string) => Promise<ApiResponse<CoursesType>>
+	getOneCourses: (
+		id: string,
+		signal?: AbortSignal
+	) => Promise<ApiResponse<CoursesType>>
 }

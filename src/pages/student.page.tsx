@@ -35,10 +35,10 @@ const TABS_CONFIG: TabType[] = [
 ]
 
 export function StudentPage() {
-	const loaderData: StudentLoaderData = useLoaderData()
+	const student = useLoaderData<StudentLoaderData>()
 
 	const [mode, setMode] = useState<StudentCoursesMode>('Courses')
-	// const [isLoading, setIsLoading] = useState(false)
+	// const [isLoading, setIsLoading] = useState(true)
 
 	return (
 		<>
@@ -58,7 +58,8 @@ export function StudentPage() {
 			</Tabs>
 			<ViewTabs
 				mode={mode}
-				studentId={loaderData.user.id}
+				// onLoading={isLoading}
+				studentId={student.user.id}
 			/>
 		</>
 	)
@@ -67,11 +68,22 @@ export function StudentPage() {
 const ViewTabs = ({
 	mode,
 	studentId
+	// onLoading
 }: {
 	mode: StudentCoursesMode
 	studentId: string
+	// onLoading: boolean
 }) => {
 	const render = MODE_COMPONENTS[mode]
+
+	// if (onLoading) {
+	// 	;<div className="flex justify-center w-full py-4">
+	// 		<CircularProgress
+	// 			size={100}
+	// 			color="primary"
+	// 		/>
+	// 	</div>
+	// }
 
 	if (!render) {
 		return null

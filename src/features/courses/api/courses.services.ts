@@ -1,12 +1,12 @@
-import type { SearchType } from '@/pages/courses.page'
 import { IndexDbServices } from '@/shared/api/indexDb.services'
-import type { ApiResponse } from '@/shared/api/type'
-import type { InfinityCoursesType } from '../ui/card'
-import type {
-	CoursesType,
-	CreateCoursesType,
-	ICoursesServices,
-	VideoType
+import { type ApiResponse } from '@/shared/api/type'
+import { type InfinityCoursesType } from '../ui/card'
+import {
+	type CoursesType,
+	type CreateCoursesType,
+	type ICoursesServices,
+	type SearchType,
+	type VideoType
 } from './type'
 
 export const INDEX_DB_KEYS = {
@@ -98,9 +98,13 @@ export const CoursesServices: ICoursesServices = {
 
 		return { status: 200, success: true, data }
 	},
-	async getOneCourses(id: string): Promise<ApiResponse<CoursesType>> {
+	async getOneCourses(
+		id: string,
+		signal?: AbortSignal
+	): Promise<ApiResponse<CoursesType>> {
 		const response = await fetch(`/api/courses/${id}`, {
-			method: 'GET'
+			method: 'GET',
+			signal
 		})
 
 		if (!response.ok) {

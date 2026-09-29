@@ -42,5 +42,10 @@
 
       21.09.2026
 
-18.   [-]: write errors and loaders full app
+18.   [*]: write errors and loaders full app
 19.   [-]: adding React Hot Toast for push-notifications
+20.   [-]: adding log
+21.   [-]: adding cache-api
+22.   [-]: start back-end
+23.   [-]: redisgn app(styles-app)\*
+24.   [-]: recovery api-error list-data or data
