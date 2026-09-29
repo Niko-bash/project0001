@@ -1,41 +1,6 @@
 import { useCallback, useEffect, useReducer, useRef } from 'react'
-import type { CoursesStatus, ICoursesServices, SearchType } from '..'
+import type { Action, ICoursesServices, SearchType, State } from '..'
 import type { InfinityCoursesType } from '../ui/card'
-
-type State = {
-	courses: InfinityCoursesType
-	status: CoursesStatus
-	error: Error | null
-	page: number
-	query: SearchType
-}
-
-type Request = {
-	type: 'request'
-	query: SearchType
-	page: number
-	append: boolean
-}
-
-type Success = {
-	type: 'success'
-	data: InfinityCoursesType
-	page: number
-	append: boolean
-}
-
-type Fail = {
-	type: 'fail'
-	error: Error
-	append: boolean
-	page: number
-}
-
-type Reset = {
-	type: 'reset'
-}
-
-type Action = Request | Success | Fail | Reset
 
 const EMPTY: InfinityCoursesType = {
 	data: [],
@@ -103,9 +68,6 @@ export const useInfinityScroll = (
 
 	const abortRef = useRef<AbortController | null>(null)
 
-	// Инкрементируем запросы id для каждого запроса и если не равен актуальному значит устарел
-	const requestIdRef = useRef(0)
-
 	useEffect(() => {
 		return () => {
 			abortRef.current?.abort()
@@ -118,7 +80,6 @@ export const useInfinityScroll = (
 			abortRef.current?.abort()
 			const controller = new AbortController()
 			abortRef.current = controller
-			const requestId = ++requestIdRef.current
 
 			dispatch({ type: 'request', query: q, page, append })
 
@@ -128,13 +89,12 @@ export const useInfinityScroll = (
 					page,
 					controller.signal
 				)
-				if (requestId !== requestIdRef.current) return
+				if (controller.signal.aborted) return
 				dispatch({ type: 'success', data, page, append })
 			} catch (error) {
 				if (error instanceof DOMException && error.name === 'AbortError')
 					return
-
-				if (requestId !== requestIdRef.current) return
+				if (controller.signal.aborted) return
 				dispatch({
 					type: 'fail',
 					error: error instanceof Error ? error : new Error(String(error)),

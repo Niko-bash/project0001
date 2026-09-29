@@ -39,6 +39,41 @@ export type CoursesStatus =
 	| 'error' // ошибка, данных нет
 	| 'errorMore' // ошибка при дозагрузке, но старые данные есть
 
+export type State = {
+	courses: InfinityCoursesType
+	status: CoursesStatus
+	error: Error | null
+	page: number
+	query: SearchType
+}
+
+type Request = {
+	type: 'request'
+	query: SearchType
+	page: number
+	append: boolean
+}
+
+type Success = {
+	type: 'success'
+	data: InfinityCoursesType
+	page: number
+	append: boolean
+}
+
+type Fail = {
+	type: 'fail'
+	error: Error
+	append: boolean
+	page: number
+}
+
+type Reset = {
+	type: 'reset'
+}
+
+export type Action = Request | Success | Fail | Reset
+
 export interface ICoursesServices {
 	getInfinityCourses: (
 		query: SearchType,
