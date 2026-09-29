@@ -15,8 +15,8 @@ export const TableStudent = ({
 	onNext,
 	teacherId,
 	coursesId,
-	status,
-	error
+	status
+	// error
 }: {
 	data: InfinityStudentsTableDataAdapter<UserTableData>
 	onPrev: () => void
@@ -24,7 +24,7 @@ export const TableStudent = ({
 	teacherId: string
 	coursesId: string
 	status: StatusStudents
-	error: Error | null
+	// error: Error | null
 }) => {
 	return (
 		<TableCustom

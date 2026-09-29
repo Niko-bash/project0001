@@ -9,7 +9,7 @@ import { useLoaderData } from 'react-router'
 export function TeacherPage() {
 	const { data, user } = useLoaderData<TeacherLoaderData>()
 
-	const { students, status, error, onNextPage, onPrevPage } = useStudents(
+	const { students, status, onNextPage, onPrevPage } = useStudents(
 		data.id,
 		TeacherServices
 	)
@@ -19,7 +19,7 @@ export function TeacherPage() {
 			data={students}
 			onPrev={onPrevPage}
 			onNext={onNextPage}
-			error={error}
+			// error={error}
 			status={status}
 			teacherId={user.id}
 			coursesId={data.id}
