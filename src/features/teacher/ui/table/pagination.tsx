@@ -1,34 +1,45 @@
-import { Button } from '@mui/material'
+import { Button, CircularProgress } from '@mui/material'
+import type { StatusStudents } from '../../api/type'
 
 export const Pagination = ({
 	onPrev,
 	onNext,
-	onLoading,
 	prev,
 	next,
-	pages
+	pages,
+	status
 }: {
 	onPrev: () => void
 	onNext: () => void
-	onLoading: boolean
 	prev: number | null
 	next: number | null
 	pages: number
+	status: StatusStudents
 }) => {
+	const isLoading = status === 'loading'
 	return (
 		<div className="w-full flex justify-end gap-2 p-2 items-center">
 			<Button
 				variant="contained"
 				onClick={onPrev}
-				disabled={!prev || onLoading}
+				disabled={!prev || isLoading}
 			>
 				{'<<'}
 			</Button>
-			<Button>{pages}</Button>
+			<div className="w-12 text-center">
+				{isLoading ? (
+					<CircularProgress
+						size={30}
+						color="primary"
+					/>
+				) : (
+					pages
+				)}
+			</div>
 			<Button
 				variant="contained"
 				onClick={onNext}
-				disabled={!next || onLoading}
+				disabled={!next || isLoading}
 			>
 				{'>>'}
 			</Button>

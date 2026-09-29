@@ -88,5 +88,8 @@ export interface ICoursesServices {
 		userId: string,
 		courses: CreateCoursesType
 	) => Promise<ApiResponse<CoursesType>>
-	getOneCourses: (id: string) => Promise<ApiResponse<CoursesType>>
+	getOneCourses: (
+		id: string,
+		signal?: AbortSignal
+	) => Promise<ApiResponse<CoursesType>>
 }

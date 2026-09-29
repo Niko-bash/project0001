@@ -1,5 +1,6 @@
 import type {
 	InfinityStudentsTableDataAdapter,
+	StatusStudents,
 	UserTableData
 } from '../../api/type'
 import { TableCustom } from './custom'
@@ -12,16 +13,18 @@ export const TableStudent = ({
 	data,
 	onPrev,
 	onNext,
-	onLoading,
 	teacherId,
-	coursesId
+	coursesId,
+	status,
+	error
 }: {
 	data: InfinityStudentsTableDataAdapter<UserTableData>
 	onPrev: () => void
 	onNext: () => void
-	onLoading: boolean
 	teacherId: string
 	coursesId: string
+	status: StatusStudents
+	error: Error | null
 }) => {
 	return (
 		<TableCustom
@@ -39,7 +42,7 @@ export const TableStudent = ({
 				<Pagination
 					onNext={onNext}
 					onPrev={onPrev}
-					onLoading={onLoading}
+					status={status}
 					prev={data.prev}
 					next={data.next}
 					pages={data.pages}

@@ -98,9 +98,13 @@ export const CoursesServices: ICoursesServices = {
 
 		return { status: 200, success: true, data }
 	},
-	async getOneCourses(id: string): Promise<ApiResponse<CoursesType>> {
+	async getOneCourses(
+		id: string,
+		signal?: AbortSignal
+	): Promise<ApiResponse<CoursesType>> {
 		const response = await fetch(`/api/courses/${id}`, {
-			method: 'GET'
+			method: 'GET',
+			signal
 		})
 
 		if (!response.ok) {

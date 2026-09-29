@@ -54,44 +54,90 @@ export type StudentHomeWork = {
 	studentId: string
 	homework: Homework[]
 }
-export type HomeStatus = 'idle' | 'success' | 'error' | 'loading'
+export type HomeworkStatus = 'idle' | 'success' | 'error' | 'loading'
 
-export type State = {
+export type StateHomework = {
 	homework: Homework[]
-	status: HomeStatus
+	status: HomeworkStatus
 	error: Error | null
 }
 
-export type Action = Request | Fail | Success | Reset
+export type ActionHomework =
+	| RequestHomework
+	| FailHomework
+	| SuccessHomework
+	| ResetHomework
 
-type Request = {
+type RequestHomework = {
 	type: 'request'
 }
 
-type Success = {
+type SuccessHomework = {
 	type: 'success'
 	homework: Homework[]
 }
 
-type Fail = {
+type FailHomework = {
 	type: 'fail'
 	error: Error
 }
 
-type Reset = {
+type ResetHomework = {
 	type: 'reset'
 }
 
 export interface ITeacherServices {
-	getAllStudents: (coursesId: string) => Promise<ApiResponse<UserTableData[]>>
+	getAllStudents: (
+		coursesId: string,
+		signal?: AbortSignal
+	) => Promise<ApiResponse<UserTableData[]>>
 	getAllStudentsPagination: (
 		coursesId: string,
 		page: number,
-		limit: number
+		limit: number,
+		signal?: AbortSignal
 	) => Promise<ApiResponse<InfinityStudentsTableDataAdapter<UserTableData>>>
 	createAddingHomework: (
 		data: CreateHomework,
 		studentId: string
 	) => Promise<ApiResponse<StudentHomeWork>>
-	getStudentHomeWork: (studentId: string) => Promise<ApiResponse<Homework[]>>
+	getStudentHomeWork: (
+		studentId: string,
+		signal?: AbortSignal
+	) => Promise<ApiResponse<Homework[]>>
+}
+
+export type StatusStudents = 'idle' | 'loading' | 'success' | 'error'
+
+export type StateStudents = {
+	students: InfinityStudentsTableDataAdapter<UserTableData>
+	status: StatusStudents
+	error: Error | null
+	page: number
+}
+
+export type ActionStudents =
+	| RequestStudents
+	| SuccessStudents
+	| FailStudents
+	| ResetStudents
+
+type RequestStudents = {
+	type: 'request'
+}
+
+type SuccessStudents = {
+	type: 'success'
+	students: InfinityStudentsTableDataAdapter<UserTableData>
+	page: number
+}
+
+type FailStudents = {
+	type: 'fail'
+	error: Error
+	page: number
+}
+
+type ResetStudents = {
+	type: 'reset'
 }

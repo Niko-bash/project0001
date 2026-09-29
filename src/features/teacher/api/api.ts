@@ -12,10 +12,12 @@ import type {
 
 export const TeacherServices: ITeacherServices = {
 	async getAllStudents(
-		coursesId: string
+		coursesId: string,
+		signal?: AbortSignal
 	): Promise<ApiResponse<UserTableData[]>> {
 		const findUsers = await fetch('/api/userCourses', {
-			method: 'GET'
+			method: 'GET',
+			signal
 		})
 		if (!findUsers.ok) {
 			throw new Error('Bad request')
@@ -50,10 +52,12 @@ export const TeacherServices: ITeacherServices = {
 	async getAllStudentsPagination(
 		coursesId: string,
 		page: number = 1,
-		limit: number = 4
+		limit: number = 4,
+		signal?: AbortSignal
 	): Promise<ApiResponse<InfinityStudentsTableDataAdapter<UserTableData>>> {
 		const findUsers = await fetch(`/api/userCourses`, {
-			method: 'GET'
+			method: 'GET',
+			signal
 		})
 
 		if (!findUsers.ok) {
@@ -208,10 +212,12 @@ export const TeacherServices: ITeacherServices = {
 		}
 	},
 	async getStudentHomeWork(
-		studentId: string
+		studentId: string,
+		signal?: AbortSignal
 	): Promise<ApiResponse<Homework[]>> {
 		const response = await fetch(`/api/userQuest?studentId=${studentId}`, {
-			method: 'GET'
+			method: 'GET',
+			signal
 		})
 
 		if (!response.ok) {

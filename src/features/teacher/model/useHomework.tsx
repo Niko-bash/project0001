@@ -1,13 +1,17 @@
 import { useCallback, useEffect, useReducer, useRef } from 'react'
-import type { Action, ITeacherServices, State } from '../api/type'
+import type {
+	ActionHomework,
+	ITeacherServices,
+	StateHomework
+} from '../api/type'
 
-const INITIAL: State = {
+const INITIAL: StateHomework = {
 	homework: [],
 	error: null,
 	status: 'idle'
 }
 
-function reducer(state: State, action: Action): State {
+function reducer(state: StateHomework, action: ActionHomework): StateHomework {
 	switch (action.type) {
 		case 'request':
 			return {
@@ -53,7 +57,10 @@ export const useHomework = (
 			dispatch({ type: 'request' })
 
 			try {
-				const homework = await TeacherServices.getStudentHomeWork(studentId)
+				const homework = await TeacherServices.getStudentHomeWork(
+					studentId,
+					controller.signal
+				)
 
 				if (!homework.success) {
 					throw new Error('Homework students is error')

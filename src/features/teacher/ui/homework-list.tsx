@@ -1,5 +1,5 @@
 import { CircularProgress } from '@mui/material'
-import type { HomeStatus, Homework } from '../api/type'
+import type { Homework, HomeworkStatus } from '../api/type'
 import { HomeWorkItem } from './homework-item'
 
 export const HomeworkList = ({
@@ -10,7 +10,7 @@ export const HomeworkList = ({
 }: {
 	title: React.ReactNode
 	items: Homework[]
-	status: HomeStatus
+	status: HomeworkStatus
 	error: Error | null
 }) => {
 	const hasData = items.length > 0

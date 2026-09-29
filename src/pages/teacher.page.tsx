@@ -9,17 +9,18 @@ import { useLoaderData } from 'react-router'
 export function TeacherPage() {
 	const { data, user } = useLoaderData<TeacherLoaderData>()
 
-	const { handleNextPage, handlePrevPage, isLoading, users } = useStudents(
+	const { students, status, error, onNextPage, onPrevPage } = useStudents(
 		data.id,
 		TeacherServices
 	)
 
 	return (
 		<TableStudent
-			data={users}
-			onPrev={handlePrevPage}
-			onNext={handleNextPage}
-			onLoading={isLoading}
+			data={students}
+			onPrev={onPrevPage}
+			onNext={onNextPage}
+			error={error}
+			status={status}
 			teacherId={user.id}
 			coursesId={data.id}
 		/>
