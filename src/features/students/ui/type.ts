@@ -12,20 +12,6 @@ export type CoursesType = {
 	coursesId: string
 }
 
-// export type MapPropsType = {
-// 	Calendar: CalendarType
-// 	Tasks: TasksType
-// 	Courses: CoursesType
-// }
-
-// export type MapComponentsType = {
-// 	[key in StudentCoursesMode]: (props: MapPropsType[key]) => React.ReactNode
-// }
-
-// export type MapSlotPropsType = {
-// 	[key in StudentCoursesMode]: MapPropsType[key]
-// }
-
 export type TabType = {
 	value: StudentCoursesMode
 	label: Lowercase<StudentCoursesMode>

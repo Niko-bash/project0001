@@ -23,21 +23,6 @@ export type StepVideoProps = {
 	onChangeVideo: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export type StepPropsMap = {
-	preview: StepPreviewProps
-	name: StepNameProps
-	description: StepDescriptionProps
-	video: StepVideoProps
-}
-
-export type StepComponentsMap = {
-	[K in Step]: (props: StepPropsMap[K]) => React.ReactNode
-}
-
-export type StepPropsMapTest = {
-	[K in Step]: StepPropsMap[K]
-}
-
 export type StepType = {
 	id: string
 	step: Step

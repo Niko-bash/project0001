@@ -45,7 +45,7 @@ export function StudentPage() {
 					/>
 				))}
 			</Tabs>
-			<ViewTabs
+			<StudentTabContent
 				mode={mode}
 				studentId={student.id}
 				coursesId={course.id}
@@ -54,7 +54,7 @@ export function StudentPage() {
 	)
 }
 
-const ViewTabs = ({
+const StudentTabContent = ({
 	mode,
 	studentId,
 	coursesId
@@ -70,6 +70,10 @@ const ViewTabs = ({
 			return <Courses coursesId={coursesId} />
 		case 'Tasks':
 			return <Tasks studentId={studentId} />
+		default: {
+			const _exhaustive: never = mode
+			return _exhaustive
+		}
 	}
 }
 
