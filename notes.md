@@ -42,7 +42,7 @@
 
       21.09.2026
 
-18.   [*]: write errors and loaders full app
+18.   [+]: write errors and loaders full app
 19.   [-]: adding React Hot Toast for push-notifications
 20.   [-]: adding log
 21.   [-]: adding cache-api

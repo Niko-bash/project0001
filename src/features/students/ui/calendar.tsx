@@ -10,6 +10,7 @@ import {
 	getDaysInMonth,
 	getHomeWorkForDate
 } from '../lib/getDate'
+import type { CalendarType } from './type'
 
 const MONTHS = [
 	'January',
@@ -42,7 +43,7 @@ type CalendarDays = {
 	datesHW: Homework[]
 }
 
-export const Calendar = ({ studentId }: { studentId: string }) => {
+export const Calendar = ({ studentId }: CalendarType) => {
 	const [dateHW, setDateHW] = useState<Homework[]>([])
 	const {
 		calendarDays,
