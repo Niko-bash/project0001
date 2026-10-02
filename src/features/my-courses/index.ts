@@ -1,4 +1,4 @@
-export { CardFactory } from './ui/card/index'
+export { MyCoursesCards } from './ui/card/index'
 export { CreateCourses } from './ui/createCourses'
 export { MyCoursesList } from './ui/list'
 export { MyCoursesModalTitle, MyCoursesModelContent } from './ui/modal-content'

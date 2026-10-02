@@ -1,4 +1,4 @@
-import type { CoursesType } from '@/features/courses/api/type'
+import type { CoursesType, CoursesType2 } from '@/features/courses/api/type'
 import { useCallback, useEffect, useReducer, useRef } from 'react'
 import type { Action, IMyCoursesServices, State } from '../api/type'
 import type { Mode } from '../ui/type'
@@ -28,7 +28,7 @@ const loadCourses = async (
 		})
 	)
 
-	const courses: CoursesType[] = []
+	const courses: CoursesType[] | CoursesType2 = []
 	const failed: string[] = []
 
 	results.forEach((r, i) => {
@@ -36,7 +36,13 @@ const loadCourses = async (
 		else if (r.reason?.name !== 'AbortError') failed.push(uniqueIds[i])
 	})
 	if (failed.length) console.warn(`Failed ${failed}`)
-	return courses
+
+	switch (mode) {
+		case 'Student':
+			return courses.map((item) => ({ ...item, mode: 'Student' as const }))
+		case 'Teacher':
+			return courses.map((item) => ({ ...item, mode: 'Teacher' as const }))
+	}
 }
 
 const INITIAL: State = {

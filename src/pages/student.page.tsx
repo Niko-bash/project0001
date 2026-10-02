@@ -70,10 +70,6 @@ const StudentTabContent = ({
 			return <Courses coursesId={coursesId} />
 		case 'Tasks':
 			return <Tasks studentId={studentId} />
-		default: {
-			const _exhaustive: never = mode
-			return _exhaustive
-		}
 	}
 }
 

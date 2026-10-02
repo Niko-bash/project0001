@@ -1,4 +1,4 @@
-import type { CoursesType } from '@/features/courses/api/type'
+import type { CoursesType2 } from '@/features/courses'
 import { ROUTES } from '@/shared/lib/router-config'
 import {
 	Box,
@@ -7,7 +7,6 @@ import {
 	CardActions,
 	CardContent,
 	CardHeader,
-	CardMedia,
 	Typography
 } from '@mui/material'
 import { Link } from 'react-router'
@@ -17,7 +16,7 @@ export const CardTeacher = ({
 	userId,
 	actions
 }: {
-	item: CoursesType
+	item: CoursesType2
 	userId: string
 	actions: React.ReactNode
 }) => {
@@ -34,7 +33,7 @@ export const CardTeacher = ({
 						bgcolor: '#f5f5f5'
 					}}
 				>
-					<CardMedia
+					{/* <CardMedia
 						component="img"
 						image={item.img}
 						alt={item.name}
@@ -53,7 +52,7 @@ export const CardTeacher = ({
 							},
 							aspectRatio: '16 / 9'
 						}}
-					/>
+					/> */}
 				</Box>
 				<CardContent>
 					<Typography

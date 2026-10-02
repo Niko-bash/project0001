@@ -42,9 +42,5 @@ export const FromStep = ({
 					videoUrl={videoUrl}
 				/>
 			)
-		default: {
-			const _exhaustive: never = step
-			return _exhaustive
-		}
 	}
 }

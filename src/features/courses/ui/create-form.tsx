@@ -1,7 +1,7 @@
 import { useChangeForm } from '..'
 import { CoursesServices } from '../api/courses.services'
 import { useNavigationForm } from '../model/useNavigationForm'
-import { FromStep } from './form-step'
+import { FromStep } from './form'
 import { StepNavigation } from './step'
 
 export const CreateCoursesForm = ({ userId }: { userId: string }) => {
