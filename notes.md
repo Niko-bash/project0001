@@ -49,3 +49,8 @@
 22.   [-]: start back-end
 23.   [-]: redisgn app(styles-app)\*
 24.   [-]: recovery api-error list-data or data
+
+      02.10.2026
+
+25.   [*]: feat student-courses-tab
+26.   [-]: feat lazy components components (switch-components)

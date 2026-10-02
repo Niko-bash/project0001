@@ -1,12 +1,11 @@
 import type { CreateCoursesType, ICoursesServices } from '@/features/courses'
+import { DEFAULT_AVATAR } from '@/shared/config/constant'
 import { compressImage } from '@/shared/lib/compress-image'
 import { videoToBase64 } from '@/shared/lib/videoToBase64'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from '@zod/mini'
 import { useState } from 'react'
 import { useForm, type SubmitHandler } from 'react-hook-form'
-
-const DEFAULT_AVATAR = '/assets/courses.webp'
 
 const MAX_IMAGE_SIZE = 6 * 1024 * 1024 // 5MB
 
