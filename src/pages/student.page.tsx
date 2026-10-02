@@ -1,3 +1,4 @@
+import type { CoursesType } from '@/features/courses'
 import {
 	Calendar,
 	Courses,
@@ -48,7 +49,7 @@ export function StudentPage() {
 			<StudentTabContent
 				mode={mode}
 				studentId={student.id}
-				coursesId={course.id}
+				courses={course}
 			/>
 		</>
 	)
@@ -57,38 +58,18 @@ export function StudentPage() {
 const StudentTabContent = ({
 	mode,
 	studentId,
-	coursesId
+	courses
 }: {
 	mode: StudentCoursesMode
 	studentId: string
-	coursesId: string
+	courses: CoursesType
 }) => {
 	switch (mode) {
 		case 'Calendar':
 			return <Calendar studentId={studentId} />
 		case 'Courses':
-			return <Courses coursesId={coursesId} />
+			return <Courses courses={courses} />
 		case 'Tasks':
 			return <Tasks studentId={studentId} />
 	}
 }
-
-// const render = MODE_COMPONENTS[mode]
-
-// if (!render) {
-// 	return null
-// }
-
-// const slotProps: MapSlotPropsType = {
-// 	Calendar: { studentId },
-// 	Courses: { coursesId },
-// 	Tasks: { studentId }
-// }
-
-// return <>{render(slotProps[mode])}</>
-
-// const MODE_COMPONENTS: MapComponentsType = {
-// 	Calendar: Calendar,
-// 	Courses: Courses,
-// 	Tasks: Tasks
-// }
