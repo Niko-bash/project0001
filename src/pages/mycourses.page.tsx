@@ -1,6 +1,5 @@
 import type { SessionUser } from '@/features/auth'
 import {
-	CardFactory,
 	CreateCourses,
 	MyCoursesList,
 	MyCoursesModalTitle,
@@ -10,6 +9,7 @@ import {
 	useModal
 } from '@/features/my-courses'
 import { myCoursesServices } from '@/features/my-courses/api/myCourses.services'
+import { MyCoursesCards } from '@/features/my-courses/ui/card'
 
 import {
 	TABS_MODS,
@@ -80,15 +80,11 @@ export function MyCoursesPage() {
 				error={error}
 				items={courses}
 				render={(item) => (
-					<CardFactory
+					<MyCoursesCards
 						key={item.id}
+						userId={user.id}
+						onOpen={handleClickOpen}
 						item={item}
-						mode={mode}
-						extra={{
-							userId: user.id,
-							open,
-							handleClickOpen
-						}}
 					/>
 				)}
 			/>

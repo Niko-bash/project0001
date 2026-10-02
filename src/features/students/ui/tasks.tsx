@@ -6,7 +6,7 @@ import {
 import clsx from 'clsx'
 import { useEffect, useState } from 'react'
 import { StudentServices } from '../api/students.services'
-import type { BoardList } from './type'
+import type { BoardList, TasksType } from './type'
 
 const BOARD_LIST: BoardList[] = [
 	{
@@ -26,7 +26,7 @@ const BOARD_LIST: BoardList[] = [
 	}
 ] as const
 
-export const Tasks = ({ studentId }: { studentId: string }) => {
+export const Tasks = ({ studentId }: TasksType) => {
 	const [homeWork, setHomeWork] = useState<Homework[]>([])
 	const [draggedIndex, setDraggedIndex] = useState<string | null>(null)
 

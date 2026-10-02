@@ -4,20 +4,10 @@ import {
 	Tasks,
 	type StudentLoaderData
 } from '@/features/students'
-import type {
-	MapTabType,
-	StudentCoursesMode,
-	TabType
-} from '@/features/students/ui/type'
+import type { StudentCoursesMode, TabType } from '@/features/students/ui/type'
 import { Tab, Tabs } from '@mui/material'
 import { useState } from 'react'
 import { useLoaderData } from 'react-router'
-
-const MODE_COMPONENTS: MapTabType = {
-	Calendar: (studentId) => <Calendar studentId={studentId} />,
-	Courses: Courses,
-	Tasks: (studentId) => <Tasks studentId={studentId} />
-}
 
 const TABS_CONFIG: TabType[] = [
 	{
@@ -35,10 +25,9 @@ const TABS_CONFIG: TabType[] = [
 ]
 
 export function StudentPage() {
-	const student = useLoaderData<StudentLoaderData>()
+	const { data: course, user: student } = useLoaderData<StudentLoaderData>()
 
 	const [mode, setMode] = useState<StudentCoursesMode>('Courses')
-	// const [isLoading, setIsLoading] = useState(true)
 
 	return (
 		<>
@@ -56,38 +45,50 @@ export function StudentPage() {
 					/>
 				))}
 			</Tabs>
-			<ViewTabs
+			<StudentTabContent
 				mode={mode}
-				// onLoading={isLoading}
-				studentId={student.user.id}
+				studentId={student.id}
+				coursesId={course.id}
 			/>
 		</>
 	)
 }
 
-const ViewTabs = ({
+const StudentTabContent = ({
 	mode,
-	studentId
-	// onLoading
+	studentId,
+	coursesId
 }: {
 	mode: StudentCoursesMode
 	studentId: string
-	// onLoading: boolean
+	coursesId: string
 }) => {
-	const render = MODE_COMPONENTS[mode]
-
-	// if (onLoading) {
-	// 	;<div className="flex justify-center w-full py-4">
-	// 		<CircularProgress
-	// 			size={100}
-	// 			color="primary"
-	// 		/>
-	// 	</div>
-	// }
-
-	if (!render) {
-		return null
+	switch (mode) {
+		case 'Calendar':
+			return <Calendar studentId={studentId} />
+		case 'Courses':
+			return <Courses coursesId={coursesId} />
+		case 'Tasks':
+			return <Tasks studentId={studentId} />
 	}
-
-	return <>{render(studentId)}</>
 }
+
+// const render = MODE_COMPONENTS[mode]
+
+// if (!render) {
+// 	return null
+// }
+
+// const slotProps: MapSlotPropsType = {
+// 	Calendar: { studentId },
+// 	Courses: { coursesId },
+// 	Tasks: { studentId }
+// }
+
+// return <>{render(slotProps[mode])}</>
+
+// const MODE_COMPONENTS: MapComponentsType = {
+// 	Calendar: Calendar,
+// 	Courses: Courses,
+// 	Tasks: Tasks
+// }

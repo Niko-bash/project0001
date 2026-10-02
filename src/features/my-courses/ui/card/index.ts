@@ -1,1 +1,1 @@
-export { CardFactory } from './factory'
+export { MyCoursesCards } from './my-courses-cards'

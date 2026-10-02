@@ -7,6 +7,19 @@ type CommentCoursesType = {
 	comment: string
 }
 export type CoursesType = {
+	mode: 'Student'
+	id: string
+	name: string
+	description: string
+	img: string
+	rating: string
+	creatorId: string
+	reviews: CommentCoursesType[]
+	video: string
+}
+
+export type CoursesType2 = {
+	mode: 'Teacher'
 	id: string
 	name: string
 	description: string

@@ -1,6 +1,6 @@
 import type { CoursesType } from '@/features/courses'
 import type { ApiResponse } from '@/shared/api/type'
-import type { Mode } from '../ui/type'
+import type { CoursesType2, Mode } from '../ui/type'
 
 export type UserCourses = {
 	userId: string
@@ -10,14 +10,14 @@ export type UserCourses = {
 export type myCorsesStatus = 'idle' | 'success' | 'error' | 'loading'
 
 export type State = {
-	myCourses: CoursesType[]
+	myCourses: CoursesType[] | CoursesType2[]
 	status: myCorsesStatus
 	error: Error | null
 }
 
 type Success = {
 	type: 'success'
-	data: CoursesType[]
+	data: CoursesType[] | CoursesType2[]
 }
 
 type Fail = {
