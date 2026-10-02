@@ -12,7 +12,6 @@ export const MyCoursesCards = ({
 	item: CoursesType | CoursesType2
 	onOpen: (coursesId: string) => void
 }) => {
-	console.log(item)
 	switch (item.mode) {
 		case 'Student':
 			return (
