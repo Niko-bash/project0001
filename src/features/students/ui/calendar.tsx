@@ -3,45 +3,10 @@ import {
 	type StudentHomeWork
 } from '@/features/teacher/api/type'
 import clsx from 'clsx'
-import { useEffect, useMemo, useState } from 'react'
-import {
-	getDayOfIndex,
-	getDayOfWeek,
-	getDaysInMonth,
-	getHomeWorkForDate
-} from '../lib/getDate'
+import { useEffect, useState } from 'react'
+import { useCalendar } from '../model'
+import { DAYS_OF_WEEK } from '../model/useCalendar'
 import type { CalendarType } from './type'
-
-const MONTHS = [
-	'January',
-	'February',
-	'March',
-	'April',
-	'May',
-	'June',
-	'July',
-	'August',
-	'September',
-	'October',
-	'November',
-	'December'
-]
-const DAYS_OF_WEEK = [
-	'Monday',
-	'Tuesday',
-	'Wednesday',
-	'Thursday',
-	'Friday',
-	'Saturday',
-	'Sunday'
-]
-
-type CalendarDays = {
-	dayNumber: number
-	dayOfWeek: string
-	date: Date
-	datesHW: Homework[]
-}
 
 export const Calendar = ({ studentId }: CalendarType) => {
 	const [dateHW, setDateHW] = useState<Homework[]>([])
@@ -122,66 +87,4 @@ export const Calendar = ({ studentId }: CalendarType) => {
 			</div>
 		</div>
 	)
-}
-
-const useCalendar = (dateHW: Homework[]) => {
-	const [currentDate, setCurrentDate] = useState(() => new Date())
-
-	const month = currentDate.getMonth()
-	const years = currentDate.getFullYear()
-
-	const nameMonth = MONTHS[month]
-
-	const daysIsMonth = getDaysInMonth(years, month)
-
-	const calendarDays = useMemo(() => {
-		const days: CalendarDays[] = []
-		const firstDayOfMonth = new Date(years, month, 1)
-		const firstDayOfWeek = getDayOfWeek(firstDayOfMonth)
-		// const firstDayIndex = getDayOfIndex(firstDayOfWeek)
-		// console.log(firstDayIndex)
-
-		for (let i = 1; i < firstDayOfWeek; i++) {
-			days.push({
-				dayNumber: 0,
-				dayOfWeek: '',
-				date: new Date(years, month, -firstDayOfWeek + i + 1),
-				datesHW: []
-			})
-		}
-
-		for (let day = 1; day <= daysIsMonth; day++) {
-			const date = new Date(years, month, day)
-			const dayOfWeekIndex = getDayOfIndex(getDayOfWeek(date))
-
-			days.push({
-				dayNumber: day,
-				dayOfWeek: DAYS_OF_WEEK[dayOfWeekIndex],
-				date: date,
-				datesHW: getHomeWorkForDate(date, dateHW)
-			})
-		}
-		return days
-	}, [years, month, dateHW, daysIsMonth])
-
-	const handleIncrement = () => {
-		setCurrentDate(
-			(prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1)
-		)
-	}
-
-	const handleDecrement = () => {
-		setCurrentDate(
-			(prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1)
-		)
-	}
-
-	return {
-		handleDecrement,
-		handleIncrement,
-		calendarDays,
-		nameMonth,
-		years,
-		month
-	}
 }

@@ -2,7 +2,6 @@ import type { CoursesType } from '@/features/courses'
 import { DEFAULT_AVATAR } from '@/shared/config/constant'
 
 export const Courses = ({ courses }: { courses: CoursesType }) => {
-	console.log(courses)
 	return (
 		<div>
 			<div className="flex gap-4">

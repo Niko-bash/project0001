@@ -1,4 +1,4 @@
-import type { StatusHomeWork } from '@/features/teacher/api/type'
+import type { Homework, StatusHomeWork } from '@/features/teacher/api/type'
 
 export type StudentCoursesMode = 'Calendar' | 'Tasks' | 'Courses'
 
@@ -21,4 +21,11 @@ export type BoardList = {
 	id: string
 	status: StatusHomeWork
 	title: string
+}
+
+export type CalendarDays = {
+	dayNumber: number
+	dayOfWeek: string
+	date: Date
+	datesHW: Homework[]
 }
