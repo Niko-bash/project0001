@@ -52,5 +52,8 @@
 
       02.10.2026
 
-25.   [*]: feat student-courses-tab
+25.   [+]: feat student-courses-tab
 26.   [-]: feat lazy components components (switch-components)
+27.   [*]: feat role permissons
+28.   [-]: feat news pages
+29.   [-]: feat about pages

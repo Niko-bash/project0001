@@ -1,4 +1,4 @@
-import type { SessionUser } from '@/features/auth/api/type'
+import type { Permissions, SessionUser } from '@/features/auth/api/type'
 import { Avatar, Divider, IconButton, Menu, MenuItem } from '@mui/material'
 import { useState } from 'react'
 import { Link } from 'react-router'
@@ -7,6 +7,7 @@ export type MenuType = {
 	key: string
 	name: string
 	link: string
+	permission?: Permissions
 }
 
 export const AccountMenu = ({

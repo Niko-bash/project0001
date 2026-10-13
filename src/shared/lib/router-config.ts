@@ -33,5 +33,8 @@ export const ROUTES = {
 		) =>
 			`/myCourses/teacher/${teacherId}/courses/${coursesId}/student/${studentId}`
 	},
+	ADMIN_PANEL: {
+		pattern: '/admin'
+	},
 	AUTH: { ROOT: '/auth', LOGIN: '/auth/login', REGISTER: '/auth/register' }
 } as const

@@ -4,9 +4,7 @@ import { Container } from '@mui/material'
 import clsx from 'clsx'
 import { Link, useRevalidator } from 'react-router'
 import type { IAuthServices } from '../auth'
-import { useAuth } from '../auth/model/useAuth'
-
-//todo:Rework menu, synchronization router
+import { useMenu } from './model/useMenu'
 
 const MAIN_MENU: MenuType[] = [
 	{
@@ -23,6 +21,12 @@ const MAIN_MENU: MenuType[] = [
 		key: '3',
 		name: 'News',
 		link: '/news'
+	},
+	{
+		key: '4',
+		name: 'Dashboard',
+		link: '/admin',
+		permission: 'admin:access'
 	}
 ]
 
@@ -62,8 +66,10 @@ interface HeaderProps {
 	AuthServices: IAuthServices
 }
 export const Header = ({ className, AuthServices }: HeaderProps) => {
-	const { user, setUser } = useAuth()
+	const { items, setUser, user } = useMenu(MAIN_MENU)
+
 	const revalidator = useRevalidator()
+
 	const handleSignOut = async () => {
 		const response = await AuthServices.logout()
 		if (response) {
@@ -77,8 +83,8 @@ export const Header = ({ className, AuthServices }: HeaderProps) => {
 			<Container>
 				<div className="flex justify-between min-h-16 items-center">
 					<ul className="flex gap-9 text-2xl ">
-						{MAIN_MENU &&
-							MAIN_MENU.map((link) => (
+						{items &&
+							items.map((link) => (
 								<Link
 									key={link.key}
 									to={link.link}

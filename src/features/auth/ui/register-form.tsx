@@ -16,7 +16,6 @@ export const RegisterForm = ({
 			password: ''
 		}
 	})
-
 	const onSubmit: SubmitHandler<AuthUser> = async (val) => {
 		const response = await AuthServices.SingUp(val)
 		if (response.success) {
