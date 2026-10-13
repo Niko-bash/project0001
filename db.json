@@ -6,8 +6,21 @@
 			"password": "123",
 			"role": ["user", "admin"],
 			"name": "Nikoboss@mail.ru",
-			"permissions": ["courses:create", "courses:delete", "users:manage"],
+			"permissions": [
+				"courses:create",
+				"courses:delete",
+				"users:manage",
+				"admin:access"
+			],
 			"id": "BA5n2z4V3BI"
+		},
+		{
+			"email": "cccc",
+			"password": "123",
+			"role": ["user"],
+			"name": "cccc",
+			"permissions": ["courses:create", "courses:delete"],
+			"id": "53SqQRJnF-0"
 		}
 	],
 	"userCourses": [
@@ -15,6 +28,11 @@
 			"userId": "BA5n2z4V3BI",
 			"courses": [],
 			"id": "vYfoNYU8wA0"
+		},
+		{
+			"userId": "53SqQRJnF-0",
+			"courses": [],
+			"id": "v2dU4ielD8w"
 		}
 	],
 	"userQuest": [],

@@ -1,9 +1,13 @@
 import type { ProfileUser } from '@/features/user'
 import type { ApiResponse } from '@/shared/api/type'
 
-type Role = 'admin' | 'user'
+export type Role = 'admin' | 'user'
 
-export type Permissions = 'users:manage' | 'courses:delete' | 'courses:create'
+export type Permissions =
+	| 'users:manage'
+	| 'courses:delete'
+	| 'courses:create'
+	| 'admin:access'
 
 export type User = {
 	id: string

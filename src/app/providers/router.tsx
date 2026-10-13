@@ -4,7 +4,9 @@ import { ROUTES } from '@/shared/lib/router-config'
 import { createBrowserRouter, type RouteObject } from 'react-router'
 import { App } from '../App'
 import { AuthLayout } from '../layout'
+import { combine } from './combine-loaders'
 import { protectedLoader } from './loaders/protected'
+import { requiredPermissions } from './loaders/required-permissons'
 import { rootLoader } from './loaders/root'
 import { studentLoader } from './loaders/student'
 import { teacherLoader } from './loaders/teacher'
@@ -74,6 +76,17 @@ const routes: RouteObject[] = [
 						({ TeacherStudentPage }) => ({
 							Component: TeacherStudentPage
 						})
+					)
+			},
+			{
+				path: ROUTES.ADMIN_PANEL.pattern,
+				loader: combine(
+					requiredPermissions('users:manage'),
+					protectedLoader
+				),
+				lazy: () =>
+					import('@/pages/admin-panel.page').then(
+						({ AdminPanelPage }) => ({ Component: AdminPanelPage })
 					)
 			}
 		]
