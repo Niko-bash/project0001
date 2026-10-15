@@ -95,7 +95,8 @@ export const AuthServices: IAuthServices = {
 			role: ['user'],
 			name: data.email,
 			avatar: undefined,
-			permissions: ['courses:create', 'courses:delete']
+			permissions: ['courses:create', 'courses:delete'],
+			createAt: new Date().toISOString()
 		}
 
 		const createUser = await fetch('/api/user', {

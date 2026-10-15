@@ -17,6 +17,7 @@ export type User = {
 	avatar: string | undefined
 	role: Role[]
 	permissions: Permissions[]
+	createAt: string
 }
 
 export type AuthUser = Pick<User, 'email' | 'password'>
