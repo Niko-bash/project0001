@@ -1,6 +1,6 @@
-import type { CoursesType } from '@/features/courses'
+import type { CoursesType, CoursesType2 } from '@/features/courses'
 import type { ApiResponse } from '@/shared/api/type'
-import type { CoursesType2, Mode } from '../ui/type'
+import type { Mode } from '../ui/type'
 
 export type UserCourses = {
 	userId: string

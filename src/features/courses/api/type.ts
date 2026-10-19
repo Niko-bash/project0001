@@ -16,6 +16,7 @@ export type CoursesType = {
 	creatorId: string
 	reviews: CommentCoursesType[]
 	video: string
+	createAt: string
 }
 
 export type CoursesType2 = {
@@ -28,6 +29,7 @@ export type CoursesType2 = {
 	creatorId: string
 	reviews: CommentCoursesType[]
 	video: string
+	createAt: string
 }
 
 export type CreateCoursesType = Pick<

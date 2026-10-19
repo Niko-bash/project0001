@@ -67,14 +67,15 @@ export const CoursesServices: ICoursesServices = {
 		userId: string,
 		courses: CreateCoursesType
 	): Promise<ApiResponse<CoursesType>> {
-		const bodyData: Omit<CoursesType, 'id'> = {
+		const bodyData: Omit<CoursesType, 'id' | 'mode'> = {
 			description: courses.description,
 			creatorId: userId,
 			img: courses.img,
 			name: courses.name,
 			video: INDEX_DB_KEYS.VIDEO,
 			rating: '0',
-			reviews: []
+			reviews: [],
+			createAt: new Date().toISOString()
 		}
 
 		const video: VideoType = {
