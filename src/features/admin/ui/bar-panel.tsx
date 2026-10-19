@@ -3,6 +3,7 @@ import {
 	BarChart,
 	CartesianGrid,
 	Legend,
+	ResponsiveContainer,
 	Tooltip,
 	XAxis,
 	YAxis,
@@ -10,34 +11,46 @@ import {
 } from 'recharts'
 import type { PanelDataType } from './type'
 
-export const BarPanel = ({ data }: { data: PanelDataType[] }) => {
+export const BarPanel = ({
+	data,
+	error
+}: {
+	data: PanelDataType[]
+	error: Error | null
+}) => {
+	// const [size, setSize] = useState(1)
+
 	return (
-		<BarChart
-			style={{
-				width: '100%',
-				maxWidth: '4000px',
-				maxHeight: '70vh',
-				aspectRatio: 1.618
-			}}
-			responsive
-			data={data}
-		>
-			<CartesianGrid />
-			<XAxis
-				dataKey="month"
-				niceTicks="snap125"
-			/>
-			<YAxis
-				niceTicks="snap125"
-				dataKey="value"
-			/>
-			<Tooltip content={CustomTooltip} />
-			<Legend />
-			<Bar
-				dataKey="value"
-				fill="blue"
-			/>
-		</BarChart>
+		<div className="relative aspect-1.6 border-[1px] rounded-2xl">
+			<ResponsiveContainer
+				width="100%"
+				height="100%"
+			>
+				<BarChart data={data}>
+					<CartesianGrid className="relative" />
+					<XAxis
+						dataKey="month"
+						niceTicks="snap125"
+					/>
+					<YAxis
+						niceTicks="snap125"
+						dataKey="value"
+					/>
+					<Tooltip content={CustomTooltip} />
+					<Legend />
+					<Bar
+						dataKey="value"
+						fill="blue"
+					/>
+				</BarChart>
+			</ResponsiveContainer>
+
+			{error && (
+				<div className="absolute inset-0 flex justify-center items-center">
+					{error.message}
+				</div>
+			)}
+		</div>
 	)
 }
 
@@ -54,7 +67,6 @@ const CustomTooltip = ({ active, payload, label }: TooltipContentProps) => {
 			{isVisible && (
 				<>
 					<p className="label">{`${label} : ${firstPayload.value}`}</p>
-					<p className="desc">Anything you want can be displayed here.</p>
 				</>
 			)}
 		</div>

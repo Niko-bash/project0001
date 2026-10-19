@@ -53,6 +53,8 @@ export const AdminServices = {
 			value: counts[i]
 		}))
 
+		// throw new Error('error spec')
+
 		return result
 	},
 	async getDashboardCourses(signal?: AbortSignal): Promise<PanelDataType[]> {
@@ -82,6 +84,8 @@ export const AdminServices = {
 			month: MONTHS[i],
 			value: counts[i]
 		}))
+
+		throw new Error('error spec')
 
 		return result
 	}
