@@ -30,6 +30,8 @@ export const App = () => {
 	const data = useLoaderData<{ session: SessionUser } | null>()
 	const { setUser } = useAuth()
 
+	console.log('123')
+
 	useEffect(() => {
 		setUser(data?.session ?? null)
 	}, [data?.session, setUser])
